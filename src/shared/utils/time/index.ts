@@ -18,3 +18,17 @@ export const convertTime = (time: number) => {
 	const seconds = time % 60;
 	return { hours, minutes, seconds };
 };
+
+export const formatSecondsForFriendsList = (seconds: number) => {
+	if (seconds === 0) return '00시간 00분 00초';
+
+	const hours = Math.floor(seconds / 3600);
+	const minutes = Math.floor((seconds % 3600) / 60);
+	const secs = seconds % 60;
+
+	const formattedHours = String(hours).padStart(2, '0');
+	const formattedMinutes = String(minutes).padStart(2, '0');
+	const formattedSeconds = String(secs).padStart(2, '0');
+
+	return `${formattedHours}시간 ${formattedMinutes}분 ${formattedSeconds}초`;
+};

@@ -10,6 +10,7 @@ export const userFriendData = [
 		name: '이유리',
 		time: 762,
 		categoryname: '교양수업',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -18,6 +19,7 @@ export const userFriendData = [
 		name: '서수아',
 		time: 762,
 		categoryname: '기능명세서',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -26,6 +28,7 @@ export const userFriendData = [
 		name: '김온유',
 		time: 13332,
 		categoryname: 'IA',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -34,6 +37,7 @@ export const userFriendData = [
 		time: 13332,
 		name: '김강민',
 		categoryname: '캡스톤디자인',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -42,6 +46,7 @@ export const userFriendData = [
 		name: '이유리',
 		time: 762,
 		categoryname: '교양수업',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -50,6 +55,7 @@ export const userFriendData = [
 		name: '서수아',
 		time: 762,
 		categoryname: '기능명세서',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -58,6 +64,7 @@ export const userFriendData = [
 		name: '김온유',
 		time: 13332,
 		categoryname: 'IA',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -66,6 +73,7 @@ export const userFriendData = [
 		name: '강서현',
 		time: 10004,
 		categoryname: '앱잼 와이어프...',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -74,6 +82,7 @@ export const userFriendData = [
 		time: 13332,
 		name: '김강민',
 		categoryname: '캡스톤디자인',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -82,6 +91,7 @@ export const userFriendData = [
 		name: '이유리',
 		time: 762,
 		categoryname: '교양수업',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -90,6 +100,7 @@ export const userFriendData = [
 		name: '김온유',
 		time: 13332,
 		categoryname: 'IA',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -98,6 +109,7 @@ export const userFriendData = [
 		time: 13332,
 		name: '김강민',
 		categoryname: '캡스톤디자인',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -106,6 +118,7 @@ export const userFriendData = [
 		name: '이유리',
 		time: 762,
 		categoryname: '교양수업',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -114,6 +127,7 @@ export const userFriendData = [
 		name: '서수아',
 		time: 762,
 		categoryname: '기능명세서',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 ];
