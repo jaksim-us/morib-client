@@ -10,8 +10,8 @@ interface TabSelectProps {
 }
 
 const TabSelect = ({ tabs, handleTabChange, selectedTabId }: TabSelectProps) => {
-	const notSelectedStyle = 'text-gray-03 bg-gray-bg-03 subhead-bold-22 p-[1rem] mr-[0.5rem]';
-	const SelectedStyle = 'bg-gray-bg-03 text-white subhead-bold-22 p-[1rem] mr-[0.5rem]';
+	const notSelectedStyle = 'text-gray-03 subhead-bold-22 p-[1rem] mr-[0.5rem]';
+	const SelectedStyle = 'text-white subhead-bold-22 p-[1rem] mr-[0.5rem]';
 
 	return (
 		<>
