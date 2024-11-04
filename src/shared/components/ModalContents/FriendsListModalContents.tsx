@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import ButtonAddFriend from '@/shared/components/ModalContents/ButtonAddFriend';
 import ButtonRequestAction from '@/shared/components/ModalContents/ButtonRequestAction';
-import ButtonSendRequest from '@/shared/components/ModalContents/ButtonSendRequest';
 import FriendInfo from '@/shared/components/ModalContents/FriendInfo';
 import FriendsListRequested from '@/shared/components/ModalContents/FriendsListRequested';
+import InputSendRequest from '@/shared/components/ModalContents/InputSendRequest';
 import TabSelect from '@/shared/components/ModalContents/TabSelect';
 
 import { FRIENDSLIST_TABS } from '@/shared/constants/tabSelections';
@@ -44,12 +44,7 @@ const FriendsListModalContents = () => {
 			) : (
 				<div>
 					<div className="relative mb-[4rem] mt-[2rem]">
-						<input
-							type="text"
-							placeholder="이메일을 입력해주세요."
-							className="subhead-med-18 w-full rounded-[8px] bg-gray-bg-02 px-[2rem] py-[2rem] text-gray-04"
-						/>
-						<ButtonSendRequest disabled>친구 요청 보내기</ButtonSendRequest>
+						<InputSendRequest />
 					</div>
 					<div className="h-[52.5rem] overflow-scroll">
 						<h2 className="subhead-bold-22 px-[1rem] py-[2rem] text-white">받은 요청</h2>

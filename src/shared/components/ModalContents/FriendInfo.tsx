@@ -1,6 +1,9 @@
+import ButtonSVG from '@/shared/components/ButtonSVG';
 import FriendUserProfile from '@/shared/components/ModalContents/FriendUserProfile';
 
 import { formatSecondsForFriendsList } from '@/shared/utils/time';
+
+import DeleteBtn from '@/shared/assets/svgs/friend_delBtn.svg?react';
 
 interface FriendsData {
 	id: number;
@@ -35,6 +38,11 @@ const FriendInfo = ({ friendsData }: FriendsInfoProp) => {
 						<p className="subhead-med-18 flex w-[46rem] self-center p-[0.8rem] text-white">
 							{formatSecondsForFriendsList(friend?.time)}
 						</p>
+						<div className="flex flex-col justify-center">
+							<ButtonSVG>
+								<DeleteBtn />
+							</ButtonSVG>
+						</div>
 					</li>
 				);
 			})}
