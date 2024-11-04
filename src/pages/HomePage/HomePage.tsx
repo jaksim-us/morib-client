@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import FriendListModalContents from '@/shared/components/ModalContents/FriendListModalContents';
+import FriendsListModalContents from '@/shared/components/ModalContents/FriendsListModalContents';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
 
 import {
@@ -255,7 +255,7 @@ const HomePage = () => {
 				</section>
 			</div>
 			<ModalWrapper ref={modalRef} backdrop={true}>
-				<FriendListModalContents />
+				<FriendsListModalContents />
 			</ModalWrapper>
 		</HomePageWrapper>
 	);

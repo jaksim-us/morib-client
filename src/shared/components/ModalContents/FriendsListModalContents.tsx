@@ -3,15 +3,15 @@ import { useState } from 'react';
 import ButtonAddFriend from '@/shared/components/ModalContents/ButtonAddFriend';
 import ButtonRequestAction from '@/shared/components/ModalContents/ButtonRequestAction';
 import ButtonSendRequest from '@/shared/components/ModalContents/ButtonSendRequest';
-import FriendUserProfile from '@/shared/components/ModalContents/FriendUserProfile';
-import FriendsList from '@/shared/components/ModalContents/FriendsList';
+import FriendInfo from '@/shared/components/ModalContents/FriendInfo';
+import FriendsListRequested from '@/shared/components/ModalContents/FriendsListRequested';
 import TabSelect from '@/shared/components/ModalContents/TabSelect';
 
 import { FRIENDSLIST_TABS } from '@/shared/constants/tabSelections';
 
 import { userFriendData } from '@/shared/mocks/userFriendData';
 
-const FriendListModalContents = () => {
+const FriendsListModalContents = () => {
 	const [selectedTabId, setSelectedTabId] = useState(FRIENDSLIST_TABS[0].id);
 	const handleTabChange = (tab: number) => {
 		setSelectedTabId(tab);
@@ -31,7 +31,7 @@ const FriendListModalContents = () => {
 								<div className="w-[46rem]">오늘 몰입 시간</div>
 							</div>
 							<ul className="h-[57.5rem] overflow-scroll">
-								<FriendsList friendsData={userFriendData} />
+								<FriendInfo friendsData={userFriendData} />
 							</ul>
 						</div>
 					</>
@@ -53,41 +53,19 @@ const FriendListModalContents = () => {
 					</div>
 					<div className="h-[52.5rem] overflow-scroll">
 						<h2 className="subhead-bold-22 px-[1rem] py-[2rem] text-white">받은 요청</h2>
-						{userFriendData.map((friend) => {
-							return (
-								<li key={friend.id} className="flex w-full border-t-[1px] border-gray-bg-06 px-[1rem] py-[2rem]">
-									<div className="flex w-[40rem]">
-										<FriendUserProfile imgSrc={friend.image} />
-										<div className="ml-[2rem] flex flex-col justify-center">
-											<p className="subhead-bold-20 text-white">{friend.name}</p>
-											<p className="body-reg-16 text-gray-04">{friend.email}</p>
-										</div>
-									</div>
-									<div className="flex w-full justify-end gap-[1rem]">
-										<ButtonRequestAction variant="positive">수락</ButtonRequestAction>
-										<ButtonRequestAction variant="negative">거절</ButtonRequestAction>
-									</div>
-								</li>
-							);
-						})}
+						<FriendsListRequested friendsData={userFriendData}>
+							<div className="flex w-full justify-end gap-[1rem]">
+								<ButtonRequestAction variant="positive">수락</ButtonRequestAction>
+								<ButtonRequestAction variant="negative">거절</ButtonRequestAction>
+							</div>
+						</FriendsListRequested>
 
-						<h2 className="subhead-bold-22 px-[1rem] py-[2rem] text-white">보낸 요청</h2>
-						{userFriendData.map((friend) => {
-							return (
-								<li key={friend.id} className="flex border-t-[1px] border-gray-bg-06 px-[1rem] py-[2rem]">
-									<div className="flex w-[40rem]">
-										<FriendUserProfile imgSrc={friend.image} />
-										<div className="ml-[2rem] flex flex-col justify-center">
-											<p className="subhead-bold-20 text-white">{friend.name}</p>
-											<p className="body-reg-16 text-gray-04">{friend.email}</p>
-										</div>
-									</div>
-									<div className="flex w-full justify-end">
-										<ButtonRequestAction variant="negative">요청 취소</ButtonRequestAction>
-									</div>
-								</li>
-							);
-						})}
+						<h2 className="subhead-bold-22 mt-[4rem] px-[1rem] py-[2rem] text-white">보낸 요청</h2>
+						<FriendsListRequested friendsData={userFriendData}>
+							<div className="flex w-full justify-end">
+								<ButtonRequestAction variant="negative">요청 취소</ButtonRequestAction>
+							</div>
+						</FriendsListRequested>
 					</div>
 				</div>
 			)}
@@ -95,4 +73,4 @@ const FriendListModalContents = () => {
 	);
 };
 
-export default FriendListModalContents;
+export default FriendsListModalContents;

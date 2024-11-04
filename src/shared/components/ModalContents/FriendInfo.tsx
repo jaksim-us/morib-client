@@ -12,11 +12,11 @@ interface FriendsData {
 	categoryname: string;
 }
 
-type FriendsListProp = {
+type FriendsInfoProp = {
 	friendsData: FriendsData[];
 };
 
-const FriendsList = ({ friendsData }: FriendsListProp) => {
+const FriendInfo = ({ friendsData }: FriendsInfoProp) => {
 	return (
 		<>
 			{friendsData.map((friend: FriendsData) => {
@@ -42,4 +42,4 @@ const FriendsList = ({ friendsData }: FriendsListProp) => {
 	);
 };
 
-export default FriendsList;
+export default FriendInfo;
