@@ -11,7 +11,7 @@ import { FRIENDSLIST_TABS } from '@/shared/constants/tabSelections';
 
 import { userFriendData } from '@/shared/mocks/userFriendData';
 
-const FriendsListModalContents = () => {
+const FriendsModalContents = () => {
 	const [selectedTabId, setSelectedTabId] = useState(FRIENDSLIST_TABS[0].id);
 	const handleTabChange = (tab: number) => {
 		setSelectedTabId(tab);
@@ -68,4 +68,4 @@ const FriendsListModalContents = () => {
 	);
 };
 
-export default FriendsListModalContents;
+export default FriendsModalContents;
