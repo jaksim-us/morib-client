@@ -6,17 +6,19 @@ import ButtonSendRequest from '@/shared/components/ModalContents/ButtonSendReque
 import { emailRegex } from '@/shared/constants/emailRegex';
 
 import InputClearButton from '@/shared/assets/svgs/btn_inputClear.svg?react';
+import IconInputSuccess from '@/shared/assets/svgs/button_inputSuccess.svg?react';
 import IconInputError from '@/shared/assets/svgs/error_input.svg?react';
 
 const InputSendRequest = () => {
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const [showClearBtn, setShowClearBtn] = useState(false);
-	const [error, setError] = useState('');
+	const [alert, setAlert] = useState({ error: '', success: '' });
 
 	const handleInputChange = () => {
 		if (inputRef.current) {
 			setShowClearBtn(inputRef.current.value.length > 0);
-			setError('');
+
+			setAlert((prev) => ({ ...prev, error: '' }));
 		}
 	};
 
@@ -24,7 +26,7 @@ const InputSendRequest = () => {
 		if (inputRef.current) {
 			inputRef.current.value = '';
 			setShowClearBtn(false);
-			setError('');
+			setAlert({ error: '', success: '' });
 		}
 	};
 
@@ -32,12 +34,16 @@ const InputSendRequest = () => {
 		e.preventDefault();
 		const email = inputRef.current ? inputRef.current.value : '';
 		if (!emailRegex.test(email)) {
-			setError(' 알맞은 형식의 이메일을 입력해주세요.');
+			setAlert((prev) => ({ ...prev, error: '알맞은 형식의 이메일을 입력해주세요.' }));
 			return;
+		} else {
+			setAlert((prev) => ({ ...prev, success: '친구 요청에 성공했어요.' }));
 		}
 	};
 
 	const errorStyle = 'border-error-01 border-[1px]';
+
+	const successStyle = 'border-mint-01 border-[1px]';
 
 	return (
 		<form action="" onSubmit={handleSubmit}>
@@ -47,12 +53,18 @@ const InputSendRequest = () => {
 					placeholder="이메일을 입력해주세요."
 					ref={inputRef}
 					onChange={handleInputChange}
-					className={`${error.length > 0 ? errorStyle : `border-[1px] border-gray-bg-02`} subhead-med-18 placeholder-text-gray-04 w-full rounded-[8px] bg-gray-bg-02 px-[2rem] py-[2rem] text-white focus:outline-none`}
+					className={`${alert.error.length > 0 ? errorStyle : alert.success.length > 0 ? successStyle : `border-[1px] border-gray-bg-02`} subhead-med-18 placeholder-text-gray-04 w-full rounded-[8px] bg-gray-bg-02 px-[2rem] py-[2rem] text-white focus:outline-none`}
 				/>
-				{error && (
+				{alert.error && (
 					<div className="absolute mt-[1rem] flex gap-[5px]">
 						<IconInputError />
-						<p className="body-reg-16 text-error-01">{error}</p>
+						<p className="body-reg-16 text-error-01">{alert.error}</p>
+					</div>
+				)}
+				{alert.success && (
+					<div className="absolute mt-[1rem] flex gap-[5px]">
+						<IconInputSuccess />
+						<p className="body-reg-16 text-mint-01">{alert.success}</p>
 					</div>
 				)}
 			</>
