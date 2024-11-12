@@ -89,6 +89,12 @@ const SideBarTimer = ({
 		}
 	};
 
+	const handleMouseEnter = () => {
+		import('@/pages/HomePage/HomePage').catch((error) => {
+			console.error('홈페이지를 받아오는데 오류가 발생했습니다.', error);
+		});
+	};
+
 	if (isError) {
 		console.error(error);
 	}
@@ -135,7 +141,7 @@ const SideBarTimer = ({
 			</div>
 			<div className="flex flex-col items-start gap-[1rem] pb-[2rem] pt-[4rem]">
 				<ButtonSideBar variant="할 일 추가">할 일 추가</ButtonSideBar>
-				<ButtonSideBar variant="홈으로 나가기" onClick={handleNavigateHome}>
+				<ButtonSideBar variant="홈으로 나가기" onClick={handleNavigateHome} onMouseEnter={handleMouseEnter}>
 					홈으로 나가기
 				</ButtonSideBar>
 			</div>
