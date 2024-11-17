@@ -32,6 +32,11 @@ const StatusAddBoxTodayTodo = ({
 	//Todo: 선택된 Todo들을 취소하고 다시 추가하는 로직 추가
 	const hasTodayTodos = !(selectedTodayTodos.length === 0);
 	const clickable = addingComplete ? '' : 'pointer-events-none cursor-default ';
+	const handleMouseEnter = () => {
+		import('@/pages/TimerPage/TimerPage').catch((error) => {
+			console.error('타이머 페이지를 받아오는데 오류가 발생했습니다.', error);
+		});
+	};
 
 	return (
 		<div className="flex flex-grow flex-col justify-between">
@@ -77,7 +82,12 @@ const StatusAddBoxTodayTodo = ({
 					<HomeSmallBtn onClick={onDisableAddStatus}>{SMALL_BTN_TEXT.CANCEL}</HomeSmallBtn>
 				)}
 				<div className={clickable}>
-					<HomeLargeBtn variant={HomeLargeBtnVariant.LARGE} disabled={!addingComplete} onClick={onCreateTodayTodos}>
+					<HomeLargeBtn
+						variant={HomeLargeBtnVariant.LARGE}
+						disabled={!addingComplete}
+						onClick={onCreateTodayTodos}
+						onMouseEnter={handleMouseEnter}
+					>
 						{LARGE_BTN_TEXT.START_TIMER}
 					</HomeLargeBtn>
 				</div>
