@@ -65,7 +65,7 @@ const Timer = ({
 	}
 
 	return (
-		<div className="mt-[8.2rem] flex items-center justify-center">
+		<div className="mt-[3.1rem] flex items-center justify-center">
 			<ProgressCircle isPlaying={isPlaying} timer={timerTime} />
 			<InnerCircleIcon className="absolute" />
 			<div className="absolute flex h-[22rem] w-[27.1rem] flex-col items-center justify-center">
