@@ -138,27 +138,22 @@ const TimerPage = () => {
 				>
 					<HamburgerIcon />
 				</button>
-				{isSidebarOpen && (
-					<div className={`${isSidebarOpen ? 'absolute inset-0 z-10 bg-dim' : ''}`}>
-						<div className="absolute inset-y-0 right-0 flex justify-end overflow-hidden">
-							<SideBarTimer
-								targetTime={targetTime}
-								ongoingTodos={ongoingTodos}
-								completedTodos={completedTodos}
-								isSideOpen={isSidebarOpen}
-								toggleSidebar={handleSidebarToggle}
-								onTodoSelection={handleTodoSelection}
-								selectedTodo={selectedTodo}
-								onPlayToggle={handlePlayToggle}
-								isPlaying={isPlaying}
-								formattedTodayDate={formattedTodayDate}
-								resetTimerIncreasedTime={resetTimerIncreasedTime}
-								timerIncreasedTime={timerIncreasedTime}
-								resetAccumulatedIncreasedTime={resetAccumulatedIncreasedTime}
-							/>
-						</div>
-					</div>
-				)}
+
+				<SideBarTimer
+					targetTime={targetTime}
+					ongoingTodos={ongoingTodos}
+					completedTodos={completedTodos}
+					isSideOpen={isSidebarOpen}
+					toggleSidebar={handleSidebarToggle}
+					onTodoSelection={handleTodoSelection}
+					selectedTodo={selectedTodo}
+					onPlayToggle={handlePlayToggle}
+					isPlaying={isPlaying}
+					formattedTodayDate={formattedTodayDate}
+					resetTimerIncreasedTime={resetTimerIncreasedTime}
+					timerIncreasedTime={timerIncreasedTime}
+					resetAccumulatedIncreasedTime={resetAccumulatedIncreasedTime}
+				/>
 			</div>
 		</TimerPageTemplates>
 	);

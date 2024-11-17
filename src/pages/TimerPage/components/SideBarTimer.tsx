@@ -100,9 +100,7 @@ const SideBarTimer = ({
 	return (
 		<div
 			ref={sidebarRef}
-			className={`flex h-[108rem] w-[40.2rem] transform flex-col rounded-bl-[16px] rounded-tl-[16px] bg-gray-bg-03 pl-[1.8rem] ${
-				isSideOpen ? 'translate-x-0' : 'translate-x-full'
-			}`}
+			className={`absolute right-0 flex h-[108rem] w-[40.2rem] transform flex-col rounded-bl-[16px] rounded-tl-[16px] bg-gray-bg-03 pl-[1.8rem] transition-transform duration-300 ${isSideOpen ? 'translate-x-0' : 'translate-x-full'}`}
 		>
 			<div className="flex h-[5.4rem] w-[36.6rem] items-center justify-between pl-[0.2rem] pt-[2rem]">
 				<p className="head-bold-24 text-white">오늘 할 일</p>
