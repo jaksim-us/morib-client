@@ -36,6 +36,7 @@ import ButtonMoreFriends from './components/ButtonMoreFriends';
 import ButtonUserProfile from './components/ButtonUserProfile';
 import DatePicker from './components/DatePicker';
 import ModalAddCategory from './components/ModalAddCategory';
+import ModalContentsFriends from './components/ModalContents/Friends/ModalContentsFriends';
 import SideBarHome from './components/SideBarHome';
 import StatusDefaultHome from './components/StatusDefaultHome';
 
@@ -47,7 +48,8 @@ const HomePage = () => {
 	const todayDate = dayjs().tz('Asia/Seoul');
 	const formattedTodayDate = todayDate.format('YYYY-MM-DD');
 
-	const modalRef = useRef<ModalWrapperRef>(null);
+	const categoryModalRef = useRef<ModalWrapperRef>(null);
+	const friendsModalRef = useRef<ModalWrapperRef>(null);
 
 	const [selectedDate, setSelectedDate] = useState(todayDate);
 	const { startDate, endDate } = getThisWeekRange(selectedDate);
@@ -82,14 +84,18 @@ const HomePage = () => {
 
 	const { targetTime } = targetTimeData?.data || 0;
 
-	const handleOpenModal = () => {
-		modalRef.current?.open();
+	const handleOpenCategoryModal = () => {
+		categoryModalRef.current?.open();
+	};
+
+	const handleOpenFriendsModal = () => {
+		friendsModalRef.current?.open();
 	};
 
 	const queryClient = useQueryClient();
 
 	const handleCloseModal = () => {
-		modalRef.current?.close();
+		categoryModalRef.current?.close();
 		queryClient.invalidateQueries({ queryKey: ['categories'] });
 		queryClient.invalidateQueries({ queryKey: ['msets'] });
 	};
@@ -160,7 +166,7 @@ const HomePage = () => {
 			</div>
 
 			<div className={`absolute right-[4.4rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodoOverlayStyle}`}>
-				<button>
+				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
 				</button>
 				<button>
@@ -215,19 +221,19 @@ const HomePage = () => {
 									})}
 									{dailyCategoryTask.length <= 2 && (
 										<div className="flex flex-col">
-											<ButtonSVG className="flex-shrink-0" onClick={handleOpenModal}>
+											<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 												<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
 											</ButtonSVG>
 										</div>
 									)}
 								</>
 							) : (
-								<StatusDefaultHome onClick={handleOpenModal} />
+								<StatusDefaultHome onClick={handleOpenCategoryModal} />
 							)}
 						</article>
 						{dailyCategoryTask.length > 2 && (
 							<div className="ml-[2.2rem] flex flex-col">
-								<ButtonSVG className="flex-shrink-0" onClick={handleOpenModal}>
+								<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 									<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
 								</ButtonSVG>
 							</div>
@@ -253,8 +259,12 @@ const HomePage = () => {
 					</div>
 				</section>
 			</div>
-			<ModalWrapper ref={modalRef} backdrop={true}>
+			<ModalWrapper ref={categoryModalRef} backdrop={true}>
 				<ModalAddCategory handleCloseModal={handleCloseModal} />
+			</ModalWrapper>
+
+			<ModalWrapper ref={friendsModalRef} backdrop={true}>
+				<ModalContentsFriends />
 			</ModalWrapper>
 		</HomePageWrapper>
 	);

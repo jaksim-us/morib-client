@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
-import ButtonAddFriend from '@/shared/components/ModalContents/ButtonAddFriend';
-import ButtonRequestAction from '@/shared/components/ModalContents/ButtonRequestAction';
-import FriendInfo from '@/shared/components/ModalContents/FriendInfo';
-import FriendsListRequested from '@/shared/components/ModalContents/FriendsListRequested';
-import InputSendRequest from '@/shared/components/ModalContents/InputSendRequest';
-import TabSelect from '@/shared/components/ModalContents/TabSelect';
-
 import { FRIENDSLIST_TABS } from '@/shared/constants/tabSelections';
 
 import { userFriendData } from '@/shared/mocks/userFriendData';
 
-const FriendsModalContents = () => {
+import ButtonAddFriend from './components/ButtonAddFriend';
+import ButtonRequestAction from './components/ButtonRequestAction';
+import FriendInfo from './components/FriendInfo';
+import FriendsListRequested from './components/FriendsListRequested';
+import InputSendRequest from './components/InputSendRequest';
+import TabSelect from './components/TabSelect';
+
+const ModalContentsFriends = () => {
 	const [selectedTabId, setSelectedTabId] = useState(FRIENDSLIST_TABS[0].id);
 	const handleTabChange = (tab: number) => {
 		setSelectedTabId(tab);
@@ -68,4 +68,4 @@ const FriendsModalContents = () => {
 	);
 };
 
-export default FriendsModalContents;
+export default ModalContentsFriends;
