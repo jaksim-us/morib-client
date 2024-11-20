@@ -1,4 +1,4 @@
-import ButtonSVG from '@/shared/components/ButtonSVG';
+import Dropdown from '@/shared/components/Dropdown';
 import FriendUserProfile from '@/shared/components/ModalContents/FriendUserProfile';
 
 import { formatSecondsForFriendsList } from '@/shared/utils/time';
@@ -12,7 +12,7 @@ interface FriendsData {
 	email: string;
 	isPlaying: boolean;
 	time: number;
-	categoryname: string;
+	categoryName: string;
 }
 
 type FriendsInfoProp = {
@@ -24,7 +24,7 @@ const FriendInfo = ({ friendsData }: FriendsInfoProp) => {
 		<>
 			{friendsData.map((friend: FriendsData) => {
 				return (
-					<li key={friend.id} className="flex border-t-[1px] border-gray-bg-06 px-[1rem] py-[1.5rem]">
+					<li key={friend.id} className="flex items-center border-t-[1px] border-gray-bg-06 py-[1.5rem]">
 						<div className="flex w-[40rem]">
 							<FriendUserProfile isConnecting={friend.isPlaying} imgSrc={friend.image} />
 							<div className="ml-[2rem] flex flex-col justify-center">
@@ -38,11 +38,17 @@ const FriendInfo = ({ friendsData }: FriendsInfoProp) => {
 						<p className="subhead-med-18 flex w-[46rem] self-center p-[0.8rem] text-white">
 							{formatSecondsForFriendsList(friend?.time)}
 						</p>
-						<div className="flex flex-col justify-center">
-							<ButtonSVG>
-								<DeleteBtn />
-							</ButtonSVG>
-						</div>
+
+						<Dropdown.Root>
+							<Dropdown.Trigger>
+								<button className="flex h-[24px] w-[24px] flex-col items-center justify-center">
+									<DeleteBtn />
+								</button>
+							</Dropdown.Trigger>
+							<Dropdown.Content boxShadow="shadow-none" className="right-0 top-[26px]">
+								<Dropdown.Item label="친구삭제" textColor="red" />
+							</Dropdown.Content>
+						</Dropdown.Root>
 					</li>
 				);
 			})}

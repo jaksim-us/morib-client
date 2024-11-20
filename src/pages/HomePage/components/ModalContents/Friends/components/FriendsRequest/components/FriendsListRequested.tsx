@@ -9,7 +9,7 @@ interface FriendsData {
 	email: string;
 	isPlaying: boolean;
 	time: number;
-	categoryname: string;
+	categoryName: string;
 }
 
 type FriendsInfoProp = {
