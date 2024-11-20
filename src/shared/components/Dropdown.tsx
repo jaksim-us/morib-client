@@ -40,7 +40,9 @@ const DropdownRoot = ({ children }: DropdownRootProps) => {
 
 	return (
 		<DropdownContext.Provider value={contextValue}>
-			<div ref={ref}>{children}</div>
+			<div ref={ref} className="relative">
+				{children}
+			</div>
 		</DropdownContext.Provider>
 	);
 };
@@ -65,9 +67,10 @@ interface DropdownContentProps {
 	children: ReactNode;
 	maxHeight?: string; // dropdown 메뉴의 최대 높이를 지정해서 스크롤 할 수 있음
 	boxShadow?: string;
+	className?: string;
 }
 
-const DropdownContent = ({ children, maxHeight, boxShadow }: DropdownContentProps) => {
+const DropdownContent = ({ children, maxHeight, boxShadow, className }: DropdownContentProps) => {
 	const { open, handleToggleClose } = useDropdownContext();
 
 	const shadowStyle = boxShadow ? boxShadow : 'shadow-[0_3px_30px_0_rgba(0,0,0,0.4)]';
@@ -75,7 +78,7 @@ const DropdownContent = ({ children, maxHeight, boxShadow }: DropdownContentProp
 	return (
 		<ul
 			onClick={handleToggleClose}
-			className={`absolute z-50 overflow-scroll rounded-[4px] ${shadowStyle} ${maxHeight}`}
+			className={`absolute overflow-scroll rounded-[4px] ${shadowStyle} ${maxHeight} ${className}`}
 		>
 			{open && children}
 		</ul>

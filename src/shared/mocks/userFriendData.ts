@@ -9,7 +9,8 @@ export const userFriendData = [
 		image: img2,
 		name: '이유리',
 		time: 762,
-		categoryname: '교양수업',
+		categoryName: '교양수업',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -17,7 +18,8 @@ export const userFriendData = [
 		image: img3,
 		name: '서수아',
 		time: 762,
-		categoryname: '기능명세서',
+		categoryName: '기능명세서',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -25,7 +27,8 @@ export const userFriendData = [
 		image: img1,
 		name: '김온유',
 		time: 13332,
-		categoryname: 'IA',
+		categoryName: 'IA',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -33,7 +36,8 @@ export const userFriendData = [
 		image: img1,
 		time: 13332,
 		name: '김강민',
-		categoryname: '캡스톤디자인',
+		categoryName: '캡스톤디자인',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -41,7 +45,8 @@ export const userFriendData = [
 		image: img2,
 		name: '이유리',
 		time: 762,
-		categoryname: '교양수업',
+		categoryName: '교양수업',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -49,7 +54,8 @@ export const userFriendData = [
 		image: img3,
 		name: '서수아',
 		time: 762,
-		categoryname: '기능명세서',
+		categoryName: '기능명세서',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -57,7 +63,8 @@ export const userFriendData = [
 		image: img1,
 		name: '김온유',
 		time: 13332,
-		categoryname: 'IA',
+		categoryName: 'IA',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -65,7 +72,8 @@ export const userFriendData = [
 		image: img4,
 		name: '강서현',
 		time: 10004,
-		categoryname: '앱잼 와이어프...',
+		categoryName: '앱잼 와이어프...',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -73,7 +81,8 @@ export const userFriendData = [
 		image: img1,
 		time: 13332,
 		name: '김강민',
-		categoryname: '캡스톤디자인',
+		categoryName: '캡스톤디자인',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -81,7 +90,8 @@ export const userFriendData = [
 		image: img2,
 		name: '이유리',
 		time: 762,
-		categoryname: '교양수업',
+		categoryName: '교양수업',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -89,7 +99,8 @@ export const userFriendData = [
 		image: img1,
 		name: '김온유',
 		time: 13332,
-		categoryname: 'IA',
+		categoryName: 'IA',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -97,7 +108,8 @@ export const userFriendData = [
 		image: img1,
 		time: 13332,
 		name: '김강민',
-		categoryname: '캡스톤디자인',
+		categoryName: '캡스톤디자인',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -105,7 +117,8 @@ export const userFriendData = [
 		image: img2,
 		name: '이유리',
 		time: 762,
-		categoryname: '교양수업',
+		categoryName: '교양수업',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 	{
@@ -113,7 +126,8 @@ export const userFriendData = [
 		image: img3,
 		name: '서수아',
 		time: 762,
-		categoryname: '기능명세서',
+		categoryName: '기능명세서',
+		email: 'yjzzangman@gmail.com',
 		isPlaying: true,
 	},
 ];

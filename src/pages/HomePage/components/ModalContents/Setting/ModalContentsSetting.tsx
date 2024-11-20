@@ -7,7 +7,7 @@ import AccountContent from './components/AccountContent';
 import Tabs from './components/Tabs';
 import WorkSpaceSettingContent from './components/WorkspaceSettingContent';
 
-const ModalContentSetting = () => {
+const ModalContentsSetting = () => {
 	const [activeTab, setActiveTab] = useState<string>('account');
 	const user = {
 		name: '홍길동',
@@ -51,4 +51,4 @@ const ModalContentSetting = () => {
 	);
 };
 
-export default ModalContentSetting;
+export default ModalContentsSetting;

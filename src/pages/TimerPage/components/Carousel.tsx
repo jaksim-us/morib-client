@@ -18,7 +18,7 @@ const Carousel = () => {
 						image={friend.image}
 						time={friend.time}
 						name={friend.name}
-						categoryname={friend.categoryname}
+						categoryname={friend.categoryName}
 						isPlaying={friend.isPlaying}
 					/>
 				))}

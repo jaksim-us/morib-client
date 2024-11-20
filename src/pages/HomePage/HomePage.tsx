@@ -9,6 +9,8 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
 
+import useClickOutside from '@/shared/hooks/useClickOutside';
+
 import {
 	useDeleteCategory,
 	useGetAllCategoryTask,
@@ -35,7 +37,7 @@ import BoxTodayTodo from './components/BoxTodayTodo';
 import ButtonMoreFriends from './components/ButtonMoreFriends';
 import ButtonUserProfile from './components/ButtonUserProfile';
 import DatePicker from './components/DatePicker';
-import ModalAddCategory from './components/ModalAddCategory';
+import { ModalContentsCategory, ModalContentsFriends } from './components/ModalContents';
 import SideBarHome from './components/SideBarHome';
 import StatusDefaultHome from './components/StatusDefaultHome';
 
@@ -47,7 +49,10 @@ const HomePage = () => {
 	const todayDate = dayjs().tz('Asia/Seoul');
 	const formattedTodayDate = todayDate.format('YYYY-MM-DD');
 
-	const modalRef = useRef<ModalWrapperRef>(null);
+	const categoryModalRef = useRef<ModalWrapperRef>(null);
+	const friendsModalRef = useRef<ModalWrapperRef>(null);
+	// NOTE: backdrop이 있으면 전체영역이 modal로 잡혀서 바깥영역을 클릭해도 modal이 닫히지 않음, 따라서 아래 모달로 모달 닫기를 구현
+	const friendModalContentRef = useRef<HTMLDivElement>(null);
 
 	const [selectedDate, setSelectedDate] = useState(todayDate);
 	const { startDate, endDate } = getThisWeekRange(selectedDate);
@@ -82,14 +87,23 @@ const HomePage = () => {
 
 	const { targetTime } = targetTimeData?.data || 0;
 
-	const handleOpenModal = () => {
-		modalRef.current?.open();
+	const handleOpenCategoryModal = () => {
+		categoryModalRef.current?.open();
+	};
+
+	const handleOpenFriendsModal = () => {
+		friendsModalRef.current?.open();
+	};
+	const handleCloseFriendsModal = () => {
+		friendsModalRef.current?.close();
 	};
 
 	const queryClient = useQueryClient();
 
+	useClickOutside(friendModalContentRef, handleCloseFriendsModal);
+
 	const handleCloseModal = () => {
-		modalRef.current?.close();
+		categoryModalRef.current?.close();
 		queryClient.invalidateQueries({ queryKey: ['categories'] });
 		queryClient.invalidateQueries({ queryKey: ['msets'] });
 	};
@@ -160,7 +174,7 @@ const HomePage = () => {
 			</div>
 
 			<div className={`absolute right-[4.4rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodoOverlayStyle}`}>
-				<button>
+				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
 				</button>
 				<button>
@@ -215,19 +229,19 @@ const HomePage = () => {
 									})}
 									{dailyCategoryTask.length <= 2 && (
 										<div className="flex flex-col">
-											<ButtonSVG className="flex-shrink-0" onClick={handleOpenModal}>
+											<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 												<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
 											</ButtonSVG>
 										</div>
 									)}
 								</>
 							) : (
-								<StatusDefaultHome onClick={handleOpenModal} />
+								<StatusDefaultHome onClick={handleOpenCategoryModal} />
 							)}
 						</article>
 						{dailyCategoryTask.length > 2 && (
 							<div className="ml-[2.2rem] flex flex-col">
-								<ButtonSVG className="flex-shrink-0" onClick={handleOpenModal}>
+								<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 									<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
 								</ButtonSVG>
 							</div>
@@ -253,8 +267,12 @@ const HomePage = () => {
 					</div>
 				</section>
 			</div>
-			<ModalWrapper ref={modalRef} backdrop={true}>
-				<ModalAddCategory handleCloseModal={handleCloseModal} />
+			<ModalWrapper ref={categoryModalRef} backdrop={true}>
+				<ModalContentsCategory handleCloseModal={handleCloseModal} />
+			</ModalWrapper>
+
+			<ModalWrapper ref={friendsModalRef} backdrop={true}>
+				<ModalContentsFriends ref={friendModalContentRef} />
 			</ModalWrapper>
 		</HomePageWrapper>
 	);

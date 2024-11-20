@@ -28,11 +28,11 @@ interface UrlInfo {
 	favicon: string;
 }
 
-interface ModalAddCategoryProps {
+interface ModalContentsCategoryProps {
 	handleCloseModal: () => void;
 }
 
-const ModalAddCategory = ({ handleCloseModal }: ModalAddCategoryProps) => {
+const ModalContentsCategory = ({ handleCloseModal }: ModalContentsCategoryProps) => {
 	const [totalUrlInfos, setTotalUrlInfos] = useState<UrlInfo[]>([]);
 	const [rightModalUrlInfos, setRightModalUrlInfos] = useState<UrlInfo[]>([]);
 	const [isFirstUrlValidated, setIsFirstUrlValidated] = useState<boolean | null>(null);
@@ -331,4 +331,4 @@ const ModalAddCategory = ({ handleCloseModal }: ModalAddCategoryProps) => {
 	);
 };
 
-export default ModalAddCategory;
+export default ModalContentsCategory;
