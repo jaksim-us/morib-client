@@ -9,7 +9,7 @@ import HomeSideBox from '@/components/atoms/HomeSideBox';
 import SpaceLogoBtn from '@/components/atoms/SpaceLogoBtn';
 
 import ButtonSVG from '../../../shared/components/ButtonSVG';
-import ModalContentSetting from './modalContent/ModalContentSetting';
+import ModalContentSetting from './modalContent/Setting/ModalContentSetting';
 
 const SideBarHome = () => {
 	const modalRef = useRef<ModalWrapperRef>(null);
