@@ -1,14 +1,16 @@
 import type { Router } from '@remix-run/router';
 
+import { Suspense, lazy } from 'react';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
-import HomePage from '@/pages/HomePage/HomePage';
-import LoginPage from '@/pages/LoginPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
-import TimerPage from '@/pages/TimerPage/TimerPage';
 
 import RedirectPage from '../pages/RedirectPage';
 import { ROUTES_CONFIG } from './routesConfig';
+
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const HomePage = lazy(() => import('@/pages/HomePage/HomePage'));
+const TimerPage = lazy(() => import('@/pages/TimerPage/TimerPage'));
 
 const ProtectedRoute = () => {
 	//Todo: 개발이 진행되면 실제 토큰 상태를 받아서 login page로 이동 시킴
@@ -28,7 +30,11 @@ const router: Router = createBrowserRouter([
 		children: [
 			{
 				path: ROUTES_CONFIG.login.path,
-				element: <LoginPage />,
+				element: (
+					<Suspense fallback={<div>Loading...</div>}>
+						<LoginPage />
+					</Suspense>
+				),
 			},
 			{
 				path: ROUTES_CONFIG.redirect.path,
@@ -44,11 +50,19 @@ const router: Router = createBrowserRouter([
 		children: [
 			{
 				path: ROUTES_CONFIG.home.path,
-				element: <HomePage />,
+				element: (
+					<Suspense fallback={<div>Loading...</div>}>
+						<HomePage />
+					</Suspense>
+				),
 			},
 			{
 				path: ROUTES_CONFIG.timer.path,
-				element: <TimerPage />,
+				element: (
+					<Suspense fallback={<div>Loading...</div>}>
+						<TimerPage />
+					</Suspense>
+				),
 			},
 		],
 	},
