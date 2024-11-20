@@ -40,6 +40,7 @@ export default {
 				140: '140%',
 			},
 			backgroundImage: {
+				'login-bg': "url('@/shared/assets/images/login_background.png')",
 				'main-gra-01': 'linear-gradient(to right, #00F2C6, #A5FFFD)',
 				'main-gra-hover': 'linear-gradient(to right, #01DAB3, #92E6E4)',
 				'main-gra-press': 'linear-gradient(to right, #03C2A0, #80CCCA)',

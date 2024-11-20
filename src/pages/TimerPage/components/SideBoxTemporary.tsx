@@ -7,7 +7,7 @@ import { Favicon_DATA } from '@/shared/mocks/faviconData';
 const SideBoxTemporary = () => {
 	return (
 		<SideBoxTimer>
-			<div className="flex w-[5.4rem] flex-col items-start bg-gray-bg-02">
+			<div className="flex h-screen w-[5.4rem] flex-col items-start bg-gray-bg-02">
 				<p className="detail-semibold-14 border-b-[0.1rem] border-b-gray-bg-05 py-[1.7rem] pl-[0.3rem] text-gray-04">
 					모립세트
 				</p>

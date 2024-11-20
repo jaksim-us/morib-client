@@ -109,11 +109,13 @@ const TimerPage = () => {
 
 	return (
 		<TimerPageTemplates>
-			<div className="relative flex h-[108rem] w-[192rem] bg-[url('@/shared/assets/images/img_timer_bg.png')]">
-				<div className="absolute left-0">
+			<div className="flex">
+				<div className="absolute left-0 bg-slate-500">
 					<SideBoxTemporary />
 				</div>
-				<div className="ml-[56.6rem] mt-[-0.8rem]">
+				<div
+					className={`mt-[-0.8rem] flex w-screen min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
+				>
 					<header className="mt-[8.6rem] flex flex-col items-center gap-[1rem]">
 						<h1 className="title-semibold-64 text-white">{selectedTodoData?.name || ''}</h1>
 						<h2 className="title-med-32 text-gray-04">{selectedTodoData?.categoryName || ''}</h2>
@@ -134,31 +136,26 @@ const TimerPage = () => {
 				</div>
 				<button
 					onClick={handleSidebarToggle}
-					className="ml-[38.2rem] mt-[3.2rem] h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04"
+					className="absolute right-[32px] top-[32px] h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04"
 				>
 					<HamburgerIcon />
 				</button>
-				{isSidebarOpen && (
-					<div className={`${isSidebarOpen ? 'absolute inset-0 z-10 bg-dim' : ''}`}>
-						<div className="absolute inset-y-0 right-0 flex justify-end overflow-hidden">
-							<SideBarTimer
-								targetTime={targetTime}
-								ongoingTodos={ongoingTodos}
-								completedTodos={completedTodos}
-								isSideOpen={isSidebarOpen}
-								toggleSidebar={handleSidebarToggle}
-								onTodoSelection={handleTodoSelection}
-								selectedTodo={selectedTodo}
-								onPlayToggle={handlePlayToggle}
-								isPlaying={isPlaying}
-								formattedTodayDate={formattedTodayDate}
-								resetTimerIncreasedTime={resetTimerIncreasedTime}
-								timerIncreasedTime={timerIncreasedTime}
-								resetAccumulatedIncreasedTime={resetAccumulatedIncreasedTime}
-							/>
-						</div>
-					</div>
-				)}
+
+				<SideBarTimer
+					targetTime={targetTime}
+					ongoingTodos={ongoingTodos}
+					completedTodos={completedTodos}
+					isSideOpen={isSidebarOpen}
+					toggleSidebar={handleSidebarToggle}
+					onTodoSelection={handleTodoSelection}
+					selectedTodo={selectedTodo}
+					onPlayToggle={handlePlayToggle}
+					isPlaying={isPlaying}
+					formattedTodayDate={formattedTodayDate}
+					resetTimerIncreasedTime={resetTimerIncreasedTime}
+					timerIncreasedTime={timerIncreasedTime}
+					resetAccumulatedIncreasedTime={resetAccumulatedIncreasedTime}
+				/>
 			</div>
 		</TimerPageTemplates>
 	);

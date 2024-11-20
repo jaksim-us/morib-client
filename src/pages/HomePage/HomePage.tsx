@@ -44,7 +44,7 @@ import StatusDefaultHome from './components/StatusDefaultHome';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-//Todo: 에러 핸들링 및 로직 분리 리팩토링 필요
+//TODO: 반응형 구조를 크게 변경해야해서 추후 pr에서 반영
 const HomePage = () => {
 	const todayDate = dayjs().tz('Asia/Seoul');
 	const formattedTodayDate = todayDate.format('YYYY-MM-DD');
@@ -248,7 +248,7 @@ const HomePage = () => {
 						)}
 					</div>
 				</section>
-				<section className="flex items-end justify-end">
+				<section className="absolute right-[4.2rem] top-[15.2rem]">
 					<div className="flex flex-col">
 						<BoxTodayTodo
 							time={targetTime}
