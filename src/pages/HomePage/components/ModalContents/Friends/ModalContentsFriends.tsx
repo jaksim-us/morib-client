@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 
 import FriendsList from './components/FriendsList/FriendsList';
 import FriendsRequest from './components/FriendsRequest/FriendsRequest';
 
-const ModalContentsFriends = () => {
+const ModalContentsFriends = forwardRef<HTMLDivElement>((_, ref) => {
 	const [activeTab, setActiveTab] = useState<string>('친구목록');
 
 	const handleTabChange = (tab: string) => {
@@ -11,7 +11,10 @@ const ModalContentsFriends = () => {
 	};
 
 	return (
-		<div className="h-[800px] w-[1300px] rounded-[14px] bg-gray-bg-03 p-[4rem] shadow-[0_3px_30px_0px_rgba(0,0,0,0.4)]">
+		<div
+			ref={ref}
+			className="h-[800px] w-[1300px] rounded-[14px] bg-gray-bg-03 p-[4rem] shadow-[0_3px_30px_0px_rgba(0,0,0,0.4)]"
+		>
 			<h1 className="title-bold-32 mb-[1rem] text-white">친구</h1>
 
 			<button
@@ -31,6 +34,8 @@ const ModalContentsFriends = () => {
 			{activeTab === '친구목록' ? <FriendsList /> : <FriendsRequest />}
 		</div>
 	);
-};
+});
+
+ModalContentsFriends.displayName = 'ModalContentsFriends';
 
 export default ModalContentsFriends;

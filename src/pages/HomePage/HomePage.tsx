@@ -9,6 +9,8 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
 
+import useClickOutside from '@/shared/hooks/useClickOutside';
+
 import {
 	useDeleteCategory,
 	useGetAllCategoryTask,
@@ -49,6 +51,8 @@ const HomePage = () => {
 
 	const categoryModalRef = useRef<ModalWrapperRef>(null);
 	const friendsModalRef = useRef<ModalWrapperRef>(null);
+	// NOTE: backdrop이 있으면 전체영역이 modal로 잡혀서 바깥영역을 클릭해도 modal이 닫히지 않음, 따라서 아래 모달로 모달 닫기를 구현
+	const friendModalContentRef = useRef<HTMLDivElement>(null);
 
 	const [selectedDate, setSelectedDate] = useState(todayDate);
 	const { startDate, endDate } = getThisWeekRange(selectedDate);
@@ -90,8 +94,13 @@ const HomePage = () => {
 	const handleOpenFriendsModal = () => {
 		friendsModalRef.current?.open();
 	};
+	const handleCloseFriendsModal = () => {
+		friendsModalRef.current?.close();
+	};
 
 	const queryClient = useQueryClient();
+
+	useClickOutside(friendModalContentRef, handleCloseFriendsModal);
 
 	const handleCloseModal = () => {
 		categoryModalRef.current?.close();
@@ -263,7 +272,7 @@ const HomePage = () => {
 			</ModalWrapper>
 
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
-				<ModalContentsFriends />
+				<ModalContentsFriends ref={friendModalContentRef} />
 			</ModalWrapper>
 		</HomePageWrapper>
 	);

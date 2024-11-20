@@ -9,7 +9,7 @@ import HomeSideBox from '@/components/atoms/HomeSideBox';
 import SpaceLogoBtn from '@/components/atoms/SpaceLogoBtn';
 
 import ButtonSVG from '../../../shared/components/ButtonSVG';
-import ModalContentSetting from './modalContent/Setting/ModalContentSetting';
+import { ModalContentsSetting } from './ModalContents';
 
 const SideBarHome = () => {
 	const modalRef = useRef<ModalWrapperRef>(null);
@@ -30,7 +30,7 @@ const SideBarHome = () => {
 			</div>
 
 			<ModalWrapper ref={modalRef} backdrop={true}>
-				<ModalContentSetting />
+				<ModalContentsSetting />
 			</ModalWrapper>
 		</HomeSideBox>
 	);
