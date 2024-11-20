@@ -35,8 +35,7 @@ import BoxTodayTodo from './components/BoxTodayTodo';
 import ButtonMoreFriends from './components/ButtonMoreFriends';
 import ButtonUserProfile from './components/ButtonUserProfile';
 import DatePicker from './components/DatePicker';
-import ModalAddCategory from './components/ModalAddCategory';
-import ModalContentsFriends from './components/ModalContents/Friends/ModalContentsFriends';
+import { ModalContentsCategory, ModalContentsFriends } from './components/ModalContents';
 import SideBarHome from './components/SideBarHome';
 import StatusDefaultHome from './components/StatusDefaultHome';
 
@@ -260,7 +259,7 @@ const HomePage = () => {
 				</section>
 			</div>
 			<ModalWrapper ref={categoryModalRef} backdrop={true}>
-				<ModalAddCategory handleCloseModal={handleCloseModal} />
+				<ModalContentsCategory handleCloseModal={handleCloseModal} />
 			</ModalWrapper>
 
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
