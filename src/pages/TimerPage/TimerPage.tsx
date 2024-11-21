@@ -22,7 +22,6 @@ import TimerPageTemplates from '@/components/templates/TimerPageTemplates';
 
 import Carousel from './components/Carousel';
 import SideBarTimer from './components/SideBarTimer';
-import SideBoxTemporary from './components/SideBoxTemporary';
 import Timer from './components/Timer';
 
 dayjs.extend(utc);
@@ -110,9 +109,6 @@ const TimerPage = () => {
 	return (
 		<TimerPageTemplates>
 			<div className="flex">
-				<div className="absolute left-0 bg-slate-500">
-					<SideBoxTemporary />
-				</div>
 				<div
 					className={`mt-[-0.8rem] flex w-screen min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
 				>
