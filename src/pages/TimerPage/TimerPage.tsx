@@ -17,10 +17,13 @@ import { getBaseUrl } from '@/shared/utils/url';
 import { DATE_FORMAT, DEFAULT_URL, TIMEZONE } from '@/shared/constants/timerPageText';
 
 import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
+import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
 import TimerPageTemplates from '@/components/templates/TimerPageTemplates';
 
 import Carousel from './components/Carousel';
+import MoribSetContainer from './components/MoribSetContainer';
+import MoribSetTitle from './components/MoribSetTitle';
 import SideBarTimer from './components/SideBarTimer';
 import Timer from './components/Timer';
 
@@ -53,6 +56,8 @@ const TimerPage = () => {
 	const [targetTime, setTargetTime] = useState(0);
 
 	const [isPlaying, setIsPlaying] = useState(false);
+
+	const [isMoribSetVisible, setIsMoribSetVisible] = useState(false);
 
 	const selectedTodoData = todos.find((todo: Todo) => todo.id === selectedTodo);
 
@@ -98,6 +103,10 @@ const TimerPage = () => {
 		setIsPlaying(isPlaying);
 	};
 
+	const handleMoribSetTitleClick = () => {
+		setIsMoribSetVisible(true);
+	};
+
 	const updateTargetTime = (newTime: number) => {
 		setTargetTime(newTime);
 	};
@@ -108,7 +117,27 @@ const TimerPage = () => {
 
 	return (
 		<TimerPageTemplates>
-			<div className="flex">
+			<div className="flex flex-col">
+				<div className="relative flex w-screen justify-between">
+					<MoribSetTitle onClick={handleMoribSetTitleClick} />
+					<div className="mr-[3.2rem] mt-[3.2rem] flex w-[10.8rem] items-center">
+						<button className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
+							<HomeIcon />
+						</button>
+						<button
+							onClick={handleSidebarToggle}
+							className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04"
+						>
+							<HamburgerIcon />
+						</button>
+					</div>
+				</div>
+				{isMoribSetVisible && (
+					<div className="absolute inset-0 top-[10rem] z-10 flex">
+						<MoribSetContainer />
+					</div>
+				)}
+
 				<div
 					className={`mt-[-0.8rem] flex w-screen min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
 				>
@@ -130,12 +159,6 @@ const TimerPage = () => {
 					/>
 					<Carousel />
 				</div>
-				<button
-					onClick={handleSidebarToggle}
-					className="absolute right-[32px] top-[32px] h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04"
-				>
-					<HamburgerIcon />
-				</button>
 
 				<SideBarTimer
 					targetTime={targetTime}
