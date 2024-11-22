@@ -1,11 +1,10 @@
 const MoribSetContainer = () => {
 	return (
 		<div className="ml-[4.899rem] flex h-[45rem] w-[53.2rem]">
-			{/* Left Section: 모립 세트 */}
 			<div className="flex w-[23rem] flex-col rounded-l-[8px] bg-gray-bg-02 p-[1rem]">
 				<h3 className="detail-reg-14 h-[3.4rem] w-[21rem] px-[1.7rem] py-[1rem] text-gray-04">모립 세트</h3>
-				<ul className="mt-[0.8rem] h-[34rem] w-[20.4rem] space-y-3">
-					{Array(7)
+				<ul className="mt-[0.8rem] h-[32.4rem] w-[20.4rem] overflow-y-auto">
+					{Array(10)
 						.fill('Capstone Design')
 						.map((item, index) => (
 							<li
@@ -26,7 +25,6 @@ const MoribSetContainer = () => {
 							</li>
 						))}
 				</ul>
-				{/* Bottom Buttons */}
 				<div className="flex h-[5.4rem] justify-end gap-[0.5rem] p-[1rem]">
 					<button className="detail-semibold-14 flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-gray-bg-06 text-white">
 						취소
@@ -37,16 +35,15 @@ const MoribSetContainer = () => {
 				</div>
 			</div>
 
-			{/* Right Section: 허용할 사이트 */}
-			<div className="flex w-[30.2rem] flex-col gap-[1rem] rounded-r-[8px] bg-gray-bg-03 py-[1rem] pl-[0.9rem] pr-[1.7rem]">
+			<div className="flex w-[30.2rem] flex-col gap-[0.8rem] rounded-r-[8px] bg-gray-bg-03 py-[1rem] pl-[0.9rem] pr-[1.7rem]">
 				<h3 className="detail-reg-14 h-[3.4rem] w-[28.6rem] p-[1rem] text-gray-04">허용할 사이트</h3>
-				<ul className="space-y-3">
-					{Array(8)
+				<ul className="h-[37.6rem] overflow-y-auto">
+					{Array(20)
 						.fill('(150) 침착맨 - Youtube')
 						.map((item, index) => (
 							<li
 								key={index}
-								className="flex h-[3.2rem] w-[27.6rem] items-center gap-[1rem] rounded-md bg-gray-700 px-[0.7rem]"
+								className="flex h-[3.2rem] w-[27.6rem] items-center gap-[1rem] rounded-[3px] px-[0.7rem] odd:bg-gray-bg-02"
 							>
 								<img src="https://img.icons8.com/color/48/youtube-play.png" alt="YouTube Icon" className="h-6 w-6" />
 								<span className="detail-reg-12 text-white">{item}</span>
