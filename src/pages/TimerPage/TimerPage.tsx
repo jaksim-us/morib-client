@@ -137,8 +137,10 @@ const TimerPage = () => {
 					</div>
 				</div>
 				{isMoribSetVisible && (
-					<div className="absolute inset-0 top-[10rem] z-10 flex">
-						<MoribSetContainer onCancel={handleCancelClick} />
+					<div className="pointer-events-none absolute inset-0 top-[10rem] z-10 flex">
+						<div className="pointer-events-auto">
+							<MoribSetContainer onCancel={handleCancelClick} />
+						</div>
 					</div>
 				)}
 
