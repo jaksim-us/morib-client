@@ -107,6 +107,10 @@ const TimerPage = () => {
 		setIsMoribSetVisible(true);
 	};
 
+	const handleCancelClick = () => {
+		setIsMoribSetVisible(false);
+	};
+
 	const updateTargetTime = (newTime: number) => {
 		setTargetTime(newTime);
 	};
@@ -134,7 +138,7 @@ const TimerPage = () => {
 				</div>
 				{isMoribSetVisible && (
 					<div className="absolute inset-0 top-[10rem] z-10 flex">
-						<MoribSetContainer />
+						<MoribSetContainer onCancel={handleCancelClick} />
 					</div>
 				)}
 

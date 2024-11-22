@@ -1,4 +1,4 @@
-const MoribSetContainer = () => {
+const MoribSetContainer = ({ onCancel }: { onCancel: () => void }) => {
 	return (
 		<div className="ml-[4.899rem] flex h-[45rem] w-[53.2rem]">
 			<div className="flex w-[23rem] flex-col rounded-l-[8px] bg-gray-bg-02 p-[1rem]">
@@ -26,7 +26,10 @@ const MoribSetContainer = () => {
 						))}
 				</ul>
 				<div className="flex h-[5.4rem] justify-end gap-[0.5rem] p-[1rem]">
-					<button className="detail-semibold-14 flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-gray-bg-06 text-white">
+					<button
+						onClick={onCancel}
+						className="detail-semibold-14 flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-gray-bg-06 text-white"
+					>
 						취소
 					</button>
 					<button className="detail-semibold-14 flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-mint-02 text-black">
