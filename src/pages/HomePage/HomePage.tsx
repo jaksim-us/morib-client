@@ -29,16 +29,14 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
-import HomePageWrapper from '@/components/templates/HomePageWrapper';
-
 import ButtonSVG from '../../shared/components/ButtonSVG';
+import Sidebar from '../../shared/components/Sidebar/Sidebar';
 import BoxCategory from './components/BoxCategory';
 import BoxTodayTodo from './components/BoxTodayTodo';
 import ButtonMoreFriends from './components/ButtonMoreFriends';
 import ButtonUserProfile from './components/ButtonUserProfile';
 import DatePicker from './components/DatePicker';
 import { ModalContentsCategory, ModalContentsFriends } from './components/ModalContents';
-import SideBarHome from './components/SideBarHome';
 import StatusDefaultHome from './components/StatusDefaultHome';
 
 dayjs.extend(utc);
@@ -168,10 +166,8 @@ const HomePage = () => {
 	}
 
 	return (
-		<HomePageWrapper>
-			<div className={addTodayTodoOverlayStyle}>
-				<SideBarHome />
-			</div>
+		<div className="flex min-h-screen w-screen bg-gray-bg-01">
+			<Sidebar />
 
 			<div className={`absolute right-[4.4rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodoOverlayStyle}`}>
 				<button onClick={handleOpenFriendsModal}>
@@ -274,7 +270,7 @@ const HomePage = () => {
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
 				<ModalContentsFriends ref={friendModalContentRef} />
 			</ModalWrapper>
-		</HomePageWrapper>
+		</div>
 	);
 };
 

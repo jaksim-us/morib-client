@@ -8,14 +8,14 @@ import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
 import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
 
-import SideBarHome from '../HomePage/components/SideBarHome';
+import Sidebar from '../../shared/components/Sidebar/Sidebar';
 
 const NotFoundPage = () => {
 	const navigate = useNavigate();
 
 	return (
 		<div className="relative flex h-screen bg-gray-bg-01">
-			<SideBarHome />
+			<Sidebar />
 
 			<div className="absolute right-[4.4rem] top-[5.4rem] flex gap-[0.8rem]">
 				<button>
