@@ -4,6 +4,7 @@ import { Suspense, lazy } from 'react';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
+import OnboardingPage from '@/pages/OnboardingPage/OnboardingPage';
 
 import RedirectPage from '../pages/RedirectPage';
 import { ROUTES_CONFIG } from './routesConfig';
@@ -55,6 +56,10 @@ const router: Router = createBrowserRouter([
 						<HomePage />
 					</Suspense>
 				),
+			},
+			{
+				path: ROUTES_CONFIG.onboarding.path,
+				element: <OnboardingPage />,
 			},
 			{
 				path: ROUTES_CONFIG.timer.path,

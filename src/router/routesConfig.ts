@@ -1,18 +1,22 @@
 export const ROUTES_CONFIG = {
-	login: {
-		title: 'Login',
-		path: '/',
-	},
 	home: {
 		title: 'Home',
 		path: '/home',
 	},
-	timer: {
-		title: 'Timer',
-		path: '/timer',
+	login: {
+		title: 'Login',
+		path: '/',
+	},
+	onboarding: {
+		title: 'Onboarding',
+		path: '/onboarding',
 	},
 	redirect: {
 		title: 'Redirect',
 		path: '/redirect',
+	},
+	timer: {
+		title: 'Timer',
+		path: '/timer',
 	},
 };
