@@ -13,7 +13,7 @@ const Sidebar = () => {
 
 	return (
 		<>
-			<aside className="fixed left-0 flex min-h-screen w-[7.4rem] flex-col items-center justify-between bg-gray-bg-02 pb-[2.1rem] pt-[5.4rem]">
+			<aside className="sticky top-0 flex min-h-screen w-[7.4rem] flex-shrink-0 flex-col items-center justify-between bg-gray-bg-02 pb-[2.1rem] pt-[5.4rem]">
 				<button type="button" className="relative flex w-full items-center gap-[0.8rem]">
 					<hr className="h-[54px] w-[2px] rounded-r-[8px] bg-white" />
 					<LogoIcon />
