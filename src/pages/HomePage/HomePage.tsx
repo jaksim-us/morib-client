@@ -30,7 +30,6 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
 import ButtonSVG from '../../shared/components/ButtonSVG';
-import Sidebar from '../../shared/components/Sidebar/Sidebar';
 import BoxCategory from './components/BoxCategory';
 import BoxTodayTodo from './components/BoxTodayTodo';
 import ButtonMoreFriends from './components/ButtonMoreFriends';
@@ -167,8 +166,6 @@ const HomePage = () => {
 
 	return (
 		<div className="flex min-h-screen bg-gray-bg-01">
-			<Sidebar />
-
 			<div className={`absolute right-[4.2rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodoOverlayStyle}`}>
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
