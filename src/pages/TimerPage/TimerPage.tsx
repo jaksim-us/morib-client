@@ -53,6 +53,8 @@ const TimerPage = () => {
 
 	const [selectedTodo, setSelectedTodo] = useSelectedTodo(todos);
 
+	const [registeredNames, setRegisteredNames] = useState<string[]>([]);
+
 	const [targetTime, setTargetTime] = useState(0);
 
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -111,6 +113,11 @@ const TimerPage = () => {
 		setIsMoribSetVisible(false);
 	};
 
+	const handleRegister = (selectedNames: string[]) => {
+		setRegisteredNames(selectedNames);
+		setIsMoribSetVisible(false);
+	};
+
 	const updateTargetTime = (newTime: number) => {
 		setTargetTime(newTime);
 	};
@@ -123,7 +130,7 @@ const TimerPage = () => {
 		<TimerPageTemplates>
 			<div className="flex flex-col">
 				<div className="relative flex w-screen justify-between">
-					<MoribSetTitle onClick={handleMoribSetTitleClick} />
+					<MoribSetTitle onClick={handleMoribSetTitleClick} registeredNames={registeredNames} />
 					<div className="mr-[3.2rem] mt-[3.2rem] flex w-[10.8rem] items-center">
 						<button className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
 							<HomeIcon />
@@ -137,9 +144,9 @@ const TimerPage = () => {
 					</div>
 				</div>
 				{isMoribSetVisible && (
-					<div className="pointer-events-none absolute inset-0 top-[10rem] z-10 flex">
-						<div className="pointer-events-auto">
-							<MoribSetContainer onCancel={handleCancelClick} />
+					<div className="absolute top-[10rem] z-10 flex">
+						<div className="">
+							<MoribSetContainer onCancel={handleCancelClick} onRegister={handleRegister} />
 						</div>
 					</div>
 				)}

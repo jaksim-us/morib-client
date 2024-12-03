@@ -1,29 +1,66 @@
-const MoribSetContainer = ({ onCancel }: { onCancel: () => void }) => {
+import { useState } from 'react';
+
+import { ALLOW_SITE_LIST } from '@/shared/constants/allowStieList';
+
+const MoribSetContainer = ({
+	onCancel,
+	onRegister,
+}: {
+	onCancel: () => void;
+	onRegister: (selectedNames: string[]) => void;
+}) => {
+	const [checkedSetIds, setCheckedSetIds] = useState<number[]>([]);
+	const [selectedSetId, setSelectedSetId] = useState<number | null>(null);
+
+	const handleCheckboxChange = (id: number) => {
+		setCheckedSetIds((prev) => (prev.includes(id) ? prev.filter((checkedId) => checkedId !== id) : [...prev, id]));
+	};
+
+	const handleSetClick = (id: number) => {
+		setSelectedSetId((prev) => (prev === id ? null : id));
+	};
+
+	const handleRegisterClick = () => {
+		const selectedNames = ALLOW_SITE_LIST.filter((item) => checkedSetIds.includes(item.id)).map(
+			(item) => item.moribsetname,
+		);
+		onRegister(selectedNames);
+	};
+
 	return (
 		<div className="ml-[4.899rem] flex h-[45rem] w-[53.2rem]">
 			<div className="flex w-[23rem] flex-col rounded-l-[8px] bg-gray-bg-02 p-[1rem]">
 				<h3 className="detail-reg-14 h-[3.4rem] w-[21rem] px-[1.7rem] py-[1rem] text-gray-04">모립 세트</h3>
 				<ul className="mt-[0.8rem] h-[32.4rem] w-[20.4rem] overflow-y-auto">
-					{Array(10)
-						.fill('Capstone Design')
-						.map((item, index) => (
-							<li
-								key={index}
-								className="flex h-[3.4rem] w-[21rem] items-center rounded-[6px] py-[0.3rem] pl-[1rem] pr-[0.3rem] hover:bg-gray-bg-04"
+					{ALLOW_SITE_LIST.map((item) => (
+						<li
+							key={item.id}
+							className={`flex h-[3.4rem] w-[20.4rem] cursor-pointer items-center rounded-[6px] py-[0.3rem] pl-[1rem] pr-[0.3rem] hover:bg-gray-bg-04 ${
+								item.id === selectedSetId ? 'bg-gray-bg-05' : ''
+							}`}
+							onClick={() => handleSetClick(item.id)}
+						>
+							<div
+								className="h-[2.8rem] w-[2.8rem] p-[0.7rem]"
+								onClick={(e) => {
+									e.stopPropagation();
+								}}
 							>
-								<div className="h-[2.8rem] w-[2.8rem] p-[0.7rem]">
-									<input
-										type="checkbox"
-										id={`item-${index}`}
-										className="h-[1.4rem] w-[1.4rem] rounded border-gray-600 focus:ring"
-									/>
-								</div>
-								<label htmlFor={`item-${index}`} className="detail-semibold-14 w-[14.9rem] cursor-pointer text-white">
-									{item}
-								</label>
-								<span className="h-[1rem] w-[1rem] rounded-full bg-yellow-500" />
-							</li>
-						))}
+								<input
+									type="checkbox"
+									id={`item-${item.id}`}
+									checked={checkedSetIds.includes(item.id)}
+									onChange={() => handleCheckboxChange(item.id)}
+									className="h-[1.4rem] w-[1.4rem] rounded border-gray-600 focus:ring"
+								/>
+							</div>
+							<div className="detail-semibold-14 w-[14.9rem] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-white">
+								{item.moribsetname}
+							</div>
+
+							<span className="h-[1rem] w-[1rem] rounded-full bg-yellow-500" />
+						</li>
+					))}
 				</ul>
 				<div className="flex h-[5.4rem] justify-end gap-[0.5rem] p-[1rem]">
 					<button
@@ -32,7 +69,10 @@ const MoribSetContainer = ({ onCancel }: { onCancel: () => void }) => {
 					>
 						취소
 					</button>
-					<button className="detail-semibold-14 flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-mint-02 text-black">
+					<button
+						onClick={handleRegisterClick}
+						className="detail-semibold-14 flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-mint-02 text-black"
+					>
 						등록
 					</button>
 				</div>
@@ -41,17 +81,17 @@ const MoribSetContainer = ({ onCancel }: { onCancel: () => void }) => {
 			<div className="flex w-[30.2rem] flex-col gap-[0.8rem] rounded-r-[8px] bg-gray-bg-03 py-[1rem] pl-[0.9rem] pr-[1.7rem]">
 				<h3 className="detail-reg-14 h-[3.4rem] w-[28.6rem] p-[1rem] text-gray-04">허용할 사이트</h3>
 				<ul className="h-[37.6rem] overflow-y-auto">
-					{Array(20)
-						.fill('(150) 침착맨 - Youtube')
-						.map((item, index) => (
-							<li
+					{ALLOW_SITE_LIST.filter((item) => item.id === selectedSetId).map((item) =>
+						item.allowedsites.map((site, index) => (
+							<div
 								key={index}
 								className="flex h-[3.2rem] w-[27.6rem] items-center gap-[1rem] rounded-[3px] px-[0.7rem] odd:bg-gray-bg-02"
 							>
 								<img src="https://img.icons8.com/color/48/youtube-play.png" alt="YouTube Icon" className="h-6 w-6" />
-								<span className="detail-reg-12 text-white">{item}</span>
-							</li>
-						))}
+								<span className="detail-reg-12 text-white">{site}</span>
+							</div>
+						)),
+					)}
 				</ul>
 			</div>
 		</div>
