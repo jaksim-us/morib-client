@@ -1,14 +1,14 @@
 import { BackIcon } from '../assets/svgs';
 import { BoxAllowedService, ButtonService, Tabs } from './components';
 
-interface ServiceStepProps {
+interface StepServiceProps {
 	setStep: (step: string) => void;
 	activeTab: string;
 	onChangeActiveTab: (tab: string) => void;
 	FIELDS: string[];
 }
 
-const ServiceStep = ({ setStep, activeTab, onChangeActiveTab, FIELDS }: ServiceStepProps) => {
+const StepService = ({ setStep, activeTab, onChangeActiveTab, FIELDS }: StepServiceProps) => {
 	return (
 		<div className="grid w-full grid-cols-[1fr,48.7rem] bg-gray-bg-01">
 			<main className="relative flex w-full pb-[4.8rem] pl-[6rem] pr-[4.2rem] pt-[15rem]">
@@ -68,4 +68,4 @@ const ServiceStep = ({ setStep, activeTab, onChangeActiveTab, FIELDS }: ServiceS
 	);
 };
 
-export default ServiceStep;
+export default StepService;

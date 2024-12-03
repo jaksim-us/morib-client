@@ -2,14 +2,14 @@ import { HomeLargeBtnVariant } from '@/shared/types/global';
 
 import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
 
-interface FieldStepProps {
+interface StepFieldProps {
 	setStep: (step: string) => void;
 	onSelectField: (field: string) => void;
 	selectedField: string[];
 	FIELDS: string[];
 }
 
-const FieldStep = ({ setStep, onSelectField, selectedField, FIELDS }: FieldStepProps) => {
+const StepField = ({ setStep, onSelectField, selectedField, FIELDS }: StepFieldProps) => {
 	return (
 		<main className="flex min-h-screen w-full flex-col items-center justify-center">
 			<h1 className="title-bold-36 mb-[2rem] text-center text-white">주로 어떤 분야에 집중하시나요?</h1>
@@ -44,4 +44,4 @@ const FieldStep = ({ setStep, onSelectField, selectedField, FIELDS }: FieldStepP
 	);
 };
 
-export default FieldStep;
+export default StepField;

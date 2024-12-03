@@ -4,11 +4,11 @@ import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
 
 import { OnboardingIcon } from '../assets/svgs';
 
-interface StartStepProps {
+interface StepStartProps {
 	setStep: (step: string) => void;
 }
 
-const StartStep = ({ setStep }: StartStepProps) => {
+const StepStart = ({ setStep }: StepStartProps) => {
 	return (
 		<main className="flex w-full flex-col items-center justify-center">
 			<h1 className="title-bold-36 mb-[2rem] text-center text-white">집중을 도와줄 모립세트를 만들어볼까요?</h1>
@@ -28,4 +28,4 @@ const StartStep = ({ setStep }: StartStepProps) => {
 	);
 };
 
-export default StartStep;
+export default StepStart;
