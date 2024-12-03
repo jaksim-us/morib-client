@@ -87,8 +87,8 @@ const MoribSetContainer = ({
 								key={index}
 								className="flex h-[3.2rem] w-[27.6rem] items-center gap-[1rem] rounded-[3px] px-[0.7rem] odd:bg-gray-bg-02"
 							>
-								<img src="https://img.icons8.com/color/48/youtube-play.png" alt="YouTube Icon" className="h-6 w-6" />
-								<span className="detail-reg-12 text-white">{site}</span>
+								<img src={site.src} alt={`${site.name} Icon`} className="h-6 w-6" />
+								<span className="detail-reg-12 text-white">{site.name}</span>
 							</div>
 						)),
 					)}
