@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { FieldStep, ServiceStep, StartStep } from './components';
+import { StepField, StepService, StepStart } from './components';
 import { FIELDS } from './constants';
 import { useFunnel } from './hooks/useFunnel';
 
@@ -24,10 +24,10 @@ const OnboardingPage = () => {
 		<div className="flex h-screen w-[calc(100vw-7.4rem)] bg-gray-bg-01">
 			<Funnel>
 				<Step name="start">
-					<StartStep setStep={setStep} />
+					<StepStart setStep={setStep} />
 				</Step>
 				<Step name="field">
-					<FieldStep
+					<StepField
 						setStep={setStep}
 						onSelectField={handleSelectField}
 						selectedField={selectedField}
@@ -35,7 +35,7 @@ const OnboardingPage = () => {
 					/>
 				</Step>
 				<Step name="service">
-					<ServiceStep
+					<StepService
 						activeTab={activeTab}
 						onChangeActiveTab={handleChangeActiveTab}
 						setStep={setStep}

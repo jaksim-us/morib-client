@@ -1,3 +1,3 @@
-export { default as StartStep } from './Step/StartStep/StartStep.tsx';
-export { default as FieldStep } from './Step/FieldStep/FieldStep.tsx';
-export { default as ServiceStep } from './Step/ServiceStep/ServiceStep.tsx';
+export { default as StepStart } from './Step/StepStart/StepStart.tsx';
+export { default as StepField } from './Step/StepField/StepField.tsx';
+export { default as StepService } from './Step/StepService/StepService.tsx';
