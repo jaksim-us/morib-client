@@ -23,7 +23,12 @@ const mockData = [
 	{ id: 16, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
 ];
 
-const BoxAllowedService = () => {
+interface BoxAllowedServiceProps {
+	selectedService: string[];
+	onRemoveSelectedService: (service: string) => void;
+}
+
+const BoxAllowedService = ({ selectedService, onRemoveSelectedService }: BoxAllowedServiceProps) => {
 	return (
 		<div className="flex h-screen w-[48.7rem] flex-shrink-0 pb-[4.8rem] pr-[4.2rem] pt-[11.8rem]">
 			<div className="grid w-full grid-rows-[auto,1fr,auto] rounded-[18px] bg-gray-bg-03 p-[2.8rem]">
@@ -38,17 +43,21 @@ const BoxAllowedService = () => {
 				</div>
 
 				<ul className="mt-[2rem] overflow-auto">
-					{mockData.map((data) => (
+					{selectedService.map((service) => (
 						<li
-							key={data.id}
+							key={service}
 							className="flex h-[5.4rem] w-full items-center border-b border-b-gray-bg-04 px-[1rem] py-[1.2rem]"
 						>
 							<DesignSmIcon />
-							<h3 className="body-med-16 ml-[1.2rem] p-0 text-white">{data.name}</h3>
-							<div className="body-reg-16 ml-[4.2rem] flex h-[3.1rem] w-[23.1rem] items-center rounded-[20px] bg-gray-bg-04 px-[1rem] py-[0.6rem] text-gray-04">
-								{data.url}
+							<h3 className="body-med-16 ml-[1.2rem] p-0 text-white">{'Pinterest'}</h3>
+							<div className="body-reg-16 ml-[4.2rem] h-[3.1rem] w-[23.1rem] overflow-hidden text-ellipsis whitespace-nowrap rounded-[20px] bg-gray-bg-04 px-[1rem] py-[0.6rem] text-gray-04">
+								{service}
 							</div>
-							<button>
+							<button
+								onClick={() => {
+									onRemoveSelectedService(service);
+								}}
+							>
 								<MinusIcon className="ml-[1.25rem]" />
 							</button>
 						</li>

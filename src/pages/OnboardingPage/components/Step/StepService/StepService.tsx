@@ -1,14 +1,35 @@
+import { ChangeEvent, useState } from 'react';
+
 import { BackIcon } from '../assets/svgs';
 import { BoxAllowedService, ButtonService, Tabs } from './components';
 
 interface StepServiceProps {
 	setStep: (step: string) => void;
-	activeTab: string;
-	onChangeActiveTab: (tab: string) => void;
 	FIELDS: string[];
 }
 
-const StepService = ({ setStep, activeTab, onChangeActiveTab, FIELDS }: StepServiceProps) => {
+const StepService = ({ setStep, FIELDS }: StepServiceProps) => {
+	const [activeTab, setActiveTab] = useState('비즈니스');
+	const [input, setInput] = useState('');
+	const [selectedService, setSelectedService] = useState<string[]>([]);
+
+	const handleAddSelectedService = (service: string) => {
+		setSelectedService((prev) => [...prev, service]);
+		setInput('');
+	};
+
+	const handleRemoveSelectedService = (service: string) => {
+		setSelectedService((prev) => prev.filter((prevService) => prevService !== service));
+	};
+
+	const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+		setInput(e.target.value);
+	};
+
+	const handleChangeActiveTab = (tab: string) => {
+		setActiveTab(tab);
+	};
+
 	return (
 		<div className="grid w-full grid-cols-[1fr,48.7rem] bg-gray-bg-01">
 			<main className="relative flex w-full pb-[4.8rem] pl-[6rem] pr-[4.2rem] pt-[15rem]">
@@ -29,7 +50,7 @@ const StepService = ({ setStep, activeTab, onChangeActiveTab, FIELDS }: StepServ
 							있어요.
 						</p>
 
-						<Tabs.Root activeTab={activeTab} onChangeActiveTab={onChangeActiveTab}>
+						<Tabs.Root activeTab={activeTab} onChangeActiveTab={handleChangeActiveTab}>
 							<Tabs.TriggerList>
 								{[...FIELDS, '기타'].map((field) => (
 									<Tabs.Trigger value={field} key={field} />
@@ -39,10 +60,7 @@ const StepService = ({ setStep, activeTab, onChangeActiveTab, FIELDS }: StepServ
 							<Tabs.ContentList>
 								<Tabs.Content value="비즈니스">
 									<div className="flex w-full flex-wrap gap-x-[2rem] gap-y-[2.3rem]">
-										<ButtonService />
-										<ButtonService />
-										<ButtonService />
-										<ButtonService />
+										<ButtonService onAddSelectedService={handleAddSelectedService} />
 									</div>
 								</Tabs.Content>
 							</Tabs.ContentList>
@@ -51,19 +69,23 @@ const StepService = ({ setStep, activeTab, onChangeActiveTab, FIELDS }: StepServ
 
 					<div className="flex h-[6.6rem] items-center justify-between rounded-[8px] bg-gray-bg-02 py-[1rem] pl-[2rem] pr-[1rem]">
 						<input
+							value={input}
+							onChange={handleChangeInput}
 							className="subhead-med-18 flex flex-grow bg-transparent text-gray-04"
 							placeholder="직접 url 입력하기"
 						/>
 
-						<button className="body-semibold-16 ml-[2rem] rounded-[5px] bg-gray-bg-05 px-[2.2rem] py-[1.2rem] text-gray-04">
+						<button
+							onClick={() => handleAddSelectedService(input)}
+							className="body-semibold-16 ml-[2rem] rounded-[5px] bg-gray-bg-05 px-[2.2rem] py-[1.2rem] text-gray-04"
+						>
 							등록하기
 						</button>
 					</div>
 				</div>
-				{/* <button onClick={() => setStep('service')}>다음</button> */}
 			</main>
 
-			<BoxAllowedService />
+			<BoxAllowedService selectedService={selectedService} onRemoveSelectedService={handleRemoveSelectedService} />
 		</div>
 	);
 };

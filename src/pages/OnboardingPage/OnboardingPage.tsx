@@ -7,17 +7,12 @@ import { useFunnel } from './hooks/useFunnel';
 const OnboardingPage = () => {
 	const { Funnel, Step, setStep } = useFunnel();
 
-	const [activeTab, setActiveTab] = useState('비즈니스');
 	const [selectedField, setSelectedField] = useState<string[]>([]);
 
 	const handleSelectField = (field: string) => {
 		setSelectedField((prev) =>
 			prev.includes(field) ? prev.filter((prevField) => prevField !== field) : [...prev, field],
 		);
-	};
-
-	const handleChangeActiveTab = (tab: string) => {
-		setActiveTab(tab);
 	};
 
 	return (
@@ -35,12 +30,7 @@ const OnboardingPage = () => {
 					/>
 				</Step>
 				<Step name="service">
-					<StepService
-						activeTab={activeTab}
-						onChangeActiveTab={handleChangeActiveTab}
-						setStep={setStep}
-						FIELDS={FIELDS}
-					/>
+					<StepService setStep={setStep} FIELDS={FIELDS} />
 				</Step>
 			</Funnel>
 		</div>
