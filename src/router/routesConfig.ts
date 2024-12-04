@@ -11,6 +11,10 @@ export const ROUTES_CONFIG = {
 		title: 'Timer',
 		path: '/timer',
 	},
+	moribSet: {
+		title: 'MoribSet',
+		path: '/moribSet',
+	},
 	redirect: {
 		title: 'Redirect',
 		path: '/redirect',
