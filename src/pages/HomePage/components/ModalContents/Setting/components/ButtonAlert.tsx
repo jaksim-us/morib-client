@@ -6,8 +6,8 @@ interface ButtonAlertProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const ButtonAlert = ({ children, variant = 'primary', ...props }: ButtonAlertProps) => {
-	const primaryStyle = 'bg-gray-bg-06';
-	const dangerStyle = 'bg-error-01';
+	const primaryStyle = 'bg-gray-bg-06 hover:bg-gray-bg-04 active:bg-gray-bg-05';
+	const dangerStyle = 'bg-error-01 hover:bg-error-03 active:bg-error-03 active:text-gray-04';
 	const buttonStyle = variant === 'primary' ? primaryStyle : dangerStyle;
 	return (
 		<button
