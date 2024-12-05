@@ -30,7 +30,6 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
 import HomePageWrapper from '@/components/templates/HomePageWrapper';
-import ModalContentsAlerts from '@/pages/HomePage/components/ModalContents/Setting/ModalContentsAlert';
 
 import ButtonSVG from '../../shared/components/ButtonSVG';
 import BoxCategory from './components/BoxCategory';
@@ -269,7 +268,7 @@ const HomePage = () => {
 				</section>
 			</div>
 			<ModalWrapper ref={categoryModalRef} backdrop={true}>
-				<ModalContentsAlerts variant="delete-account" />
+				<ModalContentsCategory handleCloseModal={handleCloseModal} />
 			</ModalWrapper>
 
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
