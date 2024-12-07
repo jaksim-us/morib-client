@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 import { BackIcon } from '../assets/svgs';
 import { BoxAllowedService, ButtonService, Tabs } from './components';
@@ -24,6 +24,12 @@ const StepService = ({ setStep, FIELDS }: StepServiceProps) => {
 
 	const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
 		setInput(e.target.value);
+	};
+
+	const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+			handleAddSelectedService(input);
+		}
 	};
 
 	const handleChangeActiveTab = (tab: string) => {
@@ -70,14 +76,16 @@ const StepService = ({ setStep, FIELDS }: StepServiceProps) => {
 					<div className="flex h-[6.6rem] items-center justify-between rounded-[8px] bg-gray-bg-02 py-[1rem] pl-[2rem] pr-[1rem]">
 						<input
 							value={input}
+							onKeyDown={handleKeyDown}
 							onChange={handleChangeInput}
-							className="subhead-med-18 flex flex-grow bg-transparent text-gray-04"
+							className="subhead-med-18 flex flex-grow bg-transparent text-gray-04 focus:outline-none"
 							placeholder="직접 url 입력하기"
 						/>
 
 						<button
 							onClick={() => handleAddSelectedService(input)}
-							className="body-semibold-16 ml-[2rem] rounded-[5px] bg-gray-bg-05 px-[2.2rem] py-[1.2rem] text-gray-04"
+							disabled={input === ''}
+							className={`body-semibold-16 ml-[2rem] rounded-[5px] px-[2.2rem] py-[1.2rem] ${input ? 'bg-main-gra-01 text-gray-01 hover:bg-main-gra-hover active:bg-main-gra-press' : 'bg-gray-bg-05 text-gray-04'}`}
 						>
 							등록하기
 						</button>
