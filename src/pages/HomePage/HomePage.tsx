@@ -165,7 +165,7 @@ const HomePage = () => {
 	}
 
 	return (
-		<div className="flex min-h-screen bg-gray-bg-01">
+		<div className="flex h-screen w-[calc(100vw-7.4rem)] overflow-auto bg-gray-bg-01 p-[4.2rem]">
 			<div className={`absolute right-[4.2rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodoOverlayStyle}`}>
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
@@ -175,82 +175,88 @@ const HomePage = () => {
 				</button>
 			</div>
 
-			<div className="absolute left-[11.6rem] top-[5.4rem] flex items-center gap-[1.8rem]">
-				<ButtonUserProfile isMyProfile />
-				<ul className="flex gap-[1.8rem]">
-					<li>
-						<ButtonUserProfile isConnecting />
-					</li>
-					<li>
-						<ButtonUserProfile isConnecting />
-					</li>
-					<li>
-						<ButtonUserProfile isConnecting />
-					</li>
-				</ul>
-				<ButtonMoreFriends friendsCount={12} />
-			</div>
+			<div className="grid h-full w-full grid-cols-[1fr,40.2rem]">
+				<main className="flex h-full flex-col gap-[1.6rem]">
+					<div className="flex items-center gap-[1.8rem]">
+						<ButtonUserProfile isMyProfile />
+						<ul className="flex gap-[1.8rem]">
+							<li>
+								<ButtonUserProfile isConnecting />
+							</li>
+							<li>
+								<ButtonUserProfile isConnecting />
+							</li>
+							<li>
+								<ButtonUserProfile isConnecting />
+							</li>
+						</ul>
+						<ButtonMoreFriends friendsCount={12} />
+					</div>
 
-			<BoxTodayTodo
-				time={targetTime}
-				addingTodayTodoStatus={addingTodayTodoStatus}
-				selectedTodayTodos={todayTodos}
-				hasTodos={isTaskExist(dailyCategoryTask)}
-				enableAddingTodayTodo={enableAddingTodayTodo}
-				disableAddingTodayTodo={disableAddingTodayTodo}
-				deleteTodayTodos={deleteTodayTodos}
-				getSelectedNumber={getSelectedNumber}
-				enableComplete={enableComplete}
-				cancelComplte={cancelComplete}
-				addingComplete={addingComplete}
-				onCreateTodayTodos={handleCreateTodayTodos}
-			/>
+					<DatePicker
+						todayDate={todayDate}
+						selectedDate={selectedDate}
+						onSelectedDateChange={handleSelectedDateChange}
+					/>
 
-			<main className="absolute left-[11.6rem] top-[15.2rem] flex flex-col">
-				<DatePicker todayDate={todayDate} selectedDate={selectedDate} onSelectedDateChange={handleSelectedDateChange} />
-
-				<div className="flex">
-					<div className="flex h-[732px] w-[1262px] gap-[2.8rem] overflow-x-auto">
-						{dailyCategoryTask.length !== 0 ? (
-							<>
-								{dailyCategoryTask.map(({ category, tasks }) => {
-									const { completedTasks, ongoingTasks } = splitTasksByCompletion(tasks);
-									return (
-										<BoxCategory
-											id={category.id}
-											key={category.id}
-											title={category.name}
-											ongoingTodos={ongoingTasks}
-											completedTodos={completedTasks}
-											updateTodayTodos={updateTodayTodos}
-											addingTodayTodoStatus={addingTodayTodoStatus}
-											getSelectedNumber={getSelectedNumber}
-											addingComplete={addingComplete}
-											onDeleteCategory={handleDeleteCategory}
-										/>
-									);
-								})}
-								{dailyCategoryTask.length <= 2 && (
-									<div className="flex flex-col">
-										<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
-											<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
-										</ButtonSVG>
-									</div>
-								)}
-							</>
-						) : (
-							<StatusDefaultHome onClick={handleOpenCategoryModal} />
+					<div className="flex h-full w-full">
+						<div className="flex h-full w-0 flex-1 gap-[2.8rem] overflow-x-auto">
+							{dailyCategoryTask.length !== 0 ? (
+								<>
+									{dailyCategoryTask.map(({ category, tasks }) => {
+										const { completedTasks, ongoingTasks } = splitTasksByCompletion(tasks);
+										return (
+											<BoxCategory
+												id={category.id}
+												key={category.id}
+												title={category.name}
+												ongoingTodos={ongoingTasks}
+												completedTodos={completedTasks}
+												updateTodayTodos={updateTodayTodos}
+												addingTodayTodoStatus={addingTodayTodoStatus}
+												getSelectedNumber={getSelectedNumber}
+												addingComplete={addingComplete}
+												onDeleteCategory={handleDeleteCategory}
+											/>
+										);
+									})}
+									{dailyCategoryTask.length <= 2 && (
+										<div className="flex flex-col">
+											<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
+												<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
+											</ButtonSVG>
+										</div>
+									)}
+								</>
+							) : (
+								<StatusDefaultHome onClick={handleOpenCategoryModal} />
+							)}
+						</div>
+						{dailyCategoryTask.length > 2 && (
+							<div className="mx-[2.2rem] flex flex-col">
+								<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
+									<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
+								</ButtonSVG>
+							</div>
 						)}
 					</div>
-					{dailyCategoryTask.length > 2 && (
-						<div className="ml-[2.2rem] flex flex-col">
-							<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
-								<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
-							</ButtonSVG>
-						</div>
-					)}
-				</div>
-			</main>
+				</main>
+
+				<BoxTodayTodo
+					time={targetTime}
+					addingTodayTodoStatus={addingTodayTodoStatus}
+					selectedTodayTodos={todayTodos}
+					hasTodos={isTaskExist(dailyCategoryTask)}
+					enableAddingTodayTodo={enableAddingTodayTodo}
+					disableAddingTodayTodo={disableAddingTodayTodo}
+					deleteTodayTodos={deleteTodayTodos}
+					getSelectedNumber={getSelectedNumber}
+					enableComplete={enableComplete}
+					cancelComplte={cancelComplete}
+					addingComplete={addingComplete}
+					onCreateTodayTodos={handleCreateTodayTodos}
+				/>
+			</div>
 
 			<ModalWrapper ref={categoryModalRef} backdrop={true}>
 				<ModalContentsCategory handleCloseModal={handleCloseModal} />

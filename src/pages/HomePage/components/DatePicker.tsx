@@ -35,7 +35,7 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 	};
 
 	return (
-		<header className="mb-[2.8rem]">
+		<header className="mb-[2.8rem] w-full">
 			<section className="relative">
 				<Dropdown.Root>
 					<Dropdown.Trigger>
@@ -63,8 +63,8 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 			</section>
 
 			<div className="flex items-center gap-[4.7rem]">
-				<nav>
-					<ul className="flex">
+				<nav className="w-full min-w-[636px]">
+					<ul className="grid w-full grid-cols-7">
 						{weekDates.map(({ date, day }) => {
 							const isSelected = selectedDate.isSame(date, 'day');
 							const formattedDate = date.format('DD');
@@ -80,7 +80,7 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 						})}
 					</ul>
 				</nav>
-				<div className="flex gap-[1rem]">
+				<div className="mr-[9.8rem] flex gap-[1rem]">
 					<ArrowSVGBtn direction={Direction.LEFT} onClick={handlePreviousWeek} />
 					<ButtonSVG onClick={handleClickTodayBtn}>
 						<ButtonTodayIcon className="rounded-[37px] bg-gray-bg-03 hover:bg-gray-bg-05" />
