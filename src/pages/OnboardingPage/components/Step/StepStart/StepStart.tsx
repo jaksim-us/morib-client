@@ -1,8 +1,8 @@
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 
-import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
+import { OnboardingIcon } from '@/shared/assets/home/svgs';
 
-import { OnboardingIcon } from '../assets/svgs';
+import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
 
 interface StepStartProps {
 	setStep: (step: string) => void;

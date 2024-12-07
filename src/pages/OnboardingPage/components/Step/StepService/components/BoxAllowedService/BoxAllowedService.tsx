@@ -1,27 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 
+import { ColorIcon, DesignSmIcon, MinusIcon, PencilIcon } from '@/shared/assets/home/svgs';
+
 import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
-
-import { ColorIcon, DesignSmIcon, MinusIcon, PencilIcon } from '../../../assets/svgs';
-
-const mockData = [
-	{ id: 1, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 2, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 3, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 4, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 5, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 6, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 7, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 8, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 9, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 10, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 11, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 12, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 13, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 14, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 15, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-	{ id: 16, name: 'Pinterest', url: 'https://kr.pinterest.com/' },
-];
 
 interface BoxAllowedServiceProps {
 	selectedService: string[];
@@ -29,6 +12,8 @@ interface BoxAllowedServiceProps {
 }
 
 const BoxAllowedService = ({ selectedService, onRemoveSelectedService }: BoxAllowedServiceProps) => {
+	const navigate = useNavigate();
+
 	return (
 		<div className="flex h-screen w-[48.7rem] flex-shrink-0 pb-[4.8rem] pr-[4.2rem] pt-[11.8rem]">
 			<div className="grid w-full grid-rows-[auto,1fr,auto] rounded-[18px] bg-gray-bg-03 p-[2.8rem]">
@@ -64,7 +49,12 @@ const BoxAllowedService = ({ selectedService, onRemoveSelectedService }: BoxAllo
 					))}
 				</ul>
 
-				<HomeLargeBtn variant={HomeLargeBtnVariant.MIDDLE} className="mt-[2rem]">
+				<HomeLargeBtn
+					onClick={() => navigate('/home')}
+					disabled={selectedService.length === 0}
+					variant={HomeLargeBtnVariant.MIDDLE}
+					className="mt-[2rem]"
+				>
 					모두 입력했어요
 				</HomeLargeBtn>
 			</div>
