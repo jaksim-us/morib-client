@@ -23,7 +23,7 @@ const TitleAllowedService = ({ onClick, registeredNames }: TitleAllowedServicePr
 			) : (
 				<>
 					<MoribSetBtnDefaultIcon />
-					<p className="subhead-semibold-20 text-gray-03">모립세트를 등록해주세요.</p>
+					<p className="subhead-semibold-20 text-gray-03">허용서비스 세트를 등록해주세요.</p>
 				</>
 			)}
 		</div>
