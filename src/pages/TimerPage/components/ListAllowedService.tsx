@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { ALLOW_SITE_LIST } from '@/shared/constants/allowStieList';
 
-const MoribSetContainer = ({
+const ListAllowedService = ({
 	onCancel,
 	onRegister,
 }: {
@@ -48,7 +48,7 @@ const MoribSetContainer = ({
 							>
 								<input
 									type="checkbox"
-									id={`item-${item.id}`}
+									id={`${item.id}`}
 									checked={checkedSetIds.includes(item.id)}
 									onChange={() => handleCheckboxChange(item.id)}
 									className="h-[1.4rem] w-[1.4rem] rounded border-gray-600 focus:ring"
@@ -83,13 +83,13 @@ const MoribSetContainer = ({
 				<ul className="h-[37.6rem] overflow-y-auto">
 					{ALLOW_SITE_LIST.filter((item) => item.id === selectedSetId).map((item) =>
 						item.allowedsites.map((site, index) => (
-							<div
+							<li
 								key={index}
 								className="flex h-[3.2rem] w-[27.6rem] items-center gap-[1rem] rounded-[3px] px-[0.7rem] odd:bg-gray-bg-02"
 							>
 								<img src={site.src} alt={`${site.name} Icon`} className="h-6 w-6" />
 								<span className="detail-reg-12 text-white">{site.name}</span>
-							</div>
+							</li>
 						)),
 					)}
 				</ul>
@@ -98,4 +98,4 @@ const MoribSetContainer = ({
 	);
 };
 
-export default MoribSetContainer;
+export default ListAllowedService;

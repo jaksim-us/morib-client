@@ -20,12 +20,11 @@ import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
 import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
 import TimerPageTemplates from '@/components/templates/TimerPageTemplates';
-
-import Carousel from './components/Carousel';
-import MoribSetContainer from './components/MoribSetContainer';
-import MoribSetTitle from './components/MoribSetTitle';
-import SideBarTimer from './components/SideBarTimer';
-import Timer from './components/Timer';
+import Carousel from '@/pages/TimerPage/components/Carousel';
+import ListAllowedService from '@/pages/TimerPage/components/ListAllowedService';
+import SideBarTimer from '@/pages/TimerPage/components/SideBarTimer';
+import Timer from '@/pages/TimerPage/components/Timer';
+import TitleAllowedService from '@/pages/TimerPage/components/TitleAllowedService';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -130,7 +129,7 @@ const TimerPage = () => {
 		<TimerPageTemplates>
 			<div className="flex flex-col">
 				<div className="relative flex w-screen justify-between">
-					<MoribSetTitle onClick={handleMoribSetTitleClick} registeredNames={registeredNames} />
+					<TitleAllowedService onClick={handleMoribSetTitleClick} registeredNames={registeredNames} />
 					<div className="mr-[3.2rem] mt-[3.2rem] flex w-[10.8rem] items-center">
 						<button className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
 							<HomeIcon />
@@ -146,7 +145,7 @@ const TimerPage = () => {
 				{isMoribSetVisible && (
 					<div className="absolute top-[10rem] z-10 flex">
 						<div className="">
-							<MoribSetContainer onCancel={handleCancelClick} onRegister={handleRegister} />
+							<ListAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
 						</div>
 					</div>
 				)}
