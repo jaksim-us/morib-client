@@ -26,6 +26,8 @@ import SideBarTimer from '@/pages/TimerPage/components/SideBarTimer';
 import Timer from '@/pages/TimerPage/components/Timer';
 import TitleAllowedService from '@/pages/TimerPage/components/TitleAllowedService';
 
+import ToolTipAllowedService from './components/ToolTipAllowedService';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -130,6 +132,7 @@ const TimerPage = () => {
 			<div className="flex flex-col">
 				<div className="relative flex w-screen justify-between">
 					<TitleAllowedService onClick={handleMoribSetTitleClick} registeredNames={registeredNames} />
+					<ToolTipAllowedService />
 					<div className="mr-[3.2rem] mt-[3.2rem] flex w-[10.8rem] items-center">
 						<button className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
 							<HomeIcon />
