@@ -20,11 +20,11 @@ import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
 import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
 import TimerPageTemplates from '@/components/templates/TimerPageTemplates';
-import ListAllowedService from '@/pages/TimerPage/components/BoxAllowedService';
 import Carousel from '@/pages/TimerPage/components/Carousel';
 import SideBarTimer from '@/pages/TimerPage/components/SideBarTimer';
 import Timer from '@/pages/TimerPage/components/Timer';
 import TitleAllowedService from '@/pages/TimerPage/components/TitleAllowedService';
+import BoxAllowedService from '@/pages/TimerPage/components/BoxAllowedService';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -129,7 +129,7 @@ const TimerPage = () => {
 		<TimerPageTemplates>
 			<div className="flex flex-col">
 				<div className="relative flex w-screen justify-between">
-					<TitleAllowedService onClick={handleMoribSetTitleClick} registeredNames={registeredNames} />
+					<TitleAllowedService onClick={handleMoribSetTitleClick} registeredNames={registeredNames} isAllowedServiceVisible={isAllowedServiceVisible} />
 					<div className="mr-[3.2rem] mt-[3.2rem] flex w-[10.8rem] items-center">
 						<button className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
 							<HomeIcon />
@@ -143,8 +143,8 @@ const TimerPage = () => {
 					</div>
 				</div>
 				{isAllowedServiceVisible && (
-					<div className="absolute top-[10rem] z-10 flex">
-						<ListAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
+					<div className="absolute top-[8rem]  z-10 flex">
+						<BoxAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
 					</div>
 				)}
 

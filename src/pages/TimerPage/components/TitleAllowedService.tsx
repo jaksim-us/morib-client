@@ -6,9 +6,10 @@ import ToolTipAllowedService from './ToolTipAllowedService';
 interface TitleAllowedServiceProps {
 	onClick: () => void;
 	registeredNames: string[];
+	isAllowedServiceVisible: boolean;
 }
 
-const TitleAllowedService = ({ onClick, registeredNames }: TitleAllowedServiceProps) => {
+const TitleAllowedService = ({ onClick, registeredNames, isAllowedServiceVisible }: TitleAllowedServiceProps) => {
 	const joinedNames = registeredNames.join(', ');
 
 	return (
@@ -19,18 +20,20 @@ const TitleAllowedService = ({ onClick, registeredNames }: TitleAllowedServicePr
 					<p className="subhead-semibold-20 flex items-center overflow-hidden whitespace-nowrap text-gray-03">
 						<span className="text-mint-01">[</span>
 						<span className="overflow-hidden text-ellipsis whitespace-nowrap text-mint-01">{joinedNames}</span>
-						<span className="text-mint-01">] 모립 세트 실행 중</span>
+						<span className="text-mint-01">] 허용 서비스 세트 실행 중</span>
 					</p>
 				</>
 			) : (
-				<div className="ml-[3.2rem] mt-[3.2rem] flex-col items-center">
+				<div className="h-[7rem] flex-col items-center">
 					<div className="flex items-center">
 						<MoribSetBtnDefaultIcon />
 						<p className="subhead-semibold-20 text-gray-03">허용서비스 세트를 등록해주세요.</p>
 					</div>
-					<div className="ml-[1rem]">
-						<ToolTipAllowedService />
-					</div>
+					{!isAllowedServiceVisible && (
+						<div className="ml-[1.2rem]">
+							<ToolTipAllowedService />
+						</div>
+					)}
 				</div>
 			)}
 		</div>
