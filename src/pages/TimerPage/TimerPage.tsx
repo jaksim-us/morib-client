@@ -20,8 +20,8 @@ import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
 import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
 import TimerPageTemplates from '@/components/templates/TimerPageTemplates';
+import ListAllowedService from '@/pages/TimerPage/components/BoxAllowedService';
 import Carousel from '@/pages/TimerPage/components/Carousel';
-import ListAllowedService from '@/pages/TimerPage/components/ListAllowedService';
 import SideBarTimer from '@/pages/TimerPage/components/SideBarTimer';
 import Timer from '@/pages/TimerPage/components/Timer';
 import TitleAllowedService from '@/pages/TimerPage/components/TitleAllowedService';
@@ -58,7 +58,7 @@ const TimerPage = () => {
 
 	const [isPlaying, setIsPlaying] = useState(false);
 
-	const [isMoribSetVisible, setIsMoribSetVisible] = useState(false);
+	const [isAllowedServiceVisible, setIsAllowedServiceVisible] = useState(false);
 
 	const selectedTodoData = todos.find((todo: Todo) => todo.id === selectedTodo);
 
@@ -105,16 +105,16 @@ const TimerPage = () => {
 	};
 
 	const handleMoribSetTitleClick = () => {
-		setIsMoribSetVisible(true);
+		setIsAllowedServiceVisible(true);
 	};
 
 	const handleCancelClick = () => {
-		setIsMoribSetVisible(false);
+		setIsAllowedServiceVisible(false);
 	};
 
 	const handleRegister = (selectedNames: string[]) => {
 		setRegisteredNames(selectedNames);
-		setIsMoribSetVisible(false);
+		setIsAllowedServiceVisible(false);
 	};
 
 	const updateTargetTime = (newTime: number) => {
@@ -142,11 +142,9 @@ const TimerPage = () => {
 						</button>
 					</div>
 				</div>
-				{isMoribSetVisible && (
+				{isAllowedServiceVisible && (
 					<div className="absolute top-[10rem] z-10 flex">
-						<div className="">
-							<ListAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
-						</div>
+						<ListAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
 					</div>
 				)}
 

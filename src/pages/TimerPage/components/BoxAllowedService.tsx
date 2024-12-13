@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { ALLOW_SITE_LIST } from '@/shared/constants/allowStieList';
 
-const ListAllowedService = ({
+const BoxAllowedService = ({
 	onCancel,
 	onRegister,
 }: {
@@ -22,7 +22,7 @@ const ListAllowedService = ({
 
 	const handleRegisterClick = () => {
 		const selectedNames = ALLOW_SITE_LIST.filter((item) => checkedSetIds.includes(item.id)).map(
-			(item) => item.moribsetname,
+			(item) => item.allowedservicesetname,
 		);
 		onRegister(selectedNames);
 	};
@@ -55,7 +55,7 @@ const ListAllowedService = ({
 								/>
 							</div>
 							<div className="detail-semibold-14 w-[14.9rem] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-white">
-								{item.moribsetname}
+								{item.allowedservicesetname}
 							</div>
 
 							<span className="h-[1rem] w-[1rem] rounded-full bg-yellow-500" />
@@ -98,4 +98,4 @@ const ListAllowedService = ({
 	);
 };
 
-export default ListAllowedService;
+export default BoxAllowedService;
