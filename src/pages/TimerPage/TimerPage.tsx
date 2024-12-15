@@ -17,13 +17,14 @@ import { getBaseUrl } from '@/shared/utils/url';
 import { DATE_FORMAT, DEFAULT_URL, TIMEZONE } from '@/shared/constants/timerPageText';
 
 import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
+import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
 import TimerPageTemplates from '@/components/templates/TimerPageTemplates';
-
-import Carousel from './components/Carousel';
-import SideBarTimer from './components/SideBarTimer';
-import SideBoxTemporary from './components/SideBoxTemporary';
-import Timer from './components/Timer';
+import Carousel from '@/pages/TimerPage/components/Carousel';
+import SideBarTimer from '@/pages/TimerPage/components/SideBarTimer';
+import Timer from '@/pages/TimerPage/components/Timer';
+import TitleAllowedService from '@/pages/TimerPage/components/TitleAllowedService';
+import PopoverAllowedService from '@/pages/TimerPage/components/PopoverAllowedService';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -51,9 +52,13 @@ const TimerPage = () => {
 
 	const [selectedTodo, setSelectedTodo] = useSelectedTodo(todos);
 
+	const [registeredNames, setRegisteredNames] = useState<string[]>([]);
+
 	const [targetTime, setTargetTime] = useState(0);
 
 	const [isPlaying, setIsPlaying] = useState(false);
+
+	const [isAllowedServiceVisible, setIsAllowedServiceVisible] = useState(false);
 
 	const selectedTodoData = todos.find((todo: Todo) => todo.id === selectedTodo);
 
@@ -99,6 +104,19 @@ const TimerPage = () => {
 		setIsPlaying(isPlaying);
 	};
 
+	const handleMoribSetTitleClick = () => {
+		setIsAllowedServiceVisible(true);
+	};
+
+	const handleCancelClick = () => {
+		setIsAllowedServiceVisible(false);
+	};
+
+	const handleRegister = (selectedNames: string[]) => {
+		setRegisteredNames(selectedNames);
+		setIsAllowedServiceVisible(false);
+	};
+
 	const updateTargetTime = (newTime: number) => {
 		setTargetTime(newTime);
 	};
@@ -109,12 +127,29 @@ const TimerPage = () => {
 
 	return (
 		<TimerPageTemplates>
-			<div className="flex">
-				<div className="absolute left-0 bg-slate-500">
-					<SideBoxTemporary />
+			<div className="flex flex-col">
+				<div className="relative flex w-screen justify-between">
+					<TitleAllowedService onClick={handleMoribSetTitleClick} registeredNames={registeredNames} isAllowedServiceVisible={isAllowedServiceVisible} />
+					<div className="mr-[3.2rem] mt-[3.2rem] flex w-[10.8rem] items-center">
+						<button className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
+							<HomeIcon />
+						</button>
+						<button
+							onClick={handleSidebarToggle}
+							className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04"
+						>
+							<HamburgerIcon />
+						</button>
+					</div>
 				</div>
+				{isAllowedServiceVisible && (
+					<div className="absolute top-[8rem]  z-10 flex">
+						<PopoverAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
+					</div>
+				)}
+
 				<div
-					className={`mt-[-0.8rem] flex w-screen min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
+					className={`mt-[-0.8rem] flex w-screen h-screen min-h-[908px] min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
 				>
 					<header className="mt-[8.6rem] flex flex-col items-center gap-[1rem]">
 						<h1 className="title-semibold-64 text-white">{selectedTodoData?.name || ''}</h1>
@@ -134,12 +169,6 @@ const TimerPage = () => {
 					/>
 					<Carousel />
 				</div>
-				<button
-					onClick={handleSidebarToggle}
-					className="absolute right-[32px] top-[32px] h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04"
-				>
-					<HamburgerIcon />
-				</button>
 
 				<SideBarTimer
 					targetTime={targetTime}
