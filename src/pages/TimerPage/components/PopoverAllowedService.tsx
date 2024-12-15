@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { ALLOW_SITE_LIST } from '@/shared/constants/allowStieList';
 
-const BoxAllowedService = ({
+const PopoverAllowedService = ({
 	onCancel,
 	onRegister,
 }: {
@@ -98,4 +98,4 @@ const BoxAllowedService = ({
 	);
 };
 
-export default BoxAllowedService;
+export default PopoverAllowedService;

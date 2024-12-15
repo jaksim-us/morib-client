@@ -24,7 +24,7 @@ import Carousel from '@/pages/TimerPage/components/Carousel';
 import SideBarTimer from '@/pages/TimerPage/components/SideBarTimer';
 import Timer from '@/pages/TimerPage/components/Timer';
 import TitleAllowedService from '@/pages/TimerPage/components/TitleAllowedService';
-import BoxAllowedService from '@/pages/TimerPage/components/BoxAllowedService';
+import PopoverAllowedService from '@/pages/TimerPage/components/PopoverAllowedService';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -144,12 +144,12 @@ const TimerPage = () => {
 				</div>
 				{isAllowedServiceVisible && (
 					<div className="absolute top-[8rem]  z-10 flex">
-						<BoxAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
+						<PopoverAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
 					</div>
 				)}
 
 				<div
-					className={`mt-[-0.8rem] flex w-screen min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
+					className={`mt-[-0.8rem] flex w-screen h-screen min-h-[908px] min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
 				>
 					<header className="mt-[8.6rem] flex flex-col items-center gap-[1rem]">
 						<h1 className="title-semibold-64 text-white">{selectedTodoData?.name || ''}</h1>
