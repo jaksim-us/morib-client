@@ -22,37 +22,39 @@ const DeleteAccount = ({ handleClose, userEmail }: AlertModalProps) => {
 		}
 	};
 	return (
-		<div className="w-[62rem]">
-			<div className="mb-[3rem] flex justify-center">
-				<IconWarning width="5.4rem" />
-			</div>
-			<p className="subhead-bold-22 flex justify-center text-white">{userEmail} 계정이</p>
-			<p className="subhead-bold-22 mb-[3rem] flex justify-center text-white">
-				영구적으로 삭제됩니다. 삭제하시겠습니까?
-			</p>
-			<p className="subhead-med-18 mb-[1rem] flex justify-center text-gray-05">이메일을 입력하여 확인해주세요.</p>
-			<form action="" onSubmit={handleSubmit}>
-				<input
-					ref={inputRef}
-					type="text"
-					placeholder={userEmail}
-					onChange={handleInputChange}
-					className={`${error ? 'border-[1px] border-error-01' : ''} subhead-med-18 placeholder-text-gray-03 w-full rounded-[5px] bg-gray-bg-02 p-[1rem] text-white outline-none`}
-				/>
-				{error && (
-					<div className="mt-[1rem]">
-						<p className="body-reg-16 mb-[3rem] text-error-01">계속하려면 “{userEmail}”을(를) 입력하세요.</p>
-					</div>
-				)}
-				<div className="mt-[3rem] flex gap-[1rem]">
-					<ButtonAlert variant="danger" onClick={handleClose} type="submit">
-						계정 영구 삭제
-					</ButtonAlert>
-					<ButtonAlert variant="primary" onClick={handleClose}>
-						취소하기
-					</ButtonAlert>
+		<div className="flex flex-col rounded-[0.8rem] bg-gray-bg-04 p-[3rem]">
+			<div className="w-[62rem]">
+				<div className="mb-[3rem] flex justify-center">
+					<IconWarning width="5.4rem" />
 				</div>
-			</form>
+				<p className="subhead-bold-22 flex justify-center text-white">{userEmail} 계정이</p>
+				<p className="subhead-bold-22 mb-[3rem] flex justify-center text-white">
+					영구적으로 삭제됩니다. 삭제하시겠습니까?
+				</p>
+				<p className="subhead-med-18 mb-[1rem] flex justify-center text-gray-05">이메일을 입력하여 확인해주세요.</p>
+				<form action="" onSubmit={handleSubmit}>
+					<input
+						ref={inputRef}
+						type="text"
+						placeholder={userEmail}
+						onChange={handleInputChange}
+						className={`${error ? 'border-[1px] border-error-01' : ''} subhead-med-18 placeholder-text-gray-03 w-full rounded-[5px] bg-gray-bg-02 p-[1rem] text-white outline-none`}
+					/>
+					{error && (
+						<div className="absolute mt-[1rem]">
+							<p className="body-reg-16 mb-[3rem] text-error-01">계속하려면 “{userEmail}”을(를) 입력하세요.</p>
+						</div>
+					)}
+					<div className="mt-[5.7rem] flex gap-[1rem]">
+						<ButtonAlert variant="danger" onClick={handleClose} type="submit">
+							계정 영구 삭제
+						</ButtonAlert>
+						<ButtonAlert variant="primary" onClick={handleClose}>
+							취소하기
+						</ButtonAlert>
+					</div>
+				</form>
+			</div>
 		</div>
 	);
 };
