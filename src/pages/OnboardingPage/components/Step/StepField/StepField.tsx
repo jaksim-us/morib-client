@@ -12,10 +12,10 @@ interface StepFieldProps {
 const StepField = ({ setStep, onSelectField, selectedField, FIELDS }: StepFieldProps) => {
 	return (
 		<main className="flex min-h-screen w-full flex-col items-center overflow-auto pb-[18.2rem] pt-[18rem] 2xl:pb-0">
-			<h1 className="title-bold-36 mb-[2rem] text-center text-white">주로 어떤 분야에 집중하시나요?</h1>
-			<p className="body-reg-24 mb-[8.3rem] text-center text-gray-04">
+			<h1 className="mb-[2rem] text-center text-white title-bold-36">주로 어떤 분야에 집중하시나요?</h1>
+			<h2 className="mb-[8.3rem] text-center text-gray-04 body-reg-24">
 				업무 분야에 자주 쓰이는 서비스들을 추천 해드릴게요
-			</p>
+			</h2>
 
 			<div>
 				<ul className="mb-[11.7rem] flex flex-wrap justify-center gap-[2rem]">
@@ -23,7 +23,7 @@ const StepField = ({ setStep, onSelectField, selectedField, FIELDS }: StepFieldP
 						<li key={field}>
 							<button
 								onClick={() => onSelectField(field)}
-								className={`head-bold-24 flex h-[28rem] w-[22rem] items-center justify-center rounded-[8px] text-white ${selectedField.includes(field) ? 'border border-mint-01 bg-gray-bg-02' : 'bg-gray-bg-03'}`}
+								className={`flex h-[28rem] w-[22rem] items-center justify-center rounded-[8px] text-white head-bold-24 ${selectedField.includes(field) ? 'border border-mint-01 bg-gray-bg-02' : 'bg-gray-bg-03'}`}
 							>
 								{field}
 							</button>
@@ -41,7 +41,7 @@ const StepField = ({ setStep, onSelectField, selectedField, FIELDS }: StepFieldP
 				다음으로 넘어가기
 			</HomeLargeBtn>
 
-			<button className="subhead-reg-22 text-gray-04">건너뛰기</button>
+			<button className="text-gray-04 subhead-reg-22">건너뛰기</button>
 		</main>
 	);
 };
