@@ -21,7 +21,7 @@ const BoxAllowedService = ({ selectedService, onRemoveSelectedService }: BoxAllo
 					<button>
 						<ColorIcon />
 					</button>
-					<h2 className="head-bold-30 ml-[1rem] text-white">나의 모립세트</h2>
+					<h2 className="ml-[1rem] text-white head-bold-30">나의 모립세트</h2>
 					<button className="ml-[1.7rem]">
 						<PencilIcon />
 					</button>
@@ -34,8 +34,8 @@ const BoxAllowedService = ({ selectedService, onRemoveSelectedService }: BoxAllo
 							className="flex h-[5.4rem] w-full items-center border-b border-b-gray-bg-04 px-[1rem] py-[1.2rem]"
 						>
 							<DesignSmIcon />
-							<h3 className="body-med-16 ml-[1.2rem] p-0 text-white">{'Pinterest'}</h3>
-							<div className="body-reg-16 ml-[4.2rem] h-[3.1rem] w-[23.1rem] overflow-hidden text-ellipsis whitespace-nowrap rounded-[20px] bg-gray-bg-04 px-[1rem] py-[0.6rem] text-gray-04">
+							<h3 className="ml-[1.2rem] p-0 text-white body-med-16">{'Pinterest'}</h3>
+							<div className="ml-[4.2rem] h-[3.1rem] w-[23.1rem] truncate rounded-[20px] bg-gray-bg-04 px-[1rem] py-[0.6rem] text-gray-04 body-reg-16">
 								{service}
 							</div>
 							<button

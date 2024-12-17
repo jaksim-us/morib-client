@@ -12,12 +12,8 @@ const ButtonService = ({ onAddSelectedService }: ButtonServiceProps) => {
 		>
 			<DesignIcon />
 			<div className="flex flex-col">
-				<p className="head-bold-24 w-[21.3rem] overflow-hidden text-ellipsis whitespace-nowrap text-start text-white">
-					디자인
-				</p>
-				<p className="detail-reg-14 w-[21.3rem] overflow-hidden text-ellipsis whitespace-nowrap text-start text-gray-03">
-					https://www.behance.net/
-				</p>
+				<p className="w-[21.3rem] truncate text-start text-white head-bold-24">디자인</p>
+				<p className="w-[21.3rem] truncate text-start text-gray-03 detail-reg-14">https://www.behance.net/</p>
 			</div>
 		</button>
 	);
