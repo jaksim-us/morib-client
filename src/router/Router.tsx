@@ -4,6 +4,8 @@ import { Suspense, lazy } from 'react';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
+import OnboardingPage from '@/pages/OnboardingPage/OnboardingPage';
+import Layout from '@/shared/layout/Layout';
 
 import RedirectPage from '../pages/RedirectPage';
 import { ROUTES_CONFIG } from './routesConfig';
@@ -52,8 +54,18 @@ const router: Router = createBrowserRouter([
 				path: ROUTES_CONFIG.home.path,
 				element: (
 					<Suspense fallback={<div>Loading...</div>}>
-						<HomePage />
+						<Layout>
+							<HomePage />
+						</Layout>
 					</Suspense>
+				),
+			},
+			{
+				path: ROUTES_CONFIG.onboarding.path,
+				element: (
+					<Layout>
+						<OnboardingPage />
+					</Layout>
 				),
 			},
 			{
@@ -70,7 +82,11 @@ const router: Router = createBrowserRouter([
 	{
 		//404 페이지
 		path: '*',
-		element: <NotFoundPage />,
+		element: (
+			<Layout>
+				<NotFoundPage />
+			</Layout>
+		),
 	},
 ]);
 

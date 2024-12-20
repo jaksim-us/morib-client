@@ -29,8 +29,6 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
-import HomePageWrapper from '@/components/templates/HomePageWrapper';
-
 import ButtonSVG from '../../shared/components/ButtonSVG';
 import BoxCategory from './components/BoxCategory';
 import BoxTodayTodo from './components/BoxTodayTodo';
@@ -38,7 +36,6 @@ import ButtonMoreFriends from './components/ButtonMoreFriends';
 import ButtonUserProfile from './components/ButtonUserProfile';
 import DatePicker from './components/DatePicker';
 import { ModalContentsCategory, ModalContentsFriends } from './components/ModalContents';
-import SideBarHome from './components/SideBarHome';
 import StatusDefaultHome from './components/StatusDefaultHome';
 
 dayjs.extend(utc);
@@ -168,12 +165,8 @@ const HomePage = () => {
 	}
 
 	return (
-		<HomePageWrapper>
-			<div className={addTodayTodoOverlayStyle}>
-				<SideBarHome />
-			</div>
-
-			<div className={`absolute right-[4.4rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodoOverlayStyle}`}>
+		<div className="flex h-screen w-[calc(100vw-7.4rem)] overflow-auto bg-gray-bg-01 p-[4.2rem]">
+			<div className={`absolute right-[4.2rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodoOverlayStyle}`}>
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
 				</button>
@@ -182,32 +175,32 @@ const HomePage = () => {
 				</button>
 			</div>
 
-			<div className="flex h-full w-full justify-between p-[4.2rem]">
-				<section>
-					<div className={addTodayTodoOverlayStyle}>
-						<div className="flex h-[11rem] items-center gap-[1.8rem] pt-[1.2rem]">
-							<ButtonUserProfile isMyProfile />
-							<ul className="flex gap-[1.8rem]">
-								<li>
-									<ButtonUserProfile isConnecting />
-								</li>
-								<li>
-									<ButtonUserProfile isConnecting />
-								</li>
-								<li>
-									<ButtonUserProfile isConnecting />
-								</li>
-							</ul>
-							<ButtonMoreFriends friendsCount={12} />
-						</div>
-						<DatePicker
-							todayDate={todayDate}
-							selectedDate={selectedDate}
-							onSelectedDateChange={handleSelectedDateChange}
-						/>
+			<div className="grid h-full w-full grid-cols-[1fr,40.2rem]">
+				<main className="flex h-full flex-col gap-[1.6rem]">
+					<div className="flex items-center gap-[1.8rem]">
+						<ButtonUserProfile isMyProfile />
+						<ul className="flex gap-[1.8rem]">
+							<li>
+								<ButtonUserProfile isConnecting />
+							</li>
+							<li>
+								<ButtonUserProfile isConnecting />
+							</li>
+							<li>
+								<ButtonUserProfile isConnecting />
+							</li>
+						</ul>
+						<ButtonMoreFriends friendsCount={12} />
 					</div>
-					<div className="flex">
-						<article className="flex h-[732px] w-[1262px] gap-[2.8rem] overflow-x-auto">
+
+					<DatePicker
+						todayDate={todayDate}
+						selectedDate={selectedDate}
+						onSelectedDateChange={handleSelectedDateChange}
+					/>
+
+					<div className="flex h-full w-full">
+						<div className="flex h-full w-0 flex-1 gap-[2.8rem] overflow-x-auto">
 							{dailyCategoryTask.length !== 0 ? (
 								<>
 									{dailyCategoryTask.map(({ category, tasks }) => {
@@ -238,35 +231,33 @@ const HomePage = () => {
 							) : (
 								<StatusDefaultHome onClick={handleOpenCategoryModal} />
 							)}
-						</article>
+						</div>
 						{dailyCategoryTask.length > 2 && (
-							<div className="ml-[2.2rem] flex flex-col">
+							<div className="mx-[2.2rem] flex flex-col">
 								<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 									<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
 								</ButtonSVG>
 							</div>
 						)}
 					</div>
-				</section>
-				<section className="absolute right-[4.2rem] top-[15.2rem]">
-					<div className="flex flex-col">
-						<BoxTodayTodo
-							time={targetTime}
-							addingTodayTodoStatus={addingTodayTodoStatus}
-							selectedTodayTodos={todayTodos}
-							hasTodos={isTaskExist(dailyCategoryTask)}
-							enableAddingTodayTodo={enableAddingTodayTodo}
-							disableAddingTodayTodo={disableAddingTodayTodo}
-							deleteTodayTodos={deleteTodayTodos}
-							getSelectedNumber={getSelectedNumber}
-							enableComplete={enableComplete}
-							cancelComplte={cancelComplete}
-							addingComplete={addingComplete}
-							onCreateTodayTodos={handleCreateTodayTodos}
-						/>
-					</div>
-				</section>
+				</main>
+
+				<BoxTodayTodo
+					time={targetTime}
+					addingTodayTodoStatus={addingTodayTodoStatus}
+					selectedTodayTodos={todayTodos}
+					hasTodos={isTaskExist(dailyCategoryTask)}
+					enableAddingTodayTodo={enableAddingTodayTodo}
+					disableAddingTodayTodo={disableAddingTodayTodo}
+					deleteTodayTodos={deleteTodayTodos}
+					getSelectedNumber={getSelectedNumber}
+					enableComplete={enableComplete}
+					cancelComplte={cancelComplete}
+					addingComplete={addingComplete}
+					onCreateTodayTodos={handleCreateTodayTodos}
+				/>
 			</div>
+
 			<ModalWrapper ref={categoryModalRef} backdrop={true}>
 				<ModalContentsCategory handleCloseModal={handleCloseModal} />
 			</ModalWrapper>
@@ -274,7 +265,7 @@ const HomePage = () => {
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
 				<ModalContentsFriends ref={friendModalContentRef} />
 			</ModalWrapper>
-		</HomePageWrapper>
+		</div>
 	);
 };
 
