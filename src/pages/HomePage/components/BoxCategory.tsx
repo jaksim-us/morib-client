@@ -114,7 +114,7 @@ const BoxCategory = ({
 	};
 
 	return (
-		<div className="flex h-[73.2rem] w-[40.2rem] flex-shrink-0 flex-col rounded-[16px] bg-gray-bg-03 px-[1.8rem] pt-[1.8rem]">
+		<article className="flex h-full w-[40.2rem] flex-shrink-0 flex-col rounded-[16px] bg-gray-bg-03 px-[1.8rem] pt-[1.8rem]">
 			<div className="mt-[0.4rem] flex items-center justify-between">
 				<h2 className="head-bold-24 text-white">{title}</h2>
 				<div className="flex gap-[0.1rem]">
@@ -219,7 +219,7 @@ const BoxCategory = ({
 					</div>
 				</div>
 			)}
-		</div>
+		</article>
 	);
 };
 

@@ -1,6 +1,75 @@
 /** @type {import('tailwindcss')'Config} */
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+	plugins: [
+		({ addUtilities }) => {
+			addUtilities({
+				'.title-semibold-64': {
+					'@apply text-[6.4rem] font-semibold leading-normal': '',
+				},
+				'.title-bold-36': {
+					'@apply text-[3.6rem] font-bold leading-normal': '',
+				},
+				'.title-bold-32': {
+					'@apply text-[3.2rem] font-bold leading-normal': '',
+				},
+				'.title-med-32': {
+					'@apply text-[3.2rem] font-medium leading-normal': '',
+				},
+				'.head-bold-30': {
+					'@apply text-[3rem] font-bold leading-normal': '',
+				},
+				'.head-bold-28': {
+					'@apply text-[2.8rem] font-bold leading-normal': '',
+				},
+				'.head-bold-24': {
+					'@apply text-[2.4rem] font-bold leading-normal': '',
+				},
+				'.subhead-bold-22': {
+					'@apply text-[2.2rem] font-bold leading-140': '',
+				},
+				'.subhead-reg-22': {
+					'@apply text-[2.2rem] font-normal leading-120': '',
+				},
+				'.subhead-bold-20': {
+					'@apply text-[2rem] font-bold leading-120': '',
+				},
+				'.subhead-semibold-20': {
+					'@apply text-[2rem] font-semibold leading-120': '',
+				},
+				'.subhead-semibold-18': {
+					'@apply text-[1.8rem] font-semibold leading-120': '',
+				},
+				'.subhead-med-18': {
+					'@apply text-[1.8rem] font-medium leading-120': '',
+				},
+				'.body-semibold-16': {
+					'@apply text-[1.6rem] font-semibold leading-120': '',
+				},
+				'.body-semibold-16-done': {
+					'@apply text-[1.6rem] font-semibold leading-140 line-through': '',
+				},
+				'.body-med-16': {
+					'@apply text-[1.6rem] font-medium leading-140': '',
+				},
+				'.body-reg-24': {
+					'@apply text-[2.4rem] font-normal leading-normal': '',
+				},
+				'.body-reg-16': {
+					'@apply text-[1.6rem] font-normal leading-140': '',
+				},
+				'.detail-semibold-14': {
+					'@apply text-[1.4rem] font-semibold leading-140': '',
+				},
+				'.detail-reg-14': {
+					'@apply text-[1.4rem] font-normal leading-140': '',
+				},
+				'.detail-reg-12': {
+					'@apply text-[1.2rem] font-normal leading-120': '',
+				},
+			});
+		},
+	],
 	theme: {
 		extend: {
 			dropShadow: {
@@ -47,5 +116,4 @@ export default {
 			},
 		},
 	},
-	plugins: [],
 };

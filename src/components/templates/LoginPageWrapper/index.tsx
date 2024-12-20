@@ -5,7 +5,7 @@ interface LoginPageWrapperProps {
 }
 
 const LoginPageWrapper = ({ children }: LoginPageWrapperProps) => {
-	return <div className="bg-login-bg flex h-screen items-center justify-center bg-cover">{children}</div>;
+	return <div className="flex h-screen items-center justify-center bg-login-bg bg-cover">{children}</div>;
 };
 
 export default LoginPageWrapper;

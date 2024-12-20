@@ -1,15 +1,15 @@
 export const ROUTES_CONFIG = {
-	login: {
-		title: 'Login',
-		path: '/',
-	},
 	home: {
 		title: 'Home',
 		path: '/home',
 	},
-	timer: {
-		title: 'Timer',
-		path: '/timer',
+	login: {
+		title: 'Login',
+		path: '/',
+	},
+	onboarding: {
+		title: 'Onboarding',
+		path: '/onboarding',
 	},
 	moribSet: {
 		title: 'MoribSet',
@@ -18,5 +18,9 @@ export const ROUTES_CONFIG = {
 	redirect: {
 		title: 'Redirect',
 		path: '/redirect',
+	},
+	timer: {
+		title: 'Timer',
+		path: '/timer',
 	},
 };
