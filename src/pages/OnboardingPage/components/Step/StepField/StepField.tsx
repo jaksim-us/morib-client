@@ -1,6 +1,6 @@
-import { HomeLargeBtnVariant } from '@/shared/types/global';
+import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
 
-import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
+import { HomeLargeBtnVariant } from '@/shared/types/global';
 
 interface StepFieldProps {
 	setStep: (step: string) => void;

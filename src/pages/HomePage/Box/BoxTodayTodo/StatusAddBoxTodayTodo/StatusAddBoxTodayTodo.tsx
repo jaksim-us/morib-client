@@ -1,12 +1,12 @@
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
+import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
 
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 import { Task } from '@/shared/types/home';
 
 import { LARGE_BTN_TEXT, SMALL_BTN_TEXT } from '@/shared/constants/btnText';
 
-import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
-import HomeSmallBtn from '@/components/atoms/HomeSmallBtn';
+import HomeSmallBtn from '@/pages/HomePage/Box/BoxTodayTodo/StatusAddBoxTodayTodo/ButtonHomeSmall/ButtonHomeSmall';
 
 interface StatusAddBoxTodayTodoProps {
 	selectedTodayTodos: Omit<Task, 'isComplete'>[];
