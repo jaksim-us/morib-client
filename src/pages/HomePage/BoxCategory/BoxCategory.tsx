@@ -2,6 +2,7 @@ import { Dayjs } from 'dayjs';
 
 import { Suspense, lazy, useRef } from 'react';
 
+import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
 import ButtonSVG from '@/shared/components/ButtonSVG';
 
 import { useCalendar } from '@/shared/hooks/useCalendar';
@@ -16,8 +17,7 @@ import { Task } from '@/shared/types/home';
 import ButtonAddIcon from '@/shared/assets/svgs/btn_task_add.svg?react';
 import MeatBallDefault from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import BoxTodo from '../BoxTodo/BoxTodo';
-import ButtonTodoToggle from '../ButtonTodayToggle/ButtonTodoToggle';
+import ButtonTodoToggle from '../../../shared/components/ButtonTodayToggle/ButtonTodoToggle';
 import BoxTodoInput from './BoxTodoInput/BoxTodoInput';
 import StatusDefaultBoxCategory from './StatusDefaultBoxCategory/StatusDefaultBoxCategory';
 
