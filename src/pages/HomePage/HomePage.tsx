@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import ButtonSVG from '@/shared/components/ButtonSVG';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
@@ -29,14 +30,10 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
-import ButtonSVG from '../../shared/components/ButtonSVG';
-import BoxCategory from './Box/BoxCategory/BoxCategory';
-import BoxTodayTodo from './Box/BoxTodayTodo/BoxTodayTodo';
-import ButtonMoreFriends from './Button/ButtonMoreFriends/ButtonMoreFriends';
-import ButtonUserProfile from './Button/ButtonUserProfile/ButtonUserProfile';
+import { BoxCategory, BoxTodayTodo } from './Box';
+import { ButtonMoreFriends, ButtonUserProfile } from './Button';
 import DatePicker from './DatePicker/DatePicker';
-import ModalContentsCategory from './ModalContents/ModalContentsCategory/ModalContentsCategory';
-import ModalContentsFriends from './ModalContents/ModalContentsFriends/ModalContentsFriends';
+import { ModalContentsCategory, ModalContentsFriends } from './ModalContents';
 import StatusDefaultHome from './StatusDefaultHome/StatusDefaultHome';
 
 dayjs.extend(utc);
