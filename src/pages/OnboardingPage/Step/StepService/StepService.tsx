@@ -2,7 +2,9 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 import { BackIcon } from '@/shared/assets/home/svgs';
 
-import { BoxAllowedService, ButtonService, Tabs } from './components';
+import BoxAllowedService from './BoxAllowedService/BoxAllowedService';
+import ButtonService from './ButtonService/ButtonService';
+import Tabs from './Tabs/Tabs';
 
 interface StepServiceProps {
 	setStep: (step: string) => void;

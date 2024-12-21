@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { StepField, StepService, StepStart } from './components';
+import { StepField, StepService, StepStart } from './Step';
 import { FIELDS } from './constants';
 import { useFunnel } from './hooks/useFunnel';
 
