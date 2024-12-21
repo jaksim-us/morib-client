@@ -7,7 +7,7 @@ import CheckBoxBlankIcon from '@/shared/assets/svgs/check_box_blank.svg?react';
 import TimeLineIcon from '@/shared/assets/svgs/mingcute_time-line.svg?react';
 import MeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import SVGBtn from '../../../../shared/components/ButtonSVG';
+import SVGBtn from '../../../../../shared/components/ButtonSVG';
 
 interface BoxTodoInputProps {
 	editable: boolean;

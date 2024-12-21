@@ -1,5 +1,5 @@
-import ButtonAlert from './ButtonAlert/ButtonAlert';
-import { AlertModalProps } from './types/index';
+import ButtonAlert from '../ButtonAlert/ButtonAlert';
+import { AlertModalProps } from '../types/index';
 
 const Logout = ({ handleClose, userEmail }: AlertModalProps) => (
 	<div className="flex flex-col rounded-[0.8rem] bg-gray-bg-04 p-[3rem]">

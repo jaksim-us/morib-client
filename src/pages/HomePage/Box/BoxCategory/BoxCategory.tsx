@@ -17,7 +17,7 @@ import { Task } from '@/shared/types/home';
 import ButtonAddIcon from '@/shared/assets/svgs/btn_task_add.svg?react';
 import MeatBallDefault from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import ButtonTodoToggle from '../../../shared/components/ButtonTodayToggle/ButtonTodoToggle';
+import ButtonTodoToggle from '../../../../shared/components/ButtonTodayToggle/ButtonTodoToggle';
 import BoxTodoInput from './BoxTodoInput/BoxTodoInput';
 import StatusDefaultBoxCategory from './StatusDefaultBoxCategory/StatusDefaultBoxCategory';
 

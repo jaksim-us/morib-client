@@ -2,8 +2,8 @@ import { FormEvent, useRef, useState } from 'react';
 
 import IconWarning from '@/shared/assets/svgs/ic_delete_alert.svg?react';
 
-import ButtonAlert from './ButtonAlert/ButtonAlert';
-import { AlertModalProps } from './types/index';
+import ButtonAlert from '../ButtonAlert/ButtonAlert';
+import { AlertModalProps } from '../types/index';
 
 const DeleteAccount = ({ handleClose, userEmail }: AlertModalProps) => {
 	const inputRef = useRef<HTMLInputElement | null>(null);
