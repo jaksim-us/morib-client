@@ -10,7 +10,7 @@ import TimeLineIcon from '@/shared/assets/svgs/mingcute_time-line.svg?react';
 import NumberIcon from '@/shared/assets/svgs/selected_number_icon.svg?react';
 import MeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import SVGBtn from '../../../shared/components/ButtonSVG';
+import SVGBtn from '../ButtonSVG';
 
 interface BoxTodoProps {
 	id: number;
