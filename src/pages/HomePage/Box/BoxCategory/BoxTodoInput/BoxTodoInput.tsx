@@ -7,8 +7,6 @@ import CheckBoxBlankIcon from '@/shared/assets/svgs/check_box_blank.svg?react';
 import TimeLineIcon from '@/shared/assets/svgs/mingcute_time-line.svg?react';
 import MeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import SVGBtn from '../../../../../shared/components/ButtonSVG';
-
 interface BoxTodoInputProps {
 	editable: boolean;
 	onEditComplte: () => void;
@@ -66,9 +64,9 @@ const BoxTodoInput = forwardRef<HTMLDivElement, BoxTodoInputProps>(function BoxT
 			<div className="flex flex-col justify-center">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-[0.6rem]">
-						<SVGBtn>
+						<button>
 							<CheckBoxBlankIcon />
-						</SVGBtn>
+						</button>
 						{isEditing ? (
 							<input
 								className="mt-[0.42rem] w-[27.8rem] border-b-[0.1rem] border-b-white bg-transparent text-gray-04 detail-reg-14 placeholder:text-gray-04 focus:outline-none"
@@ -83,9 +81,9 @@ const BoxTodoInput = forwardRef<HTMLDivElement, BoxTodoInputProps>(function BoxT
 							</h3>
 						)}
 					</div>
-					<SVGBtn>
+					<button>
 						<MeatBall className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-					</SVGBtn>
+					</button>
 				</div>
 				<div className="ml-[0.8rem] mt-[0.7rem] flex flex-col gap-[0.2rem]">
 					<button className="flex items-center gap-[0.6rem]">

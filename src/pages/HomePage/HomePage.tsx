@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import ButtonSVG from '@/shared/components/ButtonSVG';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
@@ -220,9 +219,9 @@ const HomePage = () => {
 									})}
 									{dailyCategoryTask.length <= 2 && (
 										<div className="flex flex-col">
-											<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
+											<button className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 												<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
-											</ButtonSVG>
+											</button>
 										</div>
 									)}
 								</>
@@ -232,9 +231,9 @@ const HomePage = () => {
 						</div>
 						{dailyCategoryTask.length > 2 && (
 							<div className="mx-[2.2rem] flex flex-col">
-								<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
+								<button className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 									<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
-								</ButtonSVG>
+								</button>
 							</div>
 						)}
 					</div>

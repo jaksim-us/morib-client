@@ -13,7 +13,6 @@ import ButtonTodayIcon from '@/shared/assets/svgs/btn_today.svg?react';
 
 import DateBtn from '@/pages/HomePage/DatePicker/ButtonDate/ButtonDate';
 
-import ButtonSVG from '../../../shared/components/ButtonSVG';
 import { useDatePicker } from './hooks/useDatePicker';
 
 interface DatePickerProps {
@@ -81,9 +80,9 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 				</nav>
 				<div className="mr-[9.8rem] flex gap-[1rem]">
 					<ArrowSVGBtn direction={Direction.LEFT} onClick={handlePreviousWeek} />
-					<ButtonSVG onClick={handleClickTodayBtn}>
+					<button onClick={handleClickTodayBtn}>
 						<ButtonTodayIcon className="rounded-[37px] bg-gray-bg-03 hover:bg-gray-bg-05" />
-					</ButtonSVG>
+					</button>
 					<ArrowSVGBtn direction={Direction.RIGHT} onClick={handleNextWeek} />
 				</div>
 			</div>

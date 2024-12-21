@@ -3,7 +3,6 @@ import { Dayjs } from 'dayjs';
 import { Suspense, lazy, useRef } from 'react';
 
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
-import ButtonSVG from '@/shared/components/ButtonSVG';
 import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoToggle';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
@@ -118,16 +117,16 @@ const BoxCategory = ({
 			<div className="mt-[0.4rem] flex items-center justify-between">
 				<h2 className="text-white head-bold-24">{title}</h2>
 				<div className="flex gap-[0.1rem]">
-					<ButtonSVG
+					<button
 						onMouseEnter={handleMouseEnter}
 						onClick={startAddingTodo}
 						className="rounded-full hover:bg-gray-bg-04 active:bg-gray-bg-05"
 					>
 						<ButtonAddIcon />
-					</ButtonSVG>
-					<ButtonSVG onClick={() => onDeleteCategory(id)}>
+					</button>
+					<button onClick={() => onDeleteCategory(id)}>
 						<MeatBallDefault className="rounded-full hover:bg-gray-bg-04 active:bg-gray-bg-05" />
-					</ButtonSVG>
+					</button>
 				</div>
 			</div>
 

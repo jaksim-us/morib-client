@@ -1,7 +1,5 @@
 import Lottie from 'react-lottie';
 
-import ButtonSVG from '@/shared/components/ButtonSVG';
-
 import { useLottieAnimation } from '@/shared/hooks/useLottieAnimation';
 
 import LottieData from '@/shared/assets/lotties/morib_logo_motion.json';
@@ -49,13 +47,13 @@ const LoginPage = () => {
 					]}
 				/>
 				{/* Todo: 추후 로그인 로직 추가 */}
-				<ButtonSVG
+				<button
 					onMouseEnter={handleMouseEnter}
 					onClick={handleClick}
 					className={`ml-[12rem] transition-opacity duration-300 ${isAnimationComplete ? 'opacity-100' : 'opacity-0'}`}
 				>
 					<GoogleLoginIcon />
-				</ButtonSVG>
+				</button>
 			</div>
 		</LoginPageWrapper>
 	);

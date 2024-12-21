@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 
-import ButtonSVG from '@/shared/components/ButtonSVG';
 import ButtonSendRequest from '@/shared/components/ModalContents/ButtonSendRequest';
 
 import { emailRegex } from '@/shared/constants/emailRegex';
@@ -53,26 +52,26 @@ const InputSendRequest = () => {
 					placeholder="이메일을 입력해주세요."
 					ref={inputRef}
 					onChange={handleInputChange}
-					className={`${alert.error.length > 0 ? errorStyle : alert.success.length > 0 ? successStyle : `border-[1px] border-gray-bg-02`} subhead-med-18 placeholder-text-gray-04 w-full rounded-[8px] bg-gray-bg-02 px-[2rem] py-[2rem] text-white focus:outline-none`}
+					className={`${alert.error.length > 0 ? errorStyle : alert.success.length > 0 ? successStyle : `border-[1px] border-gray-bg-02`} placeholder-text-gray-04 w-full rounded-[8px] bg-gray-bg-02 px-[2rem] py-[2rem] text-white subhead-med-18 focus:outline-none`}
 				/>
 				{alert.error && (
 					<div className="absolute mt-[1rem] flex gap-[5px]">
 						<IconInputError />
-						<p className="body-reg-16 text-error-01">{alert.error}</p>
+						<p className="text-error-01 body-reg-16">{alert.error}</p>
 					</div>
 				)}
 				{alert.success && (
 					<div className="absolute mt-[1rem] flex gap-[5px]">
 						<IconInputSuccess />
-						<p className="body-reg-16 text-mint-01">{alert.success}</p>
+						<p className="text-mint-01 body-reg-16">{alert.success}</p>
 					</div>
 				)}
 			</>
 
 			{showClearBtn && (
-				<ButtonSVG className="absolute right-[18rem] top-[2rem]" type="button" onClick={handleClearBtn}>
+				<button className="absolute right-[18rem] top-[2rem]" type="button" onClick={handleClearBtn}>
 					<InputClearButton />
-				</ButtonSVG>
+				</button>
 			)}
 
 			<ButtonSendRequest type="submit" disabled={!inputRef.current?.value}>

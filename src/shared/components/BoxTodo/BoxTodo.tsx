@@ -10,8 +10,6 @@ import TimeLineIcon from '@/shared/assets/svgs/mingcute_time-line.svg?react';
 import NumberIcon from '@/shared/assets/svgs/selected_number_icon.svg?react';
 import MeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import SVGBtn from '../ButtonSVG';
-
 interface BoxTodoProps {
 	id: number;
 	name: string;
@@ -84,14 +82,14 @@ const BoxTodo = ({
 			<div className="flex flex-col justify-center">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-[0.6rem]">
-						<SVGBtn onClick={onToggleComplete} className={disableBtnStyle}>
+						<button onClick={onToggleComplete} className={disableBtnStyle}>
 							{CheckBoxIcon}
-						</SVGBtn>
+						</button>
 						<h3 className={`+ mt-[0.42rem] text-white body-semibold-16 ${nameStyle}`}>{name}</h3>
 					</div>
-					<SVGBtn>
+					<button>
 						<MeatBall className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-					</SVGBtn>
+					</button>
 				</div>
 				<div className="ml-[0.8rem] mt-[0.7rem] flex flex-col gap-[0.2rem]">
 					<button className="flex items-center gap-[0.6rem]">
