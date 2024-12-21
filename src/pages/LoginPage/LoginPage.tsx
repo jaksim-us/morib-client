@@ -7,8 +7,6 @@ import { useLottieAnimation } from '@/shared/hooks/useLottieAnimation';
 import LottieData from '@/shared/assets/lotties/morib_logo_motion.json';
 import GoogleLoginIcon from '@/shared/assets/svgs/google_login.svg?react';
 
-import LoginPageWrapper from '@/components/templates/LoginPageWrapper';
-
 const defaultOptions = {
 	autoplay: true,
 	loop: false,
@@ -33,7 +31,7 @@ const LoginPage = () => {
 	};
 
 	return (
-		<LoginPageWrapper>
+		<div className="flex h-screen items-center justify-center bg-login-bg bg-cover">
 			<div className="h-[37rem] w-[60rem]">
 				<Lottie
 					ref={lottieRef}
@@ -57,7 +55,7 @@ const LoginPage = () => {
 					<GoogleLoginIcon />
 				</ButtonSVG>
 			</div>
-		</LoginPageWrapper>
+		</div>
 	);
 };
 export default LoginPage;

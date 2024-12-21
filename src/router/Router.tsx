@@ -10,7 +10,7 @@ import Layout from '@/shared/layout/Layout';
 import RedirectPage from '../pages/RedirectPage';
 import { ROUTES_CONFIG } from './routesConfig';
 
-const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
 const HomePage = lazy(() => import('@/pages/HomePage/HomePage'));
 const TimerPage = lazy(() => import('@/pages/TimerPage/TimerPage'));
 
