@@ -1,8 +1,8 @@
 import { userFriendData } from '@/shared/mocks/userFriendData';
 
-import ButtonRequestAction from '../../ModalContents/Friends/components/FriendsRequest/components/ButtonRequestAction';
-import FriendsListRequested from '../../ModalContents/Friends/components/FriendsRequest/components/FriendsListRequested';
-import InputSendRequest from '../../ModalContents/Friends/components/FriendsRequest/components/InputSendRequest';
+import ButtonRequestAction from './ButtonRequestAction/ButtonRequestAction';
+import FriendsListRequested from './FriendsListRequested/FriendsListRequested';
+import InputSendRequest from './InputSendRequest/InputSendRequest';
 
 const FriendsRequest = () => {
 	return (

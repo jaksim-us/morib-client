@@ -1,6 +1,6 @@
-import Complete from '../../../ModalContentsAlert/Complete/Complete';
-import DeleteAccount from '../../../ModalContentsAlert/DeleteAccount/DeleteAccount';
-import Logout from '../../../ModalContentsAlert/Logoout/Logout';
+import Complete from './Complete/Complete';
+import DeleteAccount from './DeleteAccount/DeleteAccount';
+import Logout from './Logoout/Logout';
 
 const ModalContentsAlert = {
 	Logout: Logout,
