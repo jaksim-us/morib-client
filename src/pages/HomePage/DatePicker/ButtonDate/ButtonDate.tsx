@@ -5,7 +5,7 @@ interface DateBtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: ReactNode;
 }
 
-const DateBtn = ({ isSelected, children, ...props }: DateBtnProps) => {
+const ButtonDate = ({ isSelected, children, ...props }: DateBtnProps) => {
 	const commonBtnStyle = 'flex w-full h-[7.6rem] items-center justify-center text-white ';
 	const textStyle = isSelected ? 'head-bold-24' : 'subhead-reg-22';
 	const borderStyle = isSelected ? 'border-b-[0.3rem] border-mint-01' : 'border-b-[0.2rem] border-gray-02';
@@ -22,4 +22,4 @@ const DateBtn = ({ isSelected, children, ...props }: DateBtnProps) => {
 	);
 };
 
-export default DateBtn;
+export default ButtonDate;

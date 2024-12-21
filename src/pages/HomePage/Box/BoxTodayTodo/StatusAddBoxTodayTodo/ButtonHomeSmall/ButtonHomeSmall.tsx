@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
-const HomeSmallBtn = ({ children, disabled = false, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {
+const ButtonHomeSmall = ({ children, disabled = false, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {
 	const defaultStyle =
 		'subhead-bold-20 flex items-center justify-center rounded-[0.8rem] px-[3.6rem] py-[2rem] flex-shrink-0 ';
 	const buttonStyle = disabled
@@ -14,4 +14,4 @@ const HomeSmallBtn = ({ children, disabled = false, ...props }: ButtonHTMLAttrib
 	);
 };
 
-export default HomeSmallBtn;
+export default ButtonHomeSmall;

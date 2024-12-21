@@ -1,7 +1,8 @@
 import { ButtonHTMLAttributes } from 'react';
 
-import ButtonArrowIcon from '@/shared/assets/svgs/btn_arrow.svg?react';
 import { Direction } from '@/shared/types/global';
+
+import ButtonArrowIcon from '@/shared/assets/svgs/btn_arrow.svg?react';
 
 interface ArrowSVGButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	direction: Direction;
