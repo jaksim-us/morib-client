@@ -29,7 +29,7 @@ const ButtonUserProfile = ({
 				</div>
 			</div>
 			{(isMyProfile || isSelectedUser) && (
-				<h3 className="detail-semibold-14 mt-[0.2rem] max-w-full truncate text-mint-01">{userName}</h3>
+				<h3 className="mt-[0.2rem] max-w-full truncate text-mint-01 detail-semibold-14">{userName}</h3>
 			)}
 		</button>
 	);

@@ -87,7 +87,7 @@ const BoxTodo = ({
 						<SVGBtn onClick={onToggleComplete} className={disableBtnStyle}>
 							{CheckBoxIcon}
 						</SVGBtn>
-						<h3 className={`body-semibold-16 + mt-[0.42rem] text-white ${nameStyle}`}>{name}</h3>
+						<h3 className={`+ mt-[0.42rem] text-white body-semibold-16 ${nameStyle}`}>{name}</h3>
 					</div>
 					<SVGBtn>
 						<MeatBall className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -96,19 +96,19 @@ const BoxTodo = ({
 				<div className="ml-[0.8rem] mt-[0.7rem] flex flex-col gap-[0.2rem]">
 					<button className="flex items-center gap-[0.6rem]">
 						<ButtonCalendarIcon />
-						<p className="detail-reg-12 mt-[0.3rem] text-gray-04">{duration}</p>
+						<p className="mt-[0.3rem] text-gray-04 detail-reg-12">{duration}</p>
 					</button>
 
 					<div className="flex items-center gap-[0.6rem]">
 						{TimeIcon}
-						<p className={`detail-reg-12 mt-[0.3rem] ${timeTextClass}`}>{formattedTime}</p>
+						<p className={`mt-[0.3rem] detail-reg-12 ${timeTextClass}`}>{formattedTime}</p>
 					</div>
 				</div>
 				{isSelected && selectedNumber && (
 					<div className="absolute bottom-[1.1rem] right-[1.7rem]">
 						<div className="relative h-[2.2rem] w-[2.2rem]">
 							<NumberIcon className="absolute inset-0" />
-							<p className="body-reg-16 absolute inset-0 mt-[0.15rem] text-center">{selectedNumber}</p>
+							<p className="absolute inset-0 mt-[0.15rem] text-center body-reg-16">{selectedNumber}</p>
 						</div>
 					</div>
 				)}

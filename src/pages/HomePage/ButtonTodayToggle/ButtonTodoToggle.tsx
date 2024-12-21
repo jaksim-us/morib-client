@@ -21,7 +21,7 @@ const ButtonTodoToggle = ({ children, isCompleted = false, isToggled = false }: 
 		<>
 			<button className="mt-[1.9rem] flex items-center gap-[0.4rem]" onClick={handleToggle}>
 				{ToggleIcon}
-				<p className="detail-semibold-14 text-white">{title}</p>
+				<p className="text-white detail-semibold-14">{title}</p>
 			</button>
 			{toggle && children}
 		</>

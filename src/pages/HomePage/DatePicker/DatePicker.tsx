@@ -40,7 +40,7 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 				<Dropdown.Root>
 					<Dropdown.Trigger>
 						<div className="mb-[0.6rem] flex items-center gap-[2rem]">
-							<h1 className="title-bold-32 text-white">{currentDate.format('YYYY년 MM월')}</h1>;
+							<h1 className="text-white title-bold-32">{currentDate.format('YYYY년 MM월')}</h1>;
 							<ButtonArrowIcon className={'rounded-full bg-gray-bg-03 hover:bg-gray-bg-05'} />
 						</div>
 					</Dropdown.Trigger>

@@ -7,7 +7,7 @@ import CheckBoxBlankIcon from '@/shared/assets/svgs/check_box_blank.svg?react';
 import TimeLineIcon from '@/shared/assets/svgs/mingcute_time-line.svg?react';
 import MeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import SVGBtn from '../../../shared/components/ButtonSVG';
+import SVGBtn from '../../../../shared/components/ButtonSVG';
 
 interface BoxTodoInputProps {
 	editable: boolean;
@@ -71,14 +71,14 @@ const BoxTodoInput = forwardRef<HTMLDivElement, BoxTodoInputProps>(function BoxT
 						</SVGBtn>
 						{isEditing ? (
 							<input
-								className="detail-reg-14 mt-[0.42rem] w-[27.8rem] border-b-[0.1rem] border-b-white bg-transparent text-gray-04 placeholder:text-gray-04 focus:outline-none"
+								className="mt-[0.42rem] w-[27.8rem] border-b-[0.1rem] border-b-white bg-transparent text-gray-04 detail-reg-14 placeholder:text-gray-04 focus:outline-none"
 								value={name}
 								onChange={handleInputChange}
 								onKeyPress={handleKeyPress}
 								placeholder="할 일 입력"
 							/>
 						) : (
-							<h3 className="detail-reg-14 mt-[0.42rem] text-gray-04" onDoubleClick={handleDoubleClick}>
+							<h3 className="mt-[0.42rem] text-gray-04 detail-reg-14" onDoubleClick={handleDoubleClick}>
 								{name}
 							</h3>
 						)}
@@ -90,7 +90,7 @@ const BoxTodoInput = forwardRef<HTMLDivElement, BoxTodoInputProps>(function BoxT
 				<div className="ml-[0.8rem] mt-[0.7rem] flex flex-col gap-[0.2rem]">
 					<button className="flex items-center gap-[0.6rem]">
 						<ButtonCalendarIcon />
-						<p className="detail-reg-12 mt-[0.3rem] text-gray-04">
+						<p className="mt-[0.3rem] text-gray-04 detail-reg-12">
 							{formatDateRange(selectedStartDate, selectedEndDate).length === 0
 								? '오늘'
 								: formatDateRange(selectedStartDate, selectedEndDate)}
@@ -99,7 +99,7 @@ const BoxTodoInput = forwardRef<HTMLDivElement, BoxTodoInputProps>(function BoxT
 
 					<div className="flex items-center gap-[0.6rem]">
 						<TimeLineIcon />
-						<p className="detail-reg-12 mt-[0.3rem] text-gray-04">00:00:00</p>
+						<p className="mt-[0.3rem] text-gray-04 detail-reg-12">00:00:00</p>
 					</div>
 				</div>
 			</div>

@@ -14,7 +14,7 @@ const StatusDefaultHome = ({ onClick }: StatusDefaultHomeProps) => {
 	return (
 		<div className="flex h-[732px] w-[1262px] flex-col items-center">
 			<HomeDefaultIcon className="mt-[16.8rem]" />
-			<p className="title-bold-36 mb-[5.2rem] mt-[2.4rem] text-center text-white">
+			<p className="mb-[5.2rem] mt-[2.4rem] text-center text-white title-bold-36">
 				당신의 몰입을 도와줄
 				<br />
 				작업 카테고리를 만들어 보세요!

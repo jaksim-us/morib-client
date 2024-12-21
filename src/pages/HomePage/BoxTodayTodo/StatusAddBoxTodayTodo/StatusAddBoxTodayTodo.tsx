@@ -6,7 +6,7 @@ import { LARGE_BTN_TEXT, SMALL_BTN_TEXT } from '@/shared/constants/btnText';
 import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
 import HomeSmallBtn from '@/components/atoms/HomeSmallBtn';
 
-import BoxTodo from './BoxTodo';
+import BoxTodo from '../../BoxTodo/BoxTodo';
 
 interface StatusAddBoxTodayTodoProps {
 	selectedTodayTodos: Omit<Task, 'isComplete'>[];
@@ -64,7 +64,7 @@ const StatusAddBoxTodayTodo = ({
 					})}
 				</ul>
 			) : (
-				<p className="head-bold-24 mx-auto mt-[22.2rem] text-center text-gray-05">
+				<p className="mx-auto mt-[22.2rem] text-center text-gray-05 head-bold-24">
 					할 일 카드를 선택하여
 					<br />
 					오늘 할 일을 추가해 보세요.

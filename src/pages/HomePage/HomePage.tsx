@@ -30,13 +30,13 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
 import ButtonSVG from '../../shared/components/ButtonSVG';
-import BoxCategory from './components/BoxCategory';
-import BoxTodayTodo from './components/BoxTodayTodo';
-import ButtonMoreFriends from './components/ButtonMoreFriends';
-import ButtonUserProfile from './components/ButtonUserProfile';
-import DatePicker from './components/DatePicker';
-import { ModalContentsCategory, ModalContentsFriends } from './components/ModalContents';
-import StatusDefaultHome from './components/StatusDefaultHome';
+import BoxCategory from './BoxCategory/BoxCategory';
+import BoxTodayTodo from './BoxTodayTodo/BoxTodayTodo';
+import ButtonMoreFriends from './ButtonMoreFriends/ButtonMoreFriends';
+import ButtonUserProfile from './ButtonUserProfile/ButtonUserProfile';
+import DatePicker from './DatePicker/DatePicker';
+import { ModalContentsCategory, ModalContentsFriends } from './ModalContents/index';
+import StatusDefaultHome from './StatusDefaultHome/StatusDefaultHome';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

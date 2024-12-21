@@ -2,8 +2,8 @@ import { convertTime } from '@/shared/utils/time';
 
 import { Task } from '@/shared/types/home';
 
-import StatusAddBoxTodayTodo from './StatusAddBoxTodayTodo';
-import StatusDefaultBoxTodayTodo from './StatusDefaultBoxTodayTodo';
+import StatusAddBoxTodayTodo from './StatusAddBoxTodayTodo/StatusAddBoxTodayTodo';
+import StatusDefaultBoxTodayTodo from './StatusDefaultBoxTodayTodo/StatusDefaultBoxTodayTodo';
 
 interface BoxTodayTodoProps {
 	time: number;
@@ -43,7 +43,7 @@ const BoxTodayTodo = ({
 					<p className="head-bold-24">오늘 나의 몰입 시간</p>
 					<p className="title-bold-32">{`${hours}시간 ${minutes}분 ${seconds}초`}</p>
 				</div>
-				<h3 className="head-bold-24 mt-[3.2rem] text-white">오늘 할 일</h3>
+				<h3 className="mt-[3.2rem] text-white head-bold-24">오늘 할 일</h3>
 				{addingTodayTodoStatus ? (
 					<StatusAddBoxTodayTodo
 						selectedTodayTodos={selectedTodayTodos}
