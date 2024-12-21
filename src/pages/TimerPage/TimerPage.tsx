@@ -16,8 +16,6 @@ import { DATE_FORMAT, DEFAULT_URL, TIMEZONE } from '@/shared/constants/timerPage
 import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
 import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
-import TimerPageTemplates from '@/components/templates/TimerPageTemplates';
-
 import Carousel from './Carousel/Carousel';
 import PopoverAllowedService from './PopoverAllowedService/PopoverAllowedService';
 import SideBarTimer from './SidebarTimer/SideBarTimer';
@@ -125,7 +123,7 @@ const TimerPage = () => {
 	}
 
 	return (
-		<TimerPageTemplates>
+		<div className="relative flex h-screen w-screen overflow-hidden bg-gray-bg-01">
 			<div className="flex flex-col">
 				<div className="relative flex w-screen justify-between">
 					<TitleAllowedService
@@ -189,7 +187,7 @@ const TimerPage = () => {
 					resetAccumulatedIncreasedTime={resetAccumulatedIncreasedTime}
 				/>
 			</div>
-		</TimerPageTemplates>
+		</div>
 	);
 };
 
