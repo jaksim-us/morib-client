@@ -2,8 +2,8 @@ import { FormEvent, useRef, useState } from 'react';
 
 import IconWarning from '@/shared/assets/svgs/ic_delete_alert.svg?react';
 
-import { AlertModalProps } from '@/pages/HomePage/components/ModalContents/Setting/ModalContentsAlert/ModalContentsAlert';
-import ButtonAlert from '@/pages/HomePage/components/ModalContents/Setting/components/ButtonAlert';
+import ButtonAlert from './ButtonAlert/ButtonAlert';
+import { AlertModalProps } from './types/index';
 
 const DeleteAccount = ({ handleClose, userEmail }: AlertModalProps) => {
 	const inputRef = useRef<HTMLInputElement | null>(null);
@@ -27,22 +27,22 @@ const DeleteAccount = ({ handleClose, userEmail }: AlertModalProps) => {
 				<div className="mb-[3rem] flex justify-center">
 					<IconWarning width="5.4rem" />
 				</div>
-				<p className="subhead-bold-22 flex justify-center text-white">{userEmail} 계정이</p>
-				<p className="subhead-bold-22 mb-[3rem] flex justify-center text-white">
+				<p className="flex justify-center text-white subhead-bold-22">{userEmail} 계정이</p>
+				<p className="mb-[3rem] flex justify-center text-white subhead-bold-22">
 					영구적으로 삭제됩니다. 삭제하시겠습니까?
 				</p>
-				<p className="subhead-med-18 mb-[1rem] flex justify-center text-gray-05">이메일을 입력하여 확인해주세요.</p>
+				<p className="mb-[1rem] flex justify-center text-gray-05 subhead-med-18">이메일을 입력하여 확인해주세요.</p>
 				<form action="" onSubmit={handleSubmit}>
 					<input
 						ref={inputRef}
 						type="text"
 						placeholder={userEmail}
 						onChange={handleInputChange}
-						className={`${error ? 'border-[1px] border-error-01' : ''} subhead-med-18 placeholder-text-gray-03 w-full rounded-[5px] bg-gray-bg-02 p-[1rem] text-white outline-none`}
+						className={`${error ? 'border-[1px] border-error-01' : ''} placeholder-text-gray-03 w-full rounded-[5px] bg-gray-bg-02 p-[1rem] text-white outline-none subhead-med-18`}
 					/>
 					{error && (
 						<div className="absolute mt-[1rem]">
-							<p className="body-reg-16 mb-[3rem] text-error-01">계속하려면 “{userEmail}”을(를) 입력하세요.</p>
+							<p className="mb-[3rem] text-error-01 body-reg-16">계속하려면 “{userEmail}”을(를) 입력하세요.</p>
 						</div>
 					)}
 					<div className="mt-[5.7rem] flex gap-[1rem]">

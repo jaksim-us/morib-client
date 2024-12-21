@@ -1,6 +1,6 @@
-import Complete from '@/pages/HomePage/components/ModalContents/Setting/ModalContentsAlert/Complete';
-import DeleteAccount from '@/pages/HomePage/components/ModalContents/Setting/ModalContentsAlert/DeleteAccount';
-import Logout from '@/pages/HomePage/components/ModalContents/Setting/ModalContentsAlert/Logout';
+import Complete from './Complete';
+import DeleteAccount from './DeleteAccount';
+import Logout from './Logout';
 
 export interface AlertModalProps {
 	handleClose?: () => void;
