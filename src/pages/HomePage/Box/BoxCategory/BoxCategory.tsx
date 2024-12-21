@@ -4,10 +4,9 @@ import { Suspense, lazy, useRef } from 'react';
 
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
 import ButtonSVG from '@/shared/components/ButtonSVG';
+import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoToggle';
 
-import { useCalendar } from '@/shared/hooks/useCalendar';
 import useClickOutside from '@/shared/hooks/useClickOutside';
-import { useCreateTodo } from '@/shared/hooks/useCreateTodo';
 
 import { usePatchTaskStatus } from '@/shared/apis/common/queries';
 import { usePostCreateTask } from '@/shared/apis/home/queries';
@@ -17,9 +16,10 @@ import { Task } from '@/shared/types/home';
 import ButtonAddIcon from '@/shared/assets/svgs/btn_task_add.svg?react';
 import MeatBallDefault from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import ButtonTodoToggle from '../../../../shared/components/ButtonTodayToggle/ButtonTodoToggle';
+import { useCalendar } from '../../hooks/useCalendar';
 import BoxTodoInput from './BoxTodoInput/BoxTodoInput';
 import StatusDefaultBoxCategory from './StatusDefaultBoxCategory/StatusDefaultBoxCategory';
+import { useCreateTodo } from './hooks/useCreateTodo';
 
 const Calendar = lazy(() => import('@/shared/components/Calendar'));
 

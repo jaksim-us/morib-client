@@ -4,8 +4,6 @@ import ArrowSVGBtn from '@/shared/components/Button/ButtonArrowSVG/ButtonArrowSV
 import ButtonDropdownOptions from '@/shared/components/ButtonDropdownOptions';
 import Dropdown from '@/shared/components/Dropdown';
 
-import { useDatePicker } from '@/shared/hooks/useDatePicker';
-
 import { getHomeDropdownData } from '@/shared/utils/date';
 
 import { Direction } from '@/shared/types/global';
@@ -16,6 +14,7 @@ import ButtonTodayIcon from '@/shared/assets/svgs/btn_today.svg?react';
 import DateBtn from '@/pages/HomePage/DatePicker/ButtonDate/ButtonDate';
 
 import ButtonSVG from '../../../shared/components/ButtonSVG';
+import { useDatePicker } from './hooks/useDatePicker';
 
 interface DatePickerProps {
 	todayDate: Dayjs;

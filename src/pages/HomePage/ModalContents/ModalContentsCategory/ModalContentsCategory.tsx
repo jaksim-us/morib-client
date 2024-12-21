@@ -11,14 +11,14 @@ import CategoryMsetUrlInfo from '@/shared/components/CategoryMsetUrlInfo';
 import InputCategoryUrl from '@/shared/components/InputCategoryUrl';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
 
-import { useCalendar } from '@/shared/hooks/useCalendar';
-
 import { getTabName } from '@/shared/apis/tasks/axios/index';
 import { useGetTabName, usePostCategory } from '@/shared/apis/tasks/queries/index';
 
 import { formatCalendarApiDate } from '@/shared/utils/calendar/index';
 
 import ArrowCircleUpRight from '@/shared/assets/svgs/arrow_circle_up_right.svg?react';
+
+import { useCalendar } from '../../hooks/useCalendar';
 
 const Calendar = lazy(() => import('@/shared/components/Calendar'));
 
@@ -210,11 +210,11 @@ const ModalContentsCategory = ({ handleCloseModal }: ModalContentsCategoryProps)
 	return (
 		<div className="h-[80rem] w-[81.6rem] flex-shrink-0 rounded-[14px] bg-gray-bg-03 px-[4.4rem] pb-[3rem] pt-[2.8rem]">
 			<div>
-				<h1 className="head-bold-24 text-gray-04">카테고리 추가</h1>
+				<h1 className="text-gray-04 head-bold-24">카테고리 추가</h1>
 			</div>
 			<section className="flex-start my-[2rem] mt-[1.6rem] inline-flex gap-[4.4rem]">
 				<section className="flex-col">
-					<h2 className="subhead-bold-22 pb-[1rem] pt-[1rem] text-white">이름 *</h2>
+					<h2 className="pb-[1rem] pt-[1rem] text-white subhead-bold-22">이름 *</h2>
 					<input
 						type="text"
 						placeholder={'이름을 20자 이내로 작성해주세요.'}
@@ -227,7 +227,7 @@ const ModalContentsCategory = ({ handleCloseModal }: ModalContentsCategoryProps)
 
 				<div>
 					<div className="mt-[1rem] flex items-center gap-[1rem]">
-						<h2 className="subhead-bold-22 pb-[1rem] text-white">날짜</h2>
+						<h2 className="pb-[1rem] text-white subhead-bold-22">날짜</h2>
 						<div className="mb-[0.6rem]" onMouseEnter={handleMouseEnter}>
 							<ButtonStatusToggle isToggleOn={isDateToggleOn} onToggle={handleDateToggle} />
 						</div>
@@ -263,7 +263,7 @@ const ModalContentsCategory = ({ handleCloseModal }: ModalContentsCategoryProps)
 			<main className="flex flex-col">
 				<section>
 					<div className="flex justify-between">
-						<h2 className="subhead-bold-22 pb-[1rem] text-white">모립세트</h2>
+						<h2 className="pb-[1rem] text-white subhead-bold-22">모립세트</h2>
 						<button
 							className="mb-[0.6rem] flex items-center gap-[0.8rem] rounded-[5px] bg-gray-bg-04 px-[1.2rem] py-[0.8rem]"
 							onClick={handleMoveToNextModal}
