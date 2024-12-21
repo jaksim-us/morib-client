@@ -4,9 +4,6 @@ import utc from 'dayjs/plugin/utc';
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { useSelectedTodo } from '@/shared/hooks/useSelectedTodo';
-import useTimerCount from '@/shared/hooks/useTimerCount';
-import useToggleSidebar from '@/shared/hooks/useToggleSideBar';
 import useUrlHandler from '@/shared/hooks/useUrlHandler';
 
 import { useGetMoribSet, useGetTodoList, usePostTimerStop } from '@/shared/apis/timer/queries';
@@ -20,11 +17,13 @@ import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
 import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
 import TimerPageTemplates from '@/components/templates/TimerPageTemplates';
-import Carousel from '@/pages/TimerPage/components/Carousel';
-import SideBarTimer from '@/pages/TimerPage/components/SideBarTimer';
-import Timer from '@/pages/TimerPage/components/Timer';
-import TitleAllowedService from '@/pages/TimerPage/components/TitleAllowedService';
-import PopoverAllowedService from '@/pages/TimerPage/components/PopoverAllowedService';
+
+import Carousel from './Carousel/Carousel';
+import PopoverAllowedService from './PopoverAllowedService/PopoverAllowedService';
+import SideBarTimer from './SidebarTimer/SideBarTimer';
+import TitleAllowedService from './TItleAllowedService/TitleAllowedService';
+import Timer from './Timer/Timer';
+import { useSelectedTodo, useTimerCount, useToggleSidebar } from './hooks';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -129,7 +128,11 @@ const TimerPage = () => {
 		<TimerPageTemplates>
 			<div className="flex flex-col">
 				<div className="relative flex w-screen justify-between">
-					<TitleAllowedService onClick={handleMoribSetTitleClick} registeredNames={registeredNames} isAllowedServiceVisible={isAllowedServiceVisible} />
+					<TitleAllowedService
+						onClick={handleMoribSetTitleClick}
+						registeredNames={registeredNames}
+						isAllowedServiceVisible={isAllowedServiceVisible}
+					/>
 					<div className="mr-[3.2rem] mt-[3.2rem] flex w-[10.8rem] items-center">
 						<button className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
 							<HomeIcon />
@@ -143,17 +146,17 @@ const TimerPage = () => {
 					</div>
 				</div>
 				{isAllowedServiceVisible && (
-					<div className="absolute top-[8rem]  z-10 flex">
+					<div className="absolute top-[8rem] z-10 flex">
 						<PopoverAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
 					</div>
 				)}
 
 				<div
-					className={`mt-[-0.8rem] flex w-screen h-screen min-h-[908px] min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
+					className={`mt-[-0.8rem] flex h-screen min-h-[908px] w-screen min-w-[1080px] flex-col items-center justify-center transition-[padding-right] duration-300 ${isSidebarOpen ? 'pr-0 2xl:pr-[40.2rem]' : 'pr-0'}`}
 				>
 					<header className="mt-[8.6rem] flex flex-col items-center gap-[1rem]">
-						<h1 className="title-semibold-64 text-white">{selectedTodoData?.name || ''}</h1>
-						<h2 className="title-med-32 text-gray-04">{selectedTodoData?.categoryName || ''}</h2>
+						<h1 className="text-white title-semibold-64">{selectedTodoData?.name || ''}</h1>
+						<h2 className="text-gray-04 title-med-32">{selectedTodoData?.categoryName || ''}</h2>
 					</header>
 					<Timer
 						selectedTodo={selectedTodo}

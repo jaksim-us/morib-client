@@ -1,9 +1,9 @@
-import useFriendInfoCarousel from '@/shared/hooks/useFriendInfoCarousel';
-
 import { Direction } from '@/shared/types/global';
 
 import ArrowSVGBtn from '@/components/atoms/ArrowSVGBtn';
-import FriendInfo from '@/pages/TimerPage/components/CarouselContainer';
+import FriendInfo from '@/pages/TimerPage/ContainerCarousel/ContainerCarousel';
+
+import useFriendInfoCarousel from './hooks/useFriendInfoCarousel';
 
 const Carousel = () => {
 	const { handlePrevClick, handleNextClick, visibleFriends } = useFriendInfoCarousel();

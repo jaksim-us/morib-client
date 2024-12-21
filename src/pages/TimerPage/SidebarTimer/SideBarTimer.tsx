@@ -12,7 +12,8 @@ import BtnListIcon from '@/shared/assets/svgs/btn_list.svg?react';
 
 import BoxTodo from '@/pages/HomePage/components/BoxTodo';
 import ButtonTodoToggle from '@/pages/HomePage/components/ButtonTodoToggle';
-import ButtonSideBar from '@/pages/TimerPage/components/ButtonSideBar';
+
+import ButtonSideBar from './ButtonSideBar/ButtonSideBar';
 
 interface CategoryBoxProps {
 	completedTodos: Todo[];
@@ -103,7 +104,7 @@ const SideBarTimer = ({
 			className={`absolute right-0 flex h-full w-[40.2rem] transform flex-col rounded-bl-[16px] rounded-tl-[16px] bg-gray-bg-03 pl-[1.8rem] transition-transform duration-300 ${isSideOpen ? 'translate-x-0' : 'translate-x-full'}`}
 		>
 			<div className="flex h-[5.4rem] w-[36.6rem] items-center justify-between pl-[0.2rem] pt-[2rem]">
-				<p className="head-bold-24 text-white">오늘 할 일</p>
+				<p className="text-white head-bold-24">오늘 할 일</p>
 				<button className="rounded-[1.5rem] hover:bg-gray-bg-04" onClick={toggleSidebar}>
 					<BtnListIcon />
 				</button>
