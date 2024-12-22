@@ -29,14 +29,14 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
-import ButtonSVG from '../../shared/components/ButtonSVG';
-import BoxCategory from './components/BoxCategory';
-import BoxTodayTodo from './components/BoxTodayTodo';
-import ButtonMoreFriends from './components/ButtonMoreFriends';
-import ButtonUserProfile from './components/ButtonUserProfile';
-import DatePicker from './components/DatePicker';
-import { ModalContentsCategory, ModalContentsFriends } from './components/ModalContents';
-import StatusDefaultHome from './components/StatusDefaultHome';
+import BoxCategory from './BoxCategory/BoxCategory';
+import BoxTodayTodo from './BoxTodayTodo/BoxTodayTodo';
+import ButtonMoreFriends from './ButtonMoreFriends/ButtonMoreFriends';
+import ButtonUserProfile from './ButtonUserProfile/ButtonUserProfile';
+import DatePicker from './DatePicker/DatePicker';
+import ModalContentsCategory from './ModalContentsCategory/ModalContentsCategory';
+import ModalContentsFriends from './ModalContentsFriends/ModalContentsFriends';
+import StatusDefaultHome from './StatusDefaultHome/StatusDefaultHome';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -222,9 +222,9 @@ const HomePage = () => {
 									})}
 									{dailyCategoryTask.length <= 2 && (
 										<div className="flex flex-col">
-											<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
+											<button className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 												<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
-											</ButtonSVG>
+											</button>
 										</div>
 									)}
 								</>
@@ -234,9 +234,9 @@ const HomePage = () => {
 						</div>
 						{dailyCategoryTask.length > 2 && (
 							<div className="mx-[2.2rem] flex flex-col">
-								<ButtonSVG className="flex-shrink-0" onClick={handleOpenCategoryModal}>
+								<button className="flex-shrink-0" onClick={handleOpenCategoryModal}>
 									<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
-								</ButtonSVG>
+								</button>
 							</div>
 						)}
 					</div>

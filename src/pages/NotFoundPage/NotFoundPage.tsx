@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
+import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
+
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 
 import NotFoundIcon from '@/shared/assets/svgs/404.svg?react';
 import BellIcon from '@/shared/assets/svgs/bell.svg?react';
 import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
-
-import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
 
 const NotFoundPage = () => {
 	const navigate = useNavigate();
@@ -24,8 +24,8 @@ const NotFoundPage = () => {
 
 			<div className="flex w-full flex-col items-center">
 				<NotFoundIcon className="mt-[35.65rem]" />
-				<h2 className="title-bold-36 mt-[7.75rem] text-white">페이지를 찾을 수 없습니다.</h2>
-				<p className="title-med-32 text-white">올바른 URL을 입력하였는지 확인하세요.</p>
+				<h2 className="mt-[7.75rem] text-white title-bold-36">페이지를 찾을 수 없습니다.</h2>
+				<p className="text-white title-med-32">올바른 URL을 입력하였는지 확인하세요.</p>
 
 				<div className="mt-[4.4rem]">
 					<HomeLargeBtn onClick={() => navigate('/home')} variant={HomeLargeBtnVariant.LARGE}>
