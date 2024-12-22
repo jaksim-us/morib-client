@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
+import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoToggle';
+
 import { usePatchTaskStatus } from '@/shared/apis/common/queries';
 import { usePostTimerStop } from '@/shared/apis/timer/queries';
 
 import { Todo } from '@/shared/types/todoData';
 
 import BtnListIcon from '@/shared/assets/svgs/btn_list.svg?react';
-
-import BoxTodo from '@/pages/HomePage/components/BoxTodo';
-import ButtonTodoToggle from '@/pages/HomePage/components/ButtonTodoToggle';
 
 import ButtonSideBar from './ButtonSideBar/ButtonSideBar';
 

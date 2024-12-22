@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
+import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
+
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 
 import { ColorIcon, DesignSmIcon, MinusIcon, PencilIcon } from '@/shared/assets/home/svgs';
-
-import HomeLargeBtn from '@/components/atoms/HomeLargeBtn';
 
 interface BoxAllowedServiceProps {
 	selectedService: string[];

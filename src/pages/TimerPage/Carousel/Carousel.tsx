@@ -1,8 +1,8 @@
+import ArrowSVGBtn from '@/shared/components/Button/ButtonArrowSVG/ButtonArrowSVG';
+
 import { Direction } from '@/shared/types/global';
 
-import ArrowSVGBtn from '@/components/atoms/ArrowSVGBtn';
-import FriendInfo from '@/pages/TimerPage/ContainerCarousel/ContainerCarousel';
-
+import ContainerCarousel from './ContainerCarousel/ContainerCarousel';
 import useFriendInfoCarousel from './hooks/useFriendInfoCarousel';
 
 const Carousel = () => {
@@ -13,7 +13,7 @@ const Carousel = () => {
 			<ArrowSVGBtn className="mr-[5.8rem]" direction={Direction.LEFT} onClick={handlePrevClick} />
 			<div className="flex gap-[4.2rem] pl-[1rem] pr-[1rem]">
 				{visibleFriends().map((friend) => (
-					<FriendInfo
+					<ContainerCarousel
 						key={friend.id}
 						image={friend.image}
 						time={friend.time}
