@@ -1,10 +1,10 @@
-import useCarouselTimer from '@/shared/hooks/useCarouselTimer';
-
 import { formatSeconds } from '@/shared/utils/time';
 
 import ClockIcon from '@/shared/assets/svgs/icon_clock.svg?react';
 
-interface CarouselContainerProps {
+import useCarouselTimer from './hooks/useCarouselTimer';
+
+interface ContainerCarouselProps {
 	image: string;
 	name: string;
 	time: number;
@@ -12,7 +12,7 @@ interface CarouselContainerProps {
 	isPlaying: boolean;
 }
 
-const CarouselContainer = ({ image, name, time, categoryname, isPlaying }: CarouselContainerProps) => {
+const ContainerCarousel = ({ image, name, time, categoryname, isPlaying }: ContainerCarouselProps) => {
 	const timer = useCarouselTimer({ isPlaying, previousTime: time });
 	const formattedTime = formatSeconds(timer);
 
@@ -21,12 +21,12 @@ const CarouselContainer = ({ image, name, time, categoryname, isPlaying }: Carou
 			<img src={image} alt="유저 프로필" className="mb-[1rem] h-[7.4rem] w-[7.4rem]" />
 			<div className="flex justify-center gap-[0.2rem]">
 				<ClockIcon />
-				<span className="detail-reg-14 text-mint-02">{formattedTime}</span>
+				<span className="text-mint-02 detail-reg-14">{formattedTime}</span>
 			</div>
-			<span className="detail-semibold-14 text-white">{name}</span>
-			<span className="detail-reg-12 text-gray-04">{categoryname}</span>
+			<span className="text-white detail-semibold-14">{name}</span>
+			<span className="text-gray-04 detail-reg-12">{categoryname}</span>
 		</div>
 	);
 };
 
-export default CarouselContainer;
+export default ContainerCarousel;

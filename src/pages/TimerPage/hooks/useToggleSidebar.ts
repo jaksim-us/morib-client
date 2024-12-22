@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useToggleSideBar = () => {
+export const useToggleSidebar = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 	const handleSidebarToggle = () => {
@@ -12,5 +12,3 @@ const useToggleSideBar = () => {
 		handleSidebarToggle,
 	};
 };
-
-export default useToggleSideBar;
