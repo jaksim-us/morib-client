@@ -30,7 +30,7 @@ const PopoverAllowedService = ({
 	return (
 		<div className="ml-[4.899rem] flex h-[45rem] w-[53.2rem]">
 			<div className="flex w-[23rem] flex-col rounded-l-[8px] bg-gray-bg-02 p-[1rem]">
-				<h3 className="detail-reg-14 h-[3.4rem] w-[21rem] px-[1.7rem] py-[1rem] text-gray-04">허용서비스 세트</h3>
+				<h3 className="h-[3.4rem] w-[21rem] px-[1.7rem] py-[1rem] text-gray-04 detail-reg-14">허용서비스 세트</h3>
 				<ul className="mt-[0.8rem] h-[32.4rem] w-[20.4rem] overflow-y-auto">
 					{ALLOW_SITE_LIST.map((item) => (
 						<li
@@ -54,7 +54,7 @@ const PopoverAllowedService = ({
 									className="h-[1.4rem] w-[1.4rem] rounded border-gray-600 focus:ring"
 								/>
 							</div>
-							<div className="detail-semibold-14 w-[14.9rem] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-white">
+							<div className="w-[14.9rem] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-white detail-semibold-14">
 								{item.allowedservicesetname}
 							</div>
 
@@ -65,13 +65,13 @@ const PopoverAllowedService = ({
 				<div className="flex h-[5.4rem] justify-end gap-[0.5rem] p-[1rem]">
 					<button
 						onClick={onCancel}
-						className="detail-semibold-14 flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-gray-bg-06 text-white"
+						className="flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-gray-bg-06 text-white detail-semibold-14"
 					>
 						취소
 					</button>
 					<button
 						onClick={handleRegisterClick}
-						className="detail-semibold-14 flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-mint-02 text-black"
+						className="flex h-[3.4rem] w-[5.8rem] items-center justify-center rounded-[3.297px] bg-mint-02 text-black detail-semibold-14"
 					>
 						등록
 					</button>
@@ -79,7 +79,7 @@ const PopoverAllowedService = ({
 			</div>
 
 			<div className="flex w-[30.2rem] flex-col gap-[0.8rem] rounded-r-[8px] bg-gray-bg-03 py-[1rem] pl-[0.9rem] pr-[1.7rem]">
-				<h3 className="detail-reg-14 h-[3.4rem] w-[28.6rem] p-[1rem] text-gray-04">허용할 사이트</h3>
+				<h3 className="h-[3.4rem] w-[28.6rem] p-[1rem] text-gray-04 detail-reg-14">허용할 사이트</h3>
 				<ul className="h-[37.6rem] overflow-y-auto">
 					{ALLOW_SITE_LIST.filter((item) => item.id === selectedSetId).map((item) =>
 						item.allowedsites.map((site, index) => (
@@ -88,7 +88,7 @@ const PopoverAllowedService = ({
 								className="flex h-[3.2rem] w-[27.6rem] items-center gap-[1rem] rounded-[3px] px-[0.7rem] odd:bg-gray-bg-02"
 							>
 								<img src={site.src} alt={`${site.name} Icon`} className="h-6 w-6" />
-								<span className="detail-reg-12 text-white">{site.name}</span>
+								<span className="text-white detail-reg-12">{site.name}</span>
 							</li>
 						)),
 					)}

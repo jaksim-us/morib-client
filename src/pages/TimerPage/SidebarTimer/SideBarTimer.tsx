@@ -13,7 +13,7 @@ import { Todo } from '@/shared/types/todoData';
 
 import BtnListIcon from '@/shared/assets/svgs/btn_list.svg?react';
 
-import ButtonSideBar from '@/pages/TimerPage/components/ButtonSideBar';
+import ButtonSideBar from './ButtonSideBar/ButtonSideBar';
 
 interface CategoryBoxProps {
 	completedTodos: Todo[];

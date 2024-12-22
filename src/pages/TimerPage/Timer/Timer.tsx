@@ -4,10 +4,10 @@ import { usePostTimerStop } from '@/shared/apis/timer/queries';
 
 import InnerCircleIcon from '@/shared/assets/svgs/elipse.svg?react';
 
-import AccumulatedTime from '@/pages/TimerPage/components/AccumulatedTime';
-import ButtonTimerPlay from '@/pages/TimerPage/components/ButtonTimerPlay';
-import ProgressCircle from '@/pages/TimerPage/components/ProgressCircle';
-import TaskTime from '@/pages/TimerPage/components/TaskTime';
+import AccumulatedTime from './AccumulatedTime/AccumulatedTime';
+import ButtonTimerPlay from './ButtonTimerPlay/ButtonTimerPlay';
+import ProgressCircle from './ProgressCircle/ProgressCircle';
+import TaskTime from './TaskTime/TaskTime';
 
 interface TaskTotalTimeProps {
 	selectedTodo: number | null;

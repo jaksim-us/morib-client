@@ -11,7 +11,7 @@ interface UseTimerCountReturn {
 	resetIncreasedTime: () => void;
 }
 
-const useTimerCount = ({ isPlaying, previousTime }: UseTimerCountProps): UseTimerCountReturn => {
+export const useTimerCount = ({ isPlaying, previousTime }: UseTimerCountProps): UseTimerCountReturn => {
 	const [increasedTime, setIncreasedTime] = useState(0);
 	const timerIntervalId = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -50,5 +50,3 @@ const useTimerCount = ({ isPlaying, previousTime }: UseTimerCountProps): UseTime
 
 	return { timer, increasedTime, resetIncreasedTime };
 };
-
-export default useTimerCount;
