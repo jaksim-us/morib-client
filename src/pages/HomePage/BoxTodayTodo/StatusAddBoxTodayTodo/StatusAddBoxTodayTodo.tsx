@@ -6,7 +6,7 @@ import { Task } from '@/shared/types/home';
 
 import { LARGE_BTN_TEXT, SMALL_BTN_TEXT } from '@/shared/constants/btnText';
 
-import HomeSmallBtn from '@/pages/HomePage/Box/BoxTodayTodo/StatusAddBoxTodayTodo/ButtonHomeSmall/ButtonHomeSmall';
+import HomeSmallBtn from './ButtonHomeSmall/ButtonHomeSmall';
 
 interface StatusAddBoxTodayTodoProps {
 	selectedTodayTodos: Omit<Task, 'isComplete'>[];

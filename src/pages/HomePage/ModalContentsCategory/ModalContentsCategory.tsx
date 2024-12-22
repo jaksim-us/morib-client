@@ -18,7 +18,7 @@ import { formatCalendarApiDate } from '@/shared/utils/calendar/index';
 
 import ArrowCircleUpRight from '@/shared/assets/svgs/arrow_circle_up_right.svg?react';
 
-import { useCalendar } from '../../hooks/useCalendar';
+import { useCalendar } from '../hooks/useCalendar';
 
 const Calendar = lazy(() => import('@/shared/components/Calendar'));
 
