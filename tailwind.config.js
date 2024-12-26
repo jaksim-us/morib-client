@@ -103,6 +103,18 @@ export default {
 				'error-03': '#AE3333',
 				black: '#000000',
 				dim: 'rgba(0, 0, 0, 0.6)',
+				'color-palette-red': '#FF8080',
+				'color-palette-yellow1': '#FFB62F',
+				'color-palette-yellow2': '#FFF787',
+				'color-palette-green1': '#B6FFA5',
+				'color-palette-green2': '#5CE082',
+				'color-palette-green3': '#179F62',
+				//mint-01
+				'color-palette-blue1': '#27C5FF',
+				'color-palette-blue2': '#3D6DFF',
+				'color-palette-purple1': '#7742FF',
+				'color-palette-pink': '#FF74F8',
+				//gray-bg-07
 			},
 			lineHeight: {
 				120: '120%',
