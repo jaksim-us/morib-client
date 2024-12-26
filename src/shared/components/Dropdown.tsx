@@ -50,13 +50,22 @@ const DropdownRoot = ({ children }: DropdownRootProps) => {
 // Dropdown의 메뉴를 trigger 하는 컴포넌트
 interface DropdownTriggerProps {
 	children: ReactNode;
+	preventPropagation?: boolean;
 }
 
-const DropdownTrigger = ({ children }: DropdownTriggerProps) => {
+const DropdownTrigger = ({ children, preventPropagation }: DropdownTriggerProps) => {
 	const { handleToggleOpen } = useDropdownContext();
 
 	return (
-		<button onClick={handleToggleOpen} className="relative">
+		<button
+			onClick={(e) => {
+				if (preventPropagation) {
+					e.stopPropagation();
+				}
+				handleToggleOpen();
+			}}
+			className="relative"
+		>
 			{children}
 		</button>
 	);
