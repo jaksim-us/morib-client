@@ -7,8 +7,8 @@ import useClickOutside from '@/shared/hooks/useClickOutside';
 import BellIcon from '@/shared/assets/svgs/bell.svg?react';
 import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
-import { ModalContentsFriends } from './../HomePage/components/ModalContents';
-import SideBarHome from './../HomePage/components/SideBarHome';
+import ModalContentsFriends from '@/pages/HomePage/ModalContentsFriends/ModalContentsFriends';
+
 import BoxMakeAllowedService from './components/Box/BoxMakeAllowedService';
 import BoxRecommendService from './components/Box/BoxRecommendService';
 import CategoryAllowedService from './components/CategoryAllowedService';
@@ -94,8 +94,6 @@ const AllowedServicePage = () => {
 
 	return (
 		<div className="flex h-screen w-screen bg-gray-bg-01">
-			<SideBarHome />
-
 			<div className={`absolute right-[4.4rem] top-[5.4rem] flex gap-[0.8rem]`}>
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />

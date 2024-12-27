@@ -1,6 +1,6 @@
 import { FormEvent, useRef, useState } from 'react';
 
-import ButtonSVG from '@/shared/components/ButtonSVG';
+import ButtonSVG from '@/shared/components/Button/ButtonSVG/ButtonSVG';
 
 import { isUrlValid } from '@/shared/utils/isUrlValid/index';
 

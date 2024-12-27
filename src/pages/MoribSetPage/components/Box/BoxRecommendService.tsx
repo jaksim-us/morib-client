@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 
+import ArrowSVGBtn from '@/shared/components/Button/ButtonArrowSVG/ButtonArrowSVG';
+
 import { Direction } from '@/shared/types/global';
 
 import { recommendServices } from '@/shared/constants/recommendSites';
-
-import ArrowSVGBtn from '@/components/atoms/ArrowSVGBtn';
 
 import { UrlInfo } from './../../types';
 

@@ -1,12 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 
+import ArrowSVGBtn from '@/shared/components/Button/ButtonArrowSVG/ButtonArrowSVG';
 import CategoryTabSelect from '@/shared/components/CategoryTabSelect';
 
 import { Direction } from '@/shared/types/global';
 
 import { CATEGORY_MODALTABS } from '@/shared/constants/tabSelections';
-
-import ArrowSVGBtn from '@/components/atoms/ArrowSVGBtn';
 
 import { AllowedService } from './../../types';
 import ColorPallete from './../ColorPallete';
