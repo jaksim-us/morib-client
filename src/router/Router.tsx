@@ -81,7 +81,9 @@ const router: Router = createBrowserRouter([
 				path: ROUTES_CONFIG.allowedService.path,
 				element: (
 					<Suspense fallback={<div>Loading...</div>}>
-						<AllowedServicePage />
+						<Layout>
+							<AllowedServicePage />
+						</Layout>
 					</Suspense>
 				),
 			},
