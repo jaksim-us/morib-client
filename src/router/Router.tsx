@@ -13,7 +13,7 @@ import { ROUTES_CONFIG } from './routesConfig';
 const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
 const HomePage = lazy(() => import('@/pages/HomePage/HomePage'));
 const TimerPage = lazy(() => import('@/pages/TimerPage/TimerPage'));
-const MoribSetPage = lazy(() => import('@/pages/MoribSetPage/MoribSetPage'));
+const AllowedServicePage = lazy(() => import('@/pages/MoribSetPage/AllowedServicePage'));
 
 const ProtectedRoute = () => {
 	//Todo: 개발이 진행되면 실제 토큰 상태를 받아서 login page로 이동 시킴
@@ -78,10 +78,10 @@ const router: Router = createBrowserRouter([
 				),
 			},
 			{
-				path: ROUTES_CONFIG.moribSet.path,
+				path: ROUTES_CONFIG.allowedService.path,
 				element: (
 					<Suspense fallback={<div>Loading...</div>}>
-						<MoribSetPage />
+						<AllowedServicePage />
 					</Suspense>
 				),
 			},

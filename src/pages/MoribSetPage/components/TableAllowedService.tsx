@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 
 import { UrlInfo } from './../types';
 
-interface TableMoribSetProps {
+interface TableAllowedServiceProps {
 	children: ReactNode;
 	urlList: UrlInfo[];
 }
 
-const TableMoribSet = ({ children, urlList }: TableMoribSetProps) => {
+const TableAllowedService = ({ children, urlList }: TableAllowedServiceProps) => {
 	const tableNum = 9;
 
 	const showYScroll = urlList.length > tableNum;
@@ -42,4 +42,4 @@ const TableMoribSet = ({ children, urlList }: TableMoribSetProps) => {
 	);
 };
 
-export default TableMoribSet;
+export default TableAllowedService;

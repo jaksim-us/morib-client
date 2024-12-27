@@ -9,14 +9,14 @@ import ArrowSVGBtn from '@/components/atoms/ArrowSVGBtn';
 import { UrlInfo } from './../../types';
 
 interface BoxRecommendServiceProps {
-	addUrlToMoribSet: (url: UrlInfo) => void;
+	addUrlToAllowedService: (url: UrlInfo) => void;
 }
 
-const BoxRecommendService = ({ addUrlToMoribSet }: BoxRecommendServiceProps) => {
+const BoxRecommendService = ({ addUrlToAllowedService }: BoxRecommendServiceProps) => {
 	const [availableServices, setAvailableServices] = useState(recommendServices);
 
 	const handleServiceClick = (service: { serviceName: string; url: string }) => {
-		addUrlToMoribSet({
+		addUrlToAllowedService({
 			siteName: service.serviceName.replace(/^www\./, '').replace(/\.[a-z]{2,}$/, ''),
 			page: service.serviceName,
 			url: service.url,

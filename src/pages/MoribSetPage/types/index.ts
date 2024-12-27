@@ -1,6 +1,6 @@
-export interface MoribSet {
+export interface AllowedService {
 	id: number;
-	moribSetName: string;
+	allowedServiceName: string;
 	selectedColor: string;
 	urlList: UrlInfo[];
 }

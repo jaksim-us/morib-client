@@ -7,16 +7,16 @@ import { isUrlValid } from '@/shared/utils/isUrlValid/index';
 import InputClearButton from '@/shared/assets/svgs/btn_inputClear.svg?react';
 import IconInputError from '@/shared/assets/svgs/error_input.svg?react';
 
-import ButtonAddMoribSet from '@/pages/MoribSetPage/components/Button/ButtonAddMoribSet';
+import ButtonAddAllowedService from '@/pages/MoribSetPage/components/Button/ButtonAddAllowedService';
 
 import { UrlInfo } from './../../types';
 
-interface InputMoribSetUrlProps {
+interface InputAllowedServiceUrlProps {
 	urlList: UrlInfo[];
 	addUrl: (url: string) => void;
 }
 
-const InputMoribSetUrl = ({ urlList, addUrl }: InputMoribSetUrlProps) => {
+const InputAllowedServiceUrl = ({ urlList, addUrl }: InputAllowedServiceUrlProps) => {
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const [showClearBtn, setShowClearBtn] = useState(false);
 	const [errorMessage, setErrorMessage] = useState({ error: '' });
@@ -71,7 +71,7 @@ const InputMoribSetUrl = ({ urlList, addUrl }: InputMoribSetUrlProps) => {
 						<InputClearButton />
 					</ButtonSVG>
 				)}
-				<ButtonAddMoribSet type="submit" disabled={!inputRef.current?.value || errorMessage.error.length > 0} />
+				<ButtonAddAllowedService type="submit" disabled={!inputRef.current?.value || errorMessage.error.length > 0} />
 			</div>
 
 			{errorMessage.error && (
@@ -84,4 +84,4 @@ const InputMoribSetUrl = ({ urlList, addUrl }: InputMoribSetUrlProps) => {
 	);
 };
 
-export default InputMoribSetUrl;
+export default InputAllowedServiceUrl;

@@ -1,4 +1,4 @@
-const ButtonAddMoribSet = ({ disabled = false, ...props }) => {
+const ButtonAddAllowedService = ({ disabled = false, ...props }) => {
 	const defaultStyle =
 		'absolute  right-[1.2rem] body-semibold-16 flex items-center justify-center rounded-[5px] py-[1.2rem] px-[2.2rem]';
 	const buttonStyle = disabled
@@ -12,4 +12,4 @@ const ButtonAddMoribSet = ({ disabled = false, ...props }) => {
 	);
 };
 
-export default ButtonAddMoribSet;
+export default ButtonAddAllowedService;

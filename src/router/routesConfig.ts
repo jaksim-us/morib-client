@@ -11,9 +11,9 @@ export const ROUTES_CONFIG = {
 		title: 'Onboarding',
 		path: '/onboarding',
 	},
-	moribSet: {
-		title: 'MoribSet',
-		path: '/moribSet',
+	allowedService: {
+		title: 'AllowedService',
+		path: '/allowedService',
 	},
 	redirect: {
 		title: 'Redirect',
