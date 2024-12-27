@@ -58,12 +58,12 @@ const BoxRecommendService = ({ addUrlToMoribSet }: BoxRecommendServiceProps) => 
 
 			<div
 				ref={carouselContainerRef}
-				className="mx-[2.8rem] my-[2.4rem] flex items-center gap-[14px] overflow-x-hidden"
+				className="mx-[2.8rem] my-[2.4rem] flex items-center gap-[1.4rem] overflow-x-hidden"
 			>
 				{availableServices.map((service, index) => (
 					<div
 						key={index}
-						className="flex w-[23.9rem] flex-shrink-0 items-center gap-[15px] rounded-[8px] bg-gray-bg-01 p-[2rem]"
+						className="flex w-[23.9rem] flex-shrink-0 items-center gap-[1.5rem] rounded-[8px] bg-gray-bg-01 p-[2rem]"
 						onClick={() => handleServiceClick(service)}
 					>
 						<img
@@ -74,12 +74,7 @@ const BoxRecommendService = ({ addUrlToMoribSet }: BoxRecommendServiceProps) => 
 						<p className="subhead-bold-20 max-h-[8.4rem] overflow-hidden text-white">{service.serviceName}</p>
 					</div>
 				))}
-				{/* 				<div
-					className="absolute right-0 top-0 z-0 h-[18.8rem] w-[7.2rem] flex-shrink-0"
-					style={{
-						background: 'linear-gradient(90deg, rgba(51, 55, 63, 0.00) 0%, #33373F 100%)',
-					}}
-				/> */}
+				<div className="absolute right-0 top-0 z-0 h-[18.8rem] w-[7.2rem] flex-shrink-0 rounded-r-[16px] bg-gradient-to-r from-transparent to-[#33373F]" />
 			</div>
 		</div>
 	);

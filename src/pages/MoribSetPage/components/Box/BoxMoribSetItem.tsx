@@ -2,7 +2,7 @@ import Dropdown from '@/shared/components/Dropdown';
 
 import IconMeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import { MoribSet } from './../types';
+import { MoribSet } from './../../types';
 
 interface MoribSetItemProps {
 	moribSet: MoribSet;
@@ -41,7 +41,7 @@ const MoribSetItem = ({
 					<Dropdown.Trigger preventPropagation={true}>
 						<IconMeatBall className="cursor-pointer hover:rounded-full hover:bg-gray-bg-05" />
 					</Dropdown.Trigger>
-					<Dropdown.Content boxShadow="shadow-none" className="absolute w-[12.4rem] overflow-x-hidden">
+					<Dropdown.Content boxShadow="shadow-none" className="absolute left-[-10rem] w-[12.4rem] overflow-x-hidden">
 						<Dropdown.Item
 							label="할 일 삭제"
 							textColor="red"

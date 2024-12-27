@@ -1,4 +1,4 @@
-import FormEvent, { useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 import ButtonSVG from '@/shared/components/ButtonSVG';
 

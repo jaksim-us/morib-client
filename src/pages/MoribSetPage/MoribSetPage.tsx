@@ -7,8 +7,6 @@ import useClickOutside from '@/shared/hooks/useClickOutside';
 import BellIcon from '@/shared/assets/svgs/bell.svg?react';
 import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
-import MoribSetPageWrapper from '@/components/templates/MoribSetPageWrapper/index';
-
 import { ModalContentsFriends } from './../HomePage/components/ModalContents';
 import SideBarHome from './../HomePage/components/SideBarHome';
 import BoxMakeMoribSet from './components/Box/BoxMakeMoribSet';
@@ -24,7 +22,7 @@ const MoribSetPage = () => {
 		{
 			id: Date.now(),
 			moribSetName: '',
-			selectedColor: '#868C93',
+			selectedColor: 'bg-gray-bg-07',
 			urlList: [],
 		},
 	]);
@@ -34,7 +32,7 @@ const MoribSetPage = () => {
 		const newSet: MoribSet = {
 			id: Date.now(),
 			moribSetName: '',
-			selectedColor: '#868C93',
+			selectedColor: 'bg-gray-bg-07',
 			urlList: [],
 		};
 		setMoribSets((prev) => [...prev, newSet]);
@@ -95,7 +93,7 @@ const MoribSetPage = () => {
 	useClickOutside(friendModalContentRef, handleCloseFriendsModal);
 
 	return (
-		<MoribSetPageWrapper>
+		<div className="flex h-screen w-screen bg-gray-bg-01">
 			<SideBarHome />
 
 			<div className={`absolute right-[4.4rem] top-[5.4rem] flex gap-[0.8rem]`}>
@@ -123,7 +121,7 @@ const MoribSetPage = () => {
 							updateMoribSet={(key, value) => handleUpdateMoribSet(activeMoribSetId, key, value)}
 						/>
 					)}
-					<div className="mt-[5.1rem]">
+					<div className="mt-[4.2rem]">
 						<BoxRecommendService addUrlToMoribSet={handleAddUrlToMoribSet} />
 					</div>
 				</div>
@@ -132,7 +130,7 @@ const MoribSetPage = () => {
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
 				<ModalContentsFriends ref={friendModalContentRef} />
 			</ModalWrapper>
-		</MoribSetPageWrapper>
+		</div>
 	);
 };
 

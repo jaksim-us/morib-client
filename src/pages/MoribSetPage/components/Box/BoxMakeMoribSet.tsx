@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import CategoryTabSelect from '@/shared/components/CategoryTabSelect';
 
@@ -33,7 +33,7 @@ const BoxMakeMoribSet = ({ moribSet, updateMoribSet }: BoxMakeMoribSetProps) => 
 		setIsPaletteOpen(false);
 	};
 
-	const handleMoribNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleMoribNameChange = (e: ChangeEvent<HTMLInputElement>) => {
 		updateMoribSet('moribSetName', e.target.value);
 	};
 
@@ -65,10 +65,10 @@ const BoxMakeMoribSet = ({ moribSet, updateMoribSet }: BoxMakeMoribSetProps) => 
 	};
 
 	return (
-		<div className="relative flex w-[132rem] flex-col items-start gap-[20px]">
-			<div className="flex items-center gap-[14px]">
-				<div className="flex items-center gap-[6px]">
-					<div className="h-[3rem] w-[3rem] rounded-[31px]" style={{ backgroundColor: selectedColor }} />
+		<div className="relative flex w-[132rem] flex-col items-start gap-[2rem]">
+			<div className="flex items-center gap-[1.4rem]">
+				<div className="flex items-center gap-[0.6rem]">
+					<div className={`h-[3rem] w-[3rem] rounded-[31px] ${selectedColor}`} />
 					<ArrowSVGBtn direction={Direction.DOWN} onClick={handleColorPalleteOpen} />
 				</div>
 				<input
@@ -81,14 +81,14 @@ const BoxMakeMoribSet = ({ moribSet, updateMoribSet }: BoxMakeMoribSetProps) => 
 
 			<ColorPallete isOpen={isPaletteOpen} onSelectColor={handleColorSelect} />
 
-			<div className="flex items-center gap-[3px] self-stretch">
+			<div className="flex items-center gap-[0.3rem] self-stretch">
 				<CategoryTabSelect tabs={CATEGORY_MODALTABS} handleTabChange={handleTabChange} selectedTabId={selectedTabId} />
 			</div>
 
 			{selectedTabId === CATEGORY_MODALTABS[0].id && (
 				<>
 					<div className="relative w-full">
-						<InputMoribSetUrl addUrl={addUrl} />
+						<InputMoribSetUrl urlList={urlList} addUrl={addUrl} />
 					</div>
 					<TableMoribSet urlList={urlList}>
 						<BoxUrlList urlList={urlList} onDelete={handleDeleteUrlInfo} />

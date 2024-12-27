@@ -11,7 +11,7 @@ const TableMoribSet = ({ children, urlList }: TableMoribSetProps) => {
 	const tableNum = 9;
 
 	const showYScroll = urlList.length > tableNum;
-	const defaultTableStyle = `h-[46rem] w-full overflow-y overflow-x-hidden rounded-[8px]`;
+	const defaultTableStyle = `h-[46rem] w-full overflow-y overflow-x-hidden rounded-[8px] mt-[1rem]`;
 
 	const optionalScrollStyle = showYScroll ? 'overflow-y-auto' : 'overflow-y-hidden';
 	const theadStyle =
