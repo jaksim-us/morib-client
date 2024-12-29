@@ -2,7 +2,7 @@ import Dropdown from '@/shared/components/Dropdown';
 
 import IconMeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
-import { AllowedService } from './../../types';
+import { AllowedService } from '../types';
 
 interface BoxAllowedServiceItemProps {
 	allowedService: AllowedService;

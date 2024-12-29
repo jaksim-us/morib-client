@@ -13,7 +13,7 @@ import { ROUTES_CONFIG } from './routesConfig';
 const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
 const HomePage = lazy(() => import('@/pages/HomePage/HomePage'));
 const TimerPage = lazy(() => import('@/pages/TimerPage/TimerPage'));
-const AllowedServicePage = lazy(() => import('@/pages/MoribSetPage/AllowedServicePage'));
+const AllowedServicePage = lazy(() => import('@/pages/AllowedServicePage/AllowedServicePage'));
 
 const ProtectedRoute = () => {
 	//Todo: 개발이 진행되면 실제 토큰 상태를 받아서 login page로 이동 시킴

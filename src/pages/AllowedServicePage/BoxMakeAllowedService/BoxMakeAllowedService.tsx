@@ -7,11 +7,12 @@ import { Direction } from '@/shared/types/global';
 
 import { CATEGORY_MODALTABS } from '@/shared/constants/tabSelections';
 
-import { AllowedService } from './../../types';
-import ColorPallete from './../ColorPallete';
-import InputAllowedServiceUrl from './../Input/InputAllowedServiceUrl';
-import TableAllowedService from './../TableAllowedService';
-import BoxUrlList from './BoxUrlList';
+import { AllowedService } from '../types';
+
+import ColorPallete from '../ColorPallete/ColorPallete';
+import InputAllowedServiceUrl from '../InputAllowedServiceUrl/InputAllowedServiceUrl';
+import TableAllowedService from '../TableAllowedService/TableAllowedService';
+import BoxUrlList from '../BoxUrlList/BoxUrlList';
 
 interface BoxMakeAllowedServiceProps {
 	allowedService: AllowedService;

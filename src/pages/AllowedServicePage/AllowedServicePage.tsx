@@ -9,9 +9,9 @@ import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
 import ModalContentsFriends from '@/pages/HomePage/ModalContentsFriends/ModalContentsFriends';
 
-import BoxMakeAllowedService from './components/Box/BoxMakeAllowedService';
-import BoxRecommendService from './components/Box/BoxRecommendService';
-import CategoryAllowedService from './components/CategoryAllowedService';
+import BoxMakeAllowedService from './BoxMakeAllowedService/BoxMakeAllowedService';
+import BoxRecommendService from './BoxRecommendService/BoxRecommendService';
+import CategoryAllowedService from './CategoryAllowedService/CategoryAllowedService';
 import { AllowedService, UrlInfo } from './types';
 
 const AllowedServicePage = () => {
