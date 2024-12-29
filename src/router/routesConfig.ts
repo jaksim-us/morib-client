@@ -11,6 +11,10 @@ export const ROUTES_CONFIG = {
 		title: 'Onboarding',
 		path: '/onboarding',
 	},
+	allowedService: {
+		title: 'AllowedService',
+		path: '/allowedService',
+	},
 	redirect: {
 		title: 'Redirect',
 		path: '/redirect',
