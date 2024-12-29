@@ -25,14 +25,14 @@ const BoxAllowedServiceItem = ({
 	return (
 		<div
 			key={allowedService.id}
-			className={`mb-[8px] h-[8rem] w-[36.6rem] flex-col items-start justify-end rounded-[8px] bg-gray-bg-01 p-[1.4rem] ${activeAllowedServiceId === allowedService.id ? 'border-[1px] border-mint-01' : ''}`}
+			className={`mb-[0.8rem] h-[8rem] w-[36.6rem] flex-col items-start justify-end rounded-[8px] bg-gray-bg-01 p-[1.4rem] ${activeAllowedServiceId === allowedService.id ? 'border-[1px] border-mint-01' : ''}`}
 			onClick={() => setActiveAllowedServiceId(allowedService.id)}
 		>
 			<div className="flex content-between items-center self-stretch">
 				<div className="flex w-[30.8rem] items-center gap-[0.6rem]">
 					<div className={`h-[1.4rem] w-[1.4rem] rounded-[70px] ${allowedService.selectedColor}`} />
 					<h2
-						className={`body-semibold-16 w-[28.8rem] truncate ${allowedService.allowedServiceName ? 'text-white' : 'text-gray-03'}`}
+						className={`w-[28.8rem] truncate body-semibold-16 ${allowedService.allowedServiceName ? 'text-white' : 'text-gray-03'}`}
 					>
 						{allowedService.allowedServiceName || '모립세트 이름을 입력해주세요.'}
 					</h2>

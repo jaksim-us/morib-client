@@ -26,7 +26,7 @@ const AllowedServicePage = () => {
 			urlList: [],
 		},
 	]);
-	const [activeAllowedServiceId, setActiveAllowedServiceId] = useState<number | null>(allowedServices[0].id);
+	const [activeAllowedServiceId, setActiveAllowedServiceId] = useState<number>(allowedServices[0].id);
 
 	const handleAddAllowedService = () => {
 		const newSet: AllowedService = {
@@ -74,9 +74,7 @@ const AllowedServicePage = () => {
 	};
 
 	useEffect(() => {
-		if (allowedServices.length === 0) {
-			setActiveAllowedServiceId(null);
-		} else if (!allowedServices.find((set) => set.id === activeAllowedServiceId)) {
+		if (allowedServices.length > 0 && !allowedServices.find((set) => set.id === activeAllowedServiceId)) {
 			setActiveAllowedServiceId(allowedServices[allowedServices.length - 1].id);
 		}
 	}, [allowedServices, activeAllowedServiceId]);
@@ -94,7 +92,7 @@ const AllowedServicePage = () => {
 
 	return (
 		<div className="flex h-screen w-screen bg-gray-bg-01">
-			<div className={`absolute right-[4.4rem] top-[5.4rem] flex gap-[0.8rem]`}>
+			<div className={`absolute right-[13.4rem] top-[5.4rem] flex gap-[0.8rem]`}>
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
 				</button>
@@ -113,12 +111,13 @@ const AllowedServicePage = () => {
 				/>
 
 				<div className="ml-[4.2rem] mt-[6.8rem]">
-					{activeAllowedServiceId && activeAllowedService && (
+					{activeAllowedService && (
 						<BoxMakeAllowedService
 							allowedService={activeAllowedService}
 							updateAllowedService={(key, value) => handleUpdateAllowedService(activeAllowedServiceId, key, value)}
 						/>
 					)}
+
 					<div className="mt-[4.2rem]">
 						<BoxRecommendService addUrlToAllowedService={handleAddUrlToAllowedService} />
 					</div>

@@ -1,7 +1,5 @@
 import { FormEvent, useRef, useState } from 'react';
 
-import ButtonSVG from '@/shared/components/Button/ButtonSVG/ButtonSVG';
-
 import { isUrlValid } from '@/shared/utils/isUrlValid/index';
 
 import InputClearButton from '@/shared/assets/svgs/btn_inputClear.svg?react';
@@ -64,12 +62,12 @@ const InputAllowedServiceUrl = ({ urlList, addUrl }: InputAllowedServiceUrlProps
 					placeholder="허용할 웹사이트 주소를 입력해 주세요."
 					ref={inputRef}
 					onChange={handleInputChange}
-					className={`${errorMessage.error.length > 0 ? errorStyle : `border-[1px] border-gray-bg-02`} subhead-med-18 placeholder-text-gray-04 w-full rounded-[8px] bg-gray-bg-02 px-[2rem] py-[2rem] text-white focus:outline-none`}
+					className={`${errorMessage.error.length > 0 ? errorStyle : `border-[1px] border-gray-bg-02`} placeholder-text-gray-04 w-full rounded-[8px] bg-gray-bg-02 px-[2rem] py-[2rem] text-white subhead-med-18 focus:outline-none`}
 				/>
 				{showClearBtn && (
-					<ButtonSVG className="absolute right-[21.1rem] top-[2rem]" type="button" onClick={handleClearBtn}>
+					<button type="button" className="absolute right-[21.1rem] top-[2rem]" onClick={handleClearBtn}>
 						<InputClearButton />
-					</ButtonSVG>
+					</button>
 				)}
 				<ButtonAddAllowedService type="submit" disabled={!inputRef.current?.value || errorMessage.error.length > 0} />
 			</div>
@@ -77,7 +75,7 @@ const InputAllowedServiceUrl = ({ urlList, addUrl }: InputAllowedServiceUrlProps
 			{errorMessage.error && (
 				<div className="absolute mt-[1rem] flex gap-[0.5rem]">
 					<IconInputError />
-					<p className="body-reg-16 text-error-01">{errorMessage.error}</p>
+					<p className="text-error-01 body-reg-16">{errorMessage.error}</p>
 				</div>
 			)}
 		</form>
