@@ -39,7 +39,7 @@ const BoxAllowedServiceItem = ({
 				</div>
 
 				<Dropdown.Root>
-					<Dropdown.Trigger preventPropagation={true}>
+					<Dropdown.Trigger>
 						<IconMeatBall className="cursor-pointer hover:rounded-full hover:bg-gray-bg-05" />
 					</Dropdown.Trigger>
 					<Dropdown.Content boxShadow="shadow-none" className="absolute left-[-10rem] w-[12.4rem] overflow-x-hidden">

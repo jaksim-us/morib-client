@@ -50,18 +50,15 @@ const DropdownRoot = ({ children }: DropdownRootProps) => {
 // Dropdown의 메뉴를 trigger 하는 컴포넌트
 interface DropdownTriggerProps {
 	children: ReactNode;
-	preventPropagation?: boolean;
 }
 
-const DropdownTrigger = ({ children, preventPropagation }: DropdownTriggerProps) => {
+const DropdownTrigger = ({ children }: DropdownTriggerProps) => {
 	const { handleToggleOpen } = useDropdownContext();
 
 	return (
 		<button
 			onClick={(e) => {
-				if (preventPropagation) {
-					e.stopPropagation();
-				}
+				e.stopPropagation();
 				handleToggleOpen();
 			}}
 			className="relative"
@@ -109,7 +106,7 @@ const DropdownItem = ({ label, textColor = 'default', ...props }: DropdownItemPr
 				{...props}
 				className={`flex bg-gray-bg-02 px-[1.6rem] py-[0.4rem] hover:bg-gray-bg-03 active:bg-gray-bg-04`}
 			>
-				<p className={`detail-reg-12 flex h-[2.2rem] min-w-[13.5rem] items-center ${textStyle}`}>{label}</p>
+				<p className={`flex h-[2.2rem] min-w-[13.5rem] items-center detail-reg-12 ${textStyle}`}>{label}</p>
 			</button>
 		</li>
 	);
