@@ -1,7 +1,7 @@
 import IconPlus from '@/shared/assets/svgs/plus.svg?react';
 
-import { AllowedService } from './../types';
-import BoxAllowedServiceItem from './Box/BoxAllowedServiceItem';
+import { AllowedService } from '../types';
+import BoxAllowedServiceItem from './BoxAllowedServiceItem/BoxAllowedServiceItem';
 
 interface CategoryAllowedServiceProps {
 	allowedServices: AllowedService[];

@@ -6,7 +6,7 @@ import { Direction } from '@/shared/types/global';
 
 import { recommendServices } from '@/shared/constants/recommendSites';
 
-import { UrlInfo } from './../../types';
+import { UrlInfo } from '../types';
 
 interface BoxRecommendServiceProps {
 	addUrlToAllowedService: (url: UrlInfo) => void;

@@ -1,7 +1,7 @@
 import MinusBtn from '@/shared/assets/svgs/minus_btn.svg?react';
 
-import { UrlInfo } from './../../types';
-import BoxEachUrlInfo from './BoxEachUrlInfo';
+import { UrlInfo } from '../../types';
+import BoxEachUrlInfo from './BoxEachUrlInfo/BoxEachUrlInfo';
 
 interface BoxUrlListProps {
 	urlList: UrlInfo[];

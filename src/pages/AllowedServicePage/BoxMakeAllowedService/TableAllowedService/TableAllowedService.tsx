@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { UrlInfo } from './../types';
+import { UrlInfo } from '../../types';
 
 interface TableAllowedServiceProps {
 	children: ReactNode;
