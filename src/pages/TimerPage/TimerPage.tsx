@@ -4,8 +4,6 @@ import utc from 'dayjs/plugin/utc';
 
 import { useEffect, useMemo, useState } from 'react';
 
-import useUrlHandler from '@/shared/hooks/useUrlHandler';
-
 import { useGetMoribSet, useGetTodoList, usePostTimerStop } from '@/shared/apis/timer/queries';
 
 import { splitTasksByCompletion } from '@/shared/utils/timer';
@@ -21,7 +19,10 @@ import PopoverAllowedService from './PopoverAllowedService/PopoverAllowedService
 import SideBarTimer from './SidebarTimer/SideBarTimer';
 import TitleAllowedService from './TItleAllowedService/TitleAllowedService';
 import Timer from './Timer/Timer';
-import { useSelectedTodo, useTimerCount, useToggleSidebar } from './hooks';
+import { useSelectedTodo } from './hooks/useSelectedTodo';
+import { useTimerCount } from './hooks/useTimerCount';
+import { useToggleSidebar } from './hooks/useToggleSidebar';
+import { useUrlHandler } from './hooks/useUrlHandler';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

@@ -1,8 +1,8 @@
-import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
+import HomeLargeBtn from '@/shared/components/ButtonHomeLarge/ButtonHomeLarge';
 
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 
-import { OnboardingIcon } from '@/shared/assets/home/svgs';
+import OnboardingIcon from '@/shared/assets/svgs/onboarding_image.svg?react';
 
 interface StepStartProps {
 	setStep: (step: string) => void;

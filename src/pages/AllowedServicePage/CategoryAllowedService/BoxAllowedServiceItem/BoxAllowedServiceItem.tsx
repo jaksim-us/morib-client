@@ -1,4 +1,4 @@
-import Dropdown from '@/shared/components/Dropdown';
+import Dropdown from '@/shared/components/Dropdown/Dropdown';
 
 import IconMeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 

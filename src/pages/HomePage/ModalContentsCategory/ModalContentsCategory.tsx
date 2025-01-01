@@ -2,14 +2,8 @@ import React, { Suspense, lazy, useRef, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import AddCategoryListModal from '@/shared/components/AddCategoryListModal';
-import ButtonCategoryCommon from '@/shared/components/ButtonCategoryCommon';
-import ButtonStatusToggle from '@/shared/components/ButtonStatusToggle';
-import CalendarSelectedDate from '@/shared/components/CalendarSelectedDate';
-import CategoryCommonMoribSet from '@/shared/components/CategoryCommonMoribSet';
-import CategoryMsetUrlInfo from '@/shared/components/CategoryMsetUrlInfo';
-import InputCategoryUrl from '@/shared/components/InputCategoryUrl';
-import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
+import ButtonStatusToggle from '@/shared/components/ButtonStatusToggle/ButtonStatusToggle';
+import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 
 import { getTabName } from '@/shared/apis/tasks/axios/index';
 import { useGetTabName, usePostCategory } from '@/shared/apis/tasks/queries/index';
@@ -19,8 +13,14 @@ import { formatCalendarApiDate } from '@/shared/utils/calendar/index';
 import ArrowCircleUpRight from '@/shared/assets/svgs/arrow_circle_up_right.svg?react';
 
 import { useCalendar } from '../hooks/useCalendar';
+import ButtonCategoryCommon from './ButtonCategoryCommon/ButtonCategoryCommon';
+import CalendarSelectedDate from './CalendarSelectedDate/CalendarSelectedDate';
+import CategoryCommonMoribSet from './CategoryCommonMoribSet/CategoryCommonMoribSet';
+import CategoryMsetUrlInfo from './CategoryMsetUrlInfo/CategoryMsetUrlInfo';
+import InputCategoryUrl from './InputCategoryUrl/InputCategoryUrl';
+import AddCategoryListModal from './ModalAddCategoryList/ModalAddCategoryList';
 
-const Calendar = lazy(() => import('@/shared/components/Calendar'));
+const Calendar = lazy(() => import('@/shared/components/Calendar/Calendar'));
 
 interface UrlInfo {
 	url: string;
@@ -60,7 +60,7 @@ const ModalContentsCategory = ({ handleCloseModal }: ModalContentsCategoryProps)
 	const dialogRef = useRef<ModalWrapperRef>(null);
 
 	const handleMouseEnter = () => {
-		import('@/shared/components/Calendar').catch((error) => {
+		import('@/shared/components/Calendar/Calendar').catch((error) => {
 			console.error('캘린더를 받아오는데 오류가 발생했습니다.', error);
 		});
 	};

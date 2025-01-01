@@ -1,9 +1,9 @@
 import Lottie from 'react-lottie';
 
-import { useLottieAnimation } from '@/shared/hooks/useLottieAnimation';
-
 import LottieData from '@/shared/assets/lotties/morib_logo_motion.json';
 import GoogleLoginIcon from '@/shared/assets/svgs/google_login.svg?react';
+
+import { useLottieAnimation } from '@/pages/LoginPage/hooks/useLottieAnimation';
 
 const defaultOptions = {
 	autoplay: true,

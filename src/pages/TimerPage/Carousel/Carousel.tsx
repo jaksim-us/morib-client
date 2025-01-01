@@ -1,4 +1,4 @@
-import ArrowSVGBtn from '@/shared/components/Button/ButtonArrowSVG/ButtonArrowSVG';
+import ArrowSVGBtn from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
 
 import { Direction } from '@/shared/types/global';
 

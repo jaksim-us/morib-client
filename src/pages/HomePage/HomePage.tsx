@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
+import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
 

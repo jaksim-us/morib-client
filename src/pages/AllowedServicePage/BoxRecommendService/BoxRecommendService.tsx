@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import ArrowSVGBtn from '@/shared/components/Button/ButtonArrowSVG/ButtonArrowSVG';
+import ArrowSVGBtn from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
 
 import { Direction } from '@/shared/types/global';
 
@@ -41,7 +41,7 @@ const BoxRecommendService = ({ addUrlToAllowedService }: BoxRecommendServiceProp
 	return (
 		<div className="relative h-[18.8rem] w-[132rem] flex-shrink-0 rounded-[16px] bg-gray-bg-03">
 			<div className="mx-[2.8rem] flex w-[126.4rem] items-end justify-between self-stretch pt-[2.2rem]">
-				<h2 className="head-bold-24 text-white">추천 서비스</h2>
+				<h2 className="text-white head-bold-24">추천 서비스</h2>
 				<div className="flex items-center">
 					<ArrowSVGBtn
 						className="flex h-[3.4rem] w-[3.4rem] items-center justify-center p-[0.5rem]"
@@ -71,7 +71,7 @@ const BoxRecommendService = ({ addUrlToAllowedService }: BoxRecommendServiceProp
 							alt="favicon"
 							className="h-[4.2rem] w-[4.2rem] rounded-full"
 						/>
-						<p className="subhead-bold-20 max-h-[8.4rem] overflow-hidden text-white">{service.serviceName}</p>
+						<p className="max-h-[8.4rem] overflow-hidden text-white subhead-bold-20">{service.serviceName}</p>
 					</div>
 				))}
 				<div className="absolute right-0 top-0 z-0 h-[18.8rem] w-[7.2rem] flex-shrink-0 rounded-r-[16px] bg-gradient-to-r from-transparent to-[#33373F]" />

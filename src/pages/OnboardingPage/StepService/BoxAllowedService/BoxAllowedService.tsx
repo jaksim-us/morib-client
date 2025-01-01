@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 
-import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
+import HomeLargeBtn from '@/shared/components/ButtonHomeLarge/ButtonHomeLarge';
 
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 
-import { ColorIcon, DesignSmIcon, MinusIcon, PencilIcon } from '@/shared/assets/home/svgs';
+import ColorIcon from '@/shared/assets/svgs/ic_color.svg?react';
+import MinusIcon from '@/shared/assets/svgs/ic_minus.svg?react';
+import PencilIcon from '@/shared/assets/svgs/ic_pencil.svg?react';
+import DesignSmIcon from '@/shared/assets/svgs/ic_service_design_sm.svg?react';
 
 interface BoxAllowedServiceProps {
 	selectedService: string[];

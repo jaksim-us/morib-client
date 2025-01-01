@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 
-import { BackIcon } from '@/shared/assets/home/svgs';
+import BackIcon from '@/shared/assets/svgs/ic_back_btn.svg?react';
 
 import BoxAllowedService from './BoxAllowedService/BoxAllowedService';
 import ButtonService from './ButtonService/ButtonService';
