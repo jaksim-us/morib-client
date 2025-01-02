@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
+import HomeLargeBtn from '@/shared/components/ButtonHomeLarge/ButtonHomeLarge';
 
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 

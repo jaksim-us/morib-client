@@ -1,4 +1,4 @@
-import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
+import HomeLargeBtn from '@/shared/components/ButtonHomeLarge/ButtonHomeLarge';
 
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 

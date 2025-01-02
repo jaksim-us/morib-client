@@ -20,7 +20,7 @@ import BoxTodoInput from './BoxTodoInput/BoxTodoInput';
 import StatusDefaultBoxCategory from './StatusDefaultBoxCategory/StatusDefaultBoxCategory';
 import { useCreateTodo } from './hooks/useCreateTodo';
 
-const Calendar = lazy(() => import('@/shared/components/Calendar'));
+const Calendar = lazy(() => import('@/shared/components/Calendar/Calendar'));
 
 interface BoxCategoryProps {
 	id: number;
@@ -107,7 +107,7 @@ const BoxCategory = ({
 	}
 
 	const handleMouseEnter = () => {
-		import('@/shared/components/Calendar').catch((error) => {
+		import('@/shared/components/Calendar/Calendar').catch((error) => {
 			console.error('캘린더를 받아오는데 오류가 발생했습니다.', error);
 		});
 	};

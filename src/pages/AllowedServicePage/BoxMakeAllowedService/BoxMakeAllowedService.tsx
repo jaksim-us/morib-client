@@ -1,18 +1,18 @@
 import { ChangeEvent, useState } from 'react';
 
-import ArrowSVGBtn from '@/shared/components/Button/ButtonArrowSVG/ButtonArrowSVG';
-import CategoryTabSelect from '@/shared/components/CategoryTabSelect';
+import ArrowSVGBtn from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
 
 import { Direction } from '@/shared/types/global';
 
 import { CATEGORY_MODALTABS } from '@/shared/constants/tabSelections';
 
-import { AllowedService } from '../types';
+import CategoryTabSelect from '@/pages/HomePage/ModalContentsCategory/TabCategorySelect/TabCategorySelect';
 
+import { AllowedService } from '../types';
+import BoxUrlList from './BoxUrlList/BoxUrlList';
 import ColorPallete from './ColorPallete/ColorPallete';
 import InputAllowedServiceUrl from './InputAllowedServiceUrl/InputAllowedServiceUrl';
 import TableAllowedService from './TableAllowedService/TableAllowedService';
-import BoxUrlList from './BoxUrlList/BoxUrlList';
 
 interface BoxMakeAllowedServiceProps {
 	allowedService: AllowedService;
@@ -75,7 +75,7 @@ const BoxMakeAllowedService = ({ allowedService, updateAllowedService }: BoxMake
 					value={allowedServiceName}
 					onChange={handleMoribNameChange}
 					placeholder="모립세트 이름을 입력해주세요."
-					className="title-bold-36 placeholder-text-gray-03 w-[114rem] flex-shrink-0 bg-transparent text-white focus:outline-none"
+					className="placeholder-text-gray-03 w-[114rem] flex-shrink-0 bg-transparent text-white title-bold-36 focus:outline-none"
 				/>
 			</div>
 

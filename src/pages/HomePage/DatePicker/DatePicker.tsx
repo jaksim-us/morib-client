@@ -1,8 +1,8 @@
 import { Dayjs } from 'dayjs';
 
-import ArrowSVGBtn from '@/shared/components/Button/ButtonArrowSVG/ButtonArrowSVG';
-import ButtonDropdownOptions from '@/shared/components/ButtonDropdownOptions';
-import Dropdown from '@/shared/components/Dropdown';
+import ArrowSVGBtn from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
+import ButtonDropdownOptions from '@/shared/components/ButtonDropdownOptions/ButtonDropdownOptions';
+import Dropdown from '@/shared/components/Dropdown/Dropdown';
 
 import { getHomeDropdownData } from '@/shared/utils/date';
 
@@ -11,8 +11,7 @@ import { Direction } from '@/shared/types/global';
 import ButtonArrowIcon from '@/shared/assets/svgs/btn_arrow.svg?react';
 import ButtonTodayIcon from '@/shared/assets/svgs/btn_today.svg?react';
 
-import DateBtn from '@/pages/HomePage/DatePicker/ButtonDate/ButtonDate';
-
+import DateBtn from './ButtonDate/ButtonDate';
 import { useDatePicker } from './hooks/useDatePicker';
 
 interface DatePickerProps {

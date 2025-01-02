@@ -1,4 +1,4 @@
-import CircleColorIcon from '@/shared/components/CircleColorIcon';
+import CircleColorIcon from '@/shared/components/CircleColorIcon/CircleColorIcon';
 
 import { colors } from '@/shared/constants/colorPallete';
 

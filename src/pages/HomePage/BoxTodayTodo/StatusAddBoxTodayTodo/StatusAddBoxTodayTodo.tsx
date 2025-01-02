@@ -1,5 +1,5 @@
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
-import HomeLargeBtn from '@/shared/components/Button/ButtonHomeLarge/ButtonHomeLarge';
+import HomeLargeBtn from '@/shared/components/ButtonHomeLarge/ButtonHomeLarge';
 
 import { HomeLargeBtnVariant } from '@/shared/types/global';
 import { Task } from '@/shared/types/home';

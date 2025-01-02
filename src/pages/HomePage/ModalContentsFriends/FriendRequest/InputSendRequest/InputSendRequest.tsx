@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 
-import ButtonSendRequest from '@/shared/components/ModalContents/ButtonSendRequest';
-
 import { emailRegex } from '@/shared/constants/emailRegex';
 
 import InputClearButton from '@/shared/assets/svgs/btn_inputClear.svg?react';
 import IconInputSuccess from '@/shared/assets/svgs/button_inputSuccess.svg?react';
 import IconInputError from '@/shared/assets/svgs/error_input.svg?react';
+
+import ButtonSendRequest from './ButtonSendRequest/ButtonSendRequest';
 
 const InputSendRequest = () => {
 	const inputRef = useRef<HTMLInputElement | null>(null);

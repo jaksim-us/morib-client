@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper';
+import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
 

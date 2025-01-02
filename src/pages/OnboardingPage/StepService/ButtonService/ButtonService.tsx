@@ -1,4 +1,4 @@
-import { DesignIcon } from '@/shared/assets/home/svgs';
+import DesignIcon from '@/shared/assets/svgs/ic_service_design.svg?react';
 
 interface ButtonServiceProps {
 	onAddSelectedService: (service: string) => void;

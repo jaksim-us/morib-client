@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import FriendUserProfile from '@/shared/components/ModalContents/FriendUserProfile';
+import FriendUserProfile from '../../FriendUserProfile/FriendUserProfile';
 
 interface FriendsData {
 	id: number;
@@ -26,8 +26,8 @@ const FriendsListRequested = ({ children, friendsData }: FriendsInfoProp) => {
 						<div className="flex w-[40rem]">
 							<FriendUserProfile imgSrc={friend.image} />
 							<div className="ml-[2rem] flex flex-col justify-center">
-								<p className="subhead-bold-20 text-white">{friend.name}</p>
-								<p className="body-reg-16 text-gray-04">{friend.email}</p>
+								<p className="text-white subhead-bold-20">{friend.name}</p>
+								<p className="text-gray-04 body-reg-16">{friend.email}</p>
 							</div>
 						</div>
 						{children}
