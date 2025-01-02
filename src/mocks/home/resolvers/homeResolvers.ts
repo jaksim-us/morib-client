@@ -36,20 +36,18 @@ export const homeResolvers = [
 		return HttpResponse.json(HOME_RES.GET_WORK_TIME);
 	}),
 
-	http.post<{ targetDate: string }, { taskList: number[] }>(
-		HOME_MOCK_URL.POST_TIMER_START,
-		async ({ params, request }) => {
-			const { targetDate } = params;
+	http.post<never, { taskList: number[] }>(HOME_MOCK_URL.POST_TIMER_START, async ({ request }) => {
+		const url = new URL(request.url);
+		const targetDate = url.searchParams.get('targetDate');
 
-			const { taskList } = await request.json();
+		const { taskList } = await request.json();
 
-			if (!targetDate || !taskList) {
-				throw new HttpResponse(null, { status: 400 });
-			}
+		if (!targetDate || !taskList) {
+			throw new HttpResponse(null, { status: 400 });
+		}
 
-			return HttpResponse.json(HOME_RES.POST_TIMER_START);
-		},
-	),
+		return HttpResponse.json(HOME_RES.POST_TIMER_START);
+	}),
 
 	http.post<never, { name: string; startDate: string; endDate: string }>(
 		HOME_MOCK_URL.POST_CREATE_TASK,
