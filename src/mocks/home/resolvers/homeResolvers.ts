@@ -49,12 +49,13 @@ export const homeResolvers = [
 		return HttpResponse.json(HOME_RES.POST_TIMER_START);
 	}),
 
-	http.post<never, { name: string; startDate: string; endDate: string }>(
+	http.post<{ categoryId: string }, { name: string; startDate: string; endDate: string }>(
 		HOME_MOCK_URL.POST_CREATE_TASK,
-		async ({ request }) => {
+		async ({ params, request }) => {
+			const { categoryId } = params;
 			const { name, startDate, endDate } = await request.json();
 
-			if (!name || !startDate || !endDate) {
+			if (!categoryId || !name || !startDate || !endDate) {
 				throw new HttpResponse(null, { status: 400 });
 			}
 
@@ -62,7 +63,13 @@ export const homeResolvers = [
 		},
 	),
 
-	http.post(HOME_MOCK_URL.POST_TOGGLE_TASK_STATUS, async () => {
+	http.post<{ taskId: string }>(HOME_MOCK_URL.POST_TOGGLE_TASK_STATUS, async ({ params }) => {
+		const { taskId } = params;
+
+		if (!taskId) {
+			throw new HttpResponse(null, { status: 400 });
+		}
+
 		return HttpResponse.json(HOME_RES.POST_TOGGLE_TASK_STATUS);
 	}),
 ];
