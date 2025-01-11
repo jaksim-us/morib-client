@@ -23,9 +23,9 @@ export const timerResolvers = [
 		},
 	),
 
-	http.get(TIMER_MOCK_URL.GET_TODO_CARD, async ({ params }) => {
-		const { targetDate } = params;
-
+	http.get(TIMER_MOCK_URL.GET_TODO_CARD, async ({ request }) => {
+		const url = new URL(request.url);
+		const targetDate = url.searchParams.get('targetDate');
 		if (!targetDate) {
 			console.error('targetDate is not exist');
 			throw new HttpResponse(null, { status: 400 });

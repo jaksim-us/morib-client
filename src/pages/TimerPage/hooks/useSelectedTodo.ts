@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 interface Todo {
 	id: number;
 	name: string;
-	targetTime: string;
+	targetTime: number;
 	categoryName: string;
 }
 

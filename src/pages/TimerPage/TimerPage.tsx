@@ -4,7 +4,7 @@ import utc from 'dayjs/plugin/utc';
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { useGetMoribSet, useGetTodoList, usePostTimerStop } from '@/shared/apis/timer/queries';
+import { useGetMoribSet, usePostTimerStop } from '@/shared/apis/timer/queries';
 
 import { splitTasksByCompletion } from '@/shared/utils/timer';
 import { getBaseUrl } from '@/shared/utils/url';
@@ -13,6 +13,8 @@ import { DATE_FORMAT, DEFAULT_URL, TIMEZONE } from '@/shared/constants/timerPage
 
 import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
 import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
+
+import { useGetTodoCard } from '@/shared/apisV2/timer/queries';
 
 import Carousel from './Carousel/Carousel';
 import PopoverAllowedService from './PopoverAllowedService/PopoverAllowedService';
@@ -31,10 +33,13 @@ interface MoribSetData {
 	url: string;
 }
 
-interface Todo {
+interface Task {
 	id: number;
 	name: string;
+	startDate: string;
+	endDate: string | null;
 	targetTime: number;
+	isComplete: boolean;
 	categoryName: string;
 }
 
@@ -43,9 +48,20 @@ const TimerPage = () => {
 	const { isSidebarOpen, handleSidebarToggle } = useToggleSidebar();
 	const todayDate = dayjs().tz(TIMEZONE);
 	const formattedTodayDate = todayDate.format(DATE_FORMAT);
+	const { data: todosData, isLoading, error } = useGetTodoCard(formattedTodayDate);
 
-	const { data: todosData, isLoading, error } = useGetTodoList(formattedTodayDate);
-	const { task: todos = [], totalTimeOfToday = 0 } = todosData?.data || {};
+	const todos: Task[] = (todosData?.data?.task || []).map((todo: any, index: number) => ({
+		id: index,
+		name: todo.name,
+		startDate: todo.startDate,
+		endDate: todo.endDate,
+		targetTime: parseInt(todo.elapsedTime, 10),
+		isComplete: todo.isComplete,
+		categoryName: todo.categoryName,
+	}));
+
+	const totalTimeOfToday = todosData?.data?.sumTodayElapsedTime || 0;
+
 	const { ongoingTodos, completedTodos } = splitTasksByCompletion(todos);
 
 	const [selectedTodo, setSelectedTodo] = useSelectedTodo(todos);
@@ -58,7 +74,7 @@ const TimerPage = () => {
 
 	const [isAllowedServiceVisible, setIsAllowedServiceVisible] = useState(false);
 
-	const selectedTodoData = todos.find((todo: Todo) => todo.id === selectedTodo);
+	const selectedTodoData = todos.find((todo: Task) => todo.id === selectedTodo);
 
 	useEffect(() => {
 		setTargetTime(selectedTodoData?.targetTime || 0);
