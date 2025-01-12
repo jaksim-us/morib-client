@@ -4,25 +4,37 @@ import ArrowSVGBtn from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
 
 import { Direction } from '@/shared/types/global';
 
-import { recommendServices } from '@/shared/constants/recommendSites';
+import { useGetRecommendService } from '@/shared/apisV2/allowedService/queries';
 
 import { UrlInfo } from '../types';
 
 interface BoxRecommendServiceProps {
 	addUrlToAllowedService: (url: UrlInfo) => void;
+	selectedTabId: number;
 }
 
-const BoxRecommendService = ({ addUrlToAllowedService }: BoxRecommendServiceProps) => {
-	const [availableServices, setAvailableServices] = useState(recommendServices);
+const BoxRecommendService = ({ addUrlToAllowedService, selectedTabId }: BoxRecommendServiceProps) => {
+	const serviceType = selectedTabId === 1 ? 'site' : 'app';
 
-	const handleServiceClick = (service: { serviceName: string; url: string }) => {
+	const { data: recommendServices, isError, error } = useGetRecommendService(serviceType);
+	const recommend = recommendServices?.data?.recommendServices || [];
+
+	const [availableServices, setAvailableServices] = useState(recommend);
+
+	if (recommendServices && recommendServices.data?.recommendServices.length > 0 && availableServices.length === 0) {
+		setAvailableServices(recommendServices.data.recommendServices);
+	}
+
+	const handleServiceClick = (service: { serviceName: string; serviceUrl: string }) => {
 		addUrlToAllowedService({
 			siteName: service.serviceName.replace(/^www\./, '').replace(/\.[a-z]{2,}$/, ''),
 			page: service.serviceName,
-			url: service.url,
-			faviconUrl: `https://www.google.com/s2/favicons?domain=${service.url}`,
+			url: service.serviceUrl,
+			faviconUrl: `https://www.google.com/s2/favicons?domain=${service.serviceUrl}`,
 		});
-		setAvailableServices((prevServices) => prevServices.filter((item) => item.url !== service.url));
+		setAvailableServices((prevServices: { serviceName: string; serviceUrl: string }[]) =>
+			prevServices.filter((item) => item.serviceUrl !== service.serviceUrl),
+		);
 	};
 
 	const carouselContainerRef = useRef<HTMLDivElement | null>(null);
@@ -37,6 +49,10 @@ const BoxRecommendService = ({ addUrlToAllowedService }: BoxRecommendServiceProp
 			}
 		}
 	};
+
+	if (isError) {
+		console.error(error);
+	}
 
 	return (
 		<div className="relative h-[18.8rem] w-[132rem] flex-shrink-0 rounded-[16px] bg-gray-bg-03">
@@ -60,14 +76,14 @@ const BoxRecommendService = ({ addUrlToAllowedService }: BoxRecommendServiceProp
 				ref={carouselContainerRef}
 				className="mx-[2.8rem] my-[2.4rem] flex items-center gap-[1.4rem] overflow-x-hidden"
 			>
-				{availableServices.map((service, index) => (
+				{availableServices.map((service: { serviceName: string; serviceUrl: string }, index: number) => (
 					<div
 						key={index}
 						className="flex w-[23.9rem] flex-shrink-0 items-center gap-[1.5rem] rounded-[8px] bg-gray-bg-01 p-[2rem]"
 						onClick={() => handleServiceClick(service)}
 					>
 						<img
-							src={`https://www.google.com/s2/favicons?domain=${service.url}`}
+							src={`https://www.google.com/s2/favicons?domain=${service.serviceUrl}`}
 							alt="favicon"
 							className="h-[4.2rem] w-[4.2rem] rounded-full"
 						/>
