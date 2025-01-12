@@ -28,7 +28,6 @@ const ModalContentsSetting = () => {
 		isPushEnabled: data?.isPushEnabled,
 	};
 
-	console.log('user', userProfiles);
 	const personalWorkspaces = ['개인 프로젝트'];
 	const teamWorkspaces = ['팀 A 프로젝트', '팀 B 프로젝트'];
 
