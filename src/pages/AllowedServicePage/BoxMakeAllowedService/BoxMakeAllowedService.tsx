@@ -17,12 +17,18 @@ import TableAllowedService from './TableAllowedService/TableAllowedService';
 interface BoxMakeAllowedServiceProps {
 	allowedService: AllowedService;
 	updateAllowedService: <T extends keyof AllowedService>(key: T, value: AllowedService[T]) => void;
+	handleTabChange: (number: number) => void;
+	selectedTabId: number;
 }
 
-const BoxMakeAllowedService = ({ allowedService, updateAllowedService }: BoxMakeAllowedServiceProps) => {
+const BoxMakeAllowedService = ({
+	allowedService,
+	updateAllowedService,
+	handleTabChange,
+	selectedTabId,
+}: BoxMakeAllowedServiceProps) => {
 	const { allowedServiceName, selectedColor, urlList } = allowedService;
 	const [isPaletteOpen, setIsPaletteOpen] = useState(false);
-	const [selectedTabId, setSelectedTabId] = useState(CATEGORY_MODALTABS[0].id);
 
 	const handleColorPalleteOpen = () => {
 		setIsPaletteOpen((prev) => !prev);
@@ -37,9 +43,6 @@ const BoxMakeAllowedService = ({ allowedService, updateAllowedService }: BoxMake
 		updateAllowedService('allowedServiceName', e.target.value);
 	};
 
-	const handleTabChange = (tab: number) => {
-		setSelectedTabId(tab);
-	};
 	const handleDeleteUrlInfo = (urlToDelete: string) => {
 		const updatedUrlList = urlList.filter((urlInfo) => urlInfo.url !== urlToDelete);
 		updateAllowedService('urlList', updatedUrlList);

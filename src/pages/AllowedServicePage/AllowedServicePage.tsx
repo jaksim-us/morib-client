@@ -4,6 +4,8 @@ import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
 
+import { CATEGORY_MODALTABS } from '@/shared/constants/tabSelections';
+
 import BellIcon from '@/shared/assets/svgs/bell.svg?react';
 import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
@@ -27,6 +29,11 @@ const AllowedServicePage = () => {
 		},
 	]);
 	const [activeAllowedServiceId, setActiveAllowedServiceId] = useState<number>(allowedServices[0].id);
+	const [selectedTabId, setSelectedTabId] = useState(CATEGORY_MODALTABS[0].id);
+
+	const handleTabChange = (tab: number) => {
+		setSelectedTabId(tab);
+	};
 
 	const handleAddAllowedService = () => {
 		const newSet: AllowedService = {
@@ -115,11 +122,13 @@ const AllowedServicePage = () => {
 						<BoxMakeAllowedService
 							allowedService={activeAllowedService}
 							updateAllowedService={(key, value) => handleUpdateAllowedService(activeAllowedServiceId, key, value)}
+							handleTabChange={handleTabChange}
+							selectedTabId={selectedTabId}
 						/>
 					)}
 
 					<div className="mt-[4.2rem]">
-						<BoxRecommendService addUrlToAllowedService={handleAddUrlToAllowedService} />
+						<BoxRecommendService addUrlToAllowedService={handleAddUrlToAllowedService} selectedTabId={selectedTabId} />
 					</div>
 				</div>
 			</div>
