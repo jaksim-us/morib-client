@@ -1,8 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import { usePostTimerStop } from '@/shared/apis/timer/queries';
-
 import InnerCircleIcon from '@/shared/assets/svgs/elipse.svg?react';
+
+import { usePostTimerStop } from '@/shared/apisV2/timer/queries';
 
 import AccumulatedTime from './AccumulatedTime/AccumulatedTime';
 import ButtonTimerPlay from './ButtonTimerPlay/ButtonTimerPlay';
@@ -44,7 +44,7 @@ const Timer = ({
 				updateTargetTime(timerTime);
 
 				mutate(
-					{ id: selectedTodo, elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
+					{ taskId: selectedTodo.toString(), elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
 					{
 						onSuccess: () => {
 							onPlayToggle(false);
