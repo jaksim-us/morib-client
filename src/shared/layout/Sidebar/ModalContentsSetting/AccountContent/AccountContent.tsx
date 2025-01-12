@@ -8,8 +8,11 @@ import MailIcon from '@/shared/assets/svgs/mail.svg?react';
 import ButtonSettingSaved from '../ButtonSettingSaved/ButtonSettingSaved';
 
 interface User {
+	id: string;
 	name: string;
 	email: string;
+	imageUrl: string;
+	isPushEnabled: boolean;
 }
 
 interface AccountContentProps {

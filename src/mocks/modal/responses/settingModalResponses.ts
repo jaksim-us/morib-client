@@ -1,4 +1,4 @@
-export const FRIEND_MODAL_RES = {
+export const SETTING_MODAL_RES = {
 	GET_PROFILE_INFO: {
 		status: 200,
 		message: '요청이 성공했습니다.',
