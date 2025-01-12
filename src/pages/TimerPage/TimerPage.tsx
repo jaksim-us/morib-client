@@ -4,7 +4,7 @@ import utc from 'dayjs/plugin/utc';
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { useGetMoribSet, usePostTimerStop } from '@/shared/apis/timer/queries';
+import { useGetMoribSet } from '@/shared/apis/timer/queries';
 
 import { splitTasksByCompletion } from '@/shared/utils/timer';
 import { getBaseUrl } from '@/shared/utils/url';
@@ -14,7 +14,7 @@ import { DATE_FORMAT, DEFAULT_URL, TIMEZONE } from '@/shared/constants/timerPage
 import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
 import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
-import { useGetTodoCard } from '@/shared/apisV2/timer/queries';
+import { useGetTodoCard, usePostTimerStop } from '@/shared/apisV2/timer/queries';
 
 import Carousel from './Carousel/Carousel';
 import PopoverAllowedService from './PopoverAllowedService/PopoverAllowedService';

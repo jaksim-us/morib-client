@@ -7,11 +7,12 @@ import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
 import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoToggle';
 
 import { usePatchTaskStatus } from '@/shared/apis/common/queries';
-import { usePostTimerStop } from '@/shared/apis/timer/queries';
 
 import { Todo } from '@/shared/types/todoData';
 
 import BtnListIcon from '@/shared/assets/svgs/btn_list.svg?react';
+
+import { usePostTimerStop } from '@/shared/apisV2/timer/queries';
 
 import ButtonSideBar from './ButtonSideBar/ButtonSideBar';
 
@@ -56,7 +57,7 @@ const SideBarTimer = ({
 		if (isPlaying) {
 			if (selectedTodo !== null) {
 				stopTimer(
-					{ id: selectedTodo, elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
+					{ taskId: selectedTodo.toString(), elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
 					{
 						onSuccess: () => {
 							onPlayToggle(false);
@@ -75,7 +76,7 @@ const SideBarTimer = ({
 	const handleNavigateHome = () => {
 		if (isPlaying && selectedTodo !== null) {
 			stopTimer(
-				{ id: selectedTodo, elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
+				{ taskId: selectedTodo.toString(), elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
 				{
 					onSuccess: () => {
 						onPlayToggle(false);

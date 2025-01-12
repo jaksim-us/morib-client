@@ -5,7 +5,7 @@ interface UseUrlHandlerProps {
 	selectedTodo: number | null;
 	baseUrls: string[];
 	stopTimer: (
-		params: { id: number; elapsedTime: number; targetDate: string },
+		params: { taskId: string; elapsedTime: number; targetDate: string },
 		options: { onSuccess: () => void },
 	) => void;
 	timerIncreasedTime: number;
@@ -33,7 +33,7 @@ export const useUrlHandler = ({
 				setTimeout(() => {
 					if (isPlaying && selectedTodo !== null && !baseUrls.includes(updatedBaseUrl)) {
 						stopTimer(
-							{ id: selectedTodo, elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
+							{ taskId: String(selectedTodo), elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
 							{
 								onSuccess: () => {
 									setIsPlaying(false);
