@@ -3,15 +3,29 @@ import { useState } from 'react';
 import SettingIcon from '@/shared/assets/svgs/setting.svg?react';
 import UserIcon from '@/shared/assets/svgs/user_circle.svg?react';
 
+import { useGetUserProfile } from '@/shared/apisV2/modal/queries';
+
 import AccountContent from './AccountContent/AccountContent';
 import Tabs from './Tabs/Tabs';
 import WorkSpaceSettingContent from './WorkspaceSettingContent/WorkspaceSettingContent';
 
 const ModalContentsSetting = () => {
 	const [activeTab, setActiveTab] = useState<string>('account');
-	const user = {
-		name: '홍길동',
-		email: 'honggildong@example.com',
+	const { data, isLoading, error } = useGetUserProfile();
+
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
+	if (error) {
+		return <div>Error loading user profile</div>;
+	}
+
+	const userProfiles = {
+		id: data?.id,
+		name: data?.name,
+		email: data?.email,
+		imageUrl: data?.imageUrl,
+		isPushEnabled: data?.isPushEnabled,
 	};
 
 	const personalWorkspaces = ['개인 프로젝트'];
@@ -42,7 +56,7 @@ const ModalContentsSetting = () => {
 
 			<div className="flex flex-col p-[4rem]">
 				{activeTab === 'account' ? (
-					<AccountContent user={user} />
+					<AccountContent user={userProfiles} />
 				) : (
 					<WorkSpaceSettingContent personalWorkspaces={personalWorkspaces} teamWorkspaces={teamWorkspaces} />
 				)}
