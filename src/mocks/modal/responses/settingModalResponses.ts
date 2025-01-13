@@ -11,3 +11,10 @@ export const SETTING_MODAL_RES = {
 		},
 	},
 };
+
+export const SETTING_MODIFY_RES = {
+	PUT_PROFILE: {
+		status: 200,
+		message: '요청이 성공했습니다.',
+	},
+};
