@@ -13,7 +13,7 @@ interface FunnelProps {
 export const useFunnel = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	const step = searchParams.get('step');
+	const step = searchParams.get('step') || 'start';
 
 	const setStep = (step: string) => {
 		searchParams.set('step', step);
