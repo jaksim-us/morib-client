@@ -5,9 +5,9 @@ import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 import OnboardingPage from '@/pages/OnboardingPage/OnboardingPage';
+import RedirectPage from '@/pages/RedirectPage/RedirectPage';
 import Layout from '@/shared/layout/Layout';
 
-import RedirectPage from '../pages/RedirectPage';
 import { ROUTES_CONFIG } from './routesConfig';
 
 const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));

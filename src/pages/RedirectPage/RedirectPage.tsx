@@ -29,7 +29,7 @@ const RedirectPage = () => {
 	// }, [error, navigate, data]);
 
 	useEffect(() => {
-		navigate(ROUTES_CONFIG.home.path, { replace: true });
+		navigate(`${ROUTES_CONFIG.onboarding.path}?step=start`, { replace: true });
 	}, [navigate]);
 
 	return <div>RedirectPage</div>;
