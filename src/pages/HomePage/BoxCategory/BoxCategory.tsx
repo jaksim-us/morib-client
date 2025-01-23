@@ -7,13 +7,12 @@ import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoTo
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
 
-import { usePatchTaskStatus } from '@/shared/apis/common/queries';
-import { usePostCreateTask } from '@/shared/apis/home/queries';
-
-import { Task } from '@/shared/types/home';
+import type { TaskListType, TaskType } from '@/shared/types/tasks';
 
 import ButtonAddIcon from '@/shared/assets/svgs/btn_task_add.svg?react';
 import MeatBallDefault from '@/shared/assets/svgs/todo_meatball_default.svg?react';
+
+import { usePostCreateTask, usePostToggleTaskStatus } from '@/shared/apisV2/home/home.mutations';
 
 import { useCalendar } from '../hooks/useCalendar';
 import BoxTodoInput from './BoxTodoInput/BoxTodoInput';
@@ -25,9 +24,9 @@ const Calendar = lazy(() => import('@/shared/components/Calendar/Calendar'));
 interface BoxCategoryProps {
 	id: number;
 	title: string;
-	completedTodos: Task[];
-	ongoingTodos: Task[];
-	updateTodayTodos: (todo: Omit<Task, 'isComplete'>) => void;
+	completedTodos: TaskListType;
+	ongoingTodos: TaskListType;
+	updateTodayTodos: (todo: Omit<TaskType, 'isComplete'>) => void;
 	addingTodayTodoStatus: boolean;
 	getSelectedNumber: (id: number) => number;
 	addingComplete: boolean;
@@ -85,11 +84,9 @@ const BoxCategory = ({
 	const handleCreatePost = () => {
 		const dataToPost = {
 			categoryId: id,
-			taskData: {
-				name: name,
-				startDate: format(selectedStartDate) as string,
-				endDate: format(selectedEndDate),
-			},
+			name: name,
+			startDate: format(selectedStartDate) as string,
+			endDate: format(selectedEndDate),
 		};
 		mutate(dataToPost);
 
@@ -100,7 +97,7 @@ const BoxCategory = ({
 		handlePeriodEnd();
 	};
 
-	const { mutate: toggleTodoStatus } = usePatchTaskStatus();
+	const { mutate: toggleTodoStatus } = usePostToggleTaskStatus();
 
 	if (isError) {
 		console.error(error);
@@ -167,13 +164,13 @@ const BoxCategory = ({
 								</>
 							)}
 
-							{ongoingTodos.map(({ id, name, startDate, endDate, targetTime }) => {
+							{ongoingTodos.map(({ id, name, startDate, endDate, elapsedTime }) => {
 								const todo = {
 									id: id,
 									name: name,
 									startDate: startDate,
 									endDate: endDate,
-									targetTime: targetTime,
+									elapsedTime: elapsedTime,
 								};
 
 								const selectedNumber = getSelectedNumber(id);
@@ -185,10 +182,10 @@ const BoxCategory = ({
 										name={name}
 										startDate={startDate}
 										endDate={endDate}
-										targetTime={targetTime}
+										elapsedTime={elapsedTime}
 										isSelected={!!selectedNumber}
 										selectedNumber={selectedNumber}
-										onToggleComplete={() => toggleTodoStatus(id)}
+										onToggleComplete={() => toggleTodoStatus({ taskId: id })}
 										updateTodayTodos={() => updateTodayTodos(todo)}
 										clickable={addingTodayTodoStatus}
 										addingComplete={addingComplete}
@@ -199,7 +196,7 @@ const BoxCategory = ({
 
 						{completedTodos.length !== 0 && (
 							<ButtonTodoToggle isToggled={false}>
-								{completedTodos.map(({ id, name, startDate, endDate, targetTime }) => (
+								{completedTodos.map(({ id, name, startDate, endDate, elapsedTime }) => (
 									<BoxTodo
 										id={id}
 										key={id}
@@ -207,8 +204,8 @@ const BoxCategory = ({
 										name={name}
 										startDate={startDate}
 										endDate={endDate}
-										targetTime={targetTime}
-										onToggleComplete={() => toggleTodoStatus(id)}
+										elapsedTime={elapsedTime}
+										onToggleComplete={() => toggleTodoStatus({ taskId: id })}
 										clickable={addingTodayTodoStatus}
 										addingComplete={addingComplete}
 									/>

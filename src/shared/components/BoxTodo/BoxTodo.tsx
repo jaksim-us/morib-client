@@ -1,6 +1,6 @@
 import { formatSeconds } from '@/shared/utils/time';
 
-import { Task } from '@/shared/types/home';
+import type { TaskType } from '@/shared/types/tasks';
 
 import ButtonCalendarIcon from '@/shared/assets/svgs/btn_cal.svg?react';
 import CheckBoxBlankIcon from '@/shared/assets/svgs/check_box_blank.svg?react';
@@ -15,13 +15,13 @@ interface BoxTodoProps {
 	name: string;
 	startDate: string;
 	endDate: string | null;
-	targetTime: number;
+	elapsedTime: number;
 	isComplete?: boolean;
 	isSelected?: boolean;
 	selectedNumber?: number;
 	onClick?: () => void;
 	onToggleComplete?: () => void;
-	updateTodayTodos?: (todo: Omit<Task, 'isComplete'>) => void;
+	updateTodayTodos?: (todo: Omit<TaskType, 'isComplete'>) => void;
 	clickable?: boolean;
 	addingComplete?: boolean;
 	timerIncreasedTime?: number;
@@ -38,19 +38,19 @@ const BoxTodo = ({
 	onToggleComplete,
 	updateTodayTodos,
 	clickable,
-	targetTime,
+	elapsedTime,
 	addingComplete,
 	timerIncreasedTime,
 }: BoxTodoProps) => {
-	const formattedTime = formatSeconds(timerIncreasedTime ? targetTime + timerIncreasedTime : targetTime);
+	const formattedTime = formatSeconds(timerIncreasedTime ? elapsedTime + timerIncreasedTime : elapsedTime);
 	const formattedstartDate = startDate.replace(/-/g, '.');
 	const formattedendDate = endDate ? endDate.replace(/-/g, '.') : '';
 
 	const nameStyle = isComplete ? 'line-through' : '';
 	const CheckBoxIcon = isComplete ? <CheckBoxFillIcon /> : <CheckBoxBlankIcon />;
 
-	const TimeIcon = targetTime ? <TimeFillIcon /> : <TimeLineIcon />;
-	const timeTextClass = targetTime ? 'text-mint-01' : 'text-gray-04';
+	const TimeIcon = elapsedTime ? <TimeFillIcon /> : <TimeLineIcon />;
+	const timeTextClass = elapsedTime ? 'text-mint-01' : 'text-gray-04';
 
 	const selectedStyle =
 		isSelected && !addingComplete
@@ -66,7 +66,7 @@ const BoxTodo = ({
 	const handleClickTodo = () => {
 		if (addingComplete) return;
 
-		if (clickable && updateTodayTodos) updateTodayTodos({ id, name, startDate, endDate, targetTime });
+		if (clickable && updateTodayTodos) updateTodayTodos({ id, name, startDate, endDate, elapsedTime });
 		else if (onClick) {
 			onClick();
 		}

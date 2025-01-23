@@ -2,16 +2,16 @@ import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
 import HomeLargeBtn from '@/shared/components/ButtonHomeLarge/ButtonHomeLarge';
 
 import { HomeLargeBtnVariant } from '@/shared/types/global';
-import { Task } from '@/shared/types/home';
+import type { TaskType } from '@/shared/types/tasks';
 
 import { LARGE_BTN_TEXT, SMALL_BTN_TEXT } from '@/shared/constants/btnText';
 
 import HomeSmallBtn from './ButtonHomeSmall/ButtonHomeSmall';
 
 interface StatusAddBoxTodayTodoProps {
-	selectedTodayTodos: Omit<Task, 'isComplete'>[];
+	selectedTodayTodos: Omit<TaskType, 'isComplete'>[];
 	onDisableAddStatus: () => void;
-	deleteTodayTodos: (todo: Omit<Task, 'isComplete'>) => void;
+	deleteTodayTodos: (todo: Omit<TaskType, 'isComplete'>) => void;
 	getSelectedNumber: (id: number) => number;
 	enableComplete: () => void;
 	cancelComplte: () => void;
@@ -42,14 +42,14 @@ const StatusAddBoxTodayTodo = ({
 		<div className="flex flex-grow flex-col justify-between">
 			{hasTodayTodos ? (
 				<ul className="mt-[0.7rem] max-h-[57.5rem] overflow-auto">
-					{selectedTodayTodos.map(({ id, targetTime, startDate, endDate, name }) => {
+					{selectedTodayTodos.map(({ id, elapsedTime, startDate, endDate, name }) => {
 						const selectedNumber = getSelectedNumber(id);
 
 						return (
 							<li key={id}>
 								<BoxTodo
 									id={id}
-									targetTime={targetTime}
+									elapsedTime={elapsedTime}
 									startDate={startDate}
 									endDate={endDate}
 									name={name}

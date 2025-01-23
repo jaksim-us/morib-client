@@ -1,6 +1,6 @@
 import { convertTime } from '@/shared/utils/time';
 
-import { Task } from '@/shared/types/home';
+import type { TaskType } from '@/shared/types/tasks';
 
 import StatusAddBoxTodayTodo from './StatusAddBoxTodayTodo/StatusAddBoxTodayTodo';
 import StatusDefaultBoxTodayTodo from './StatusDefaultBoxTodayTodo/StatusDefaultBoxTodayTodo';
@@ -8,11 +8,11 @@ import StatusDefaultBoxTodayTodo from './StatusDefaultBoxTodayTodo/StatusDefault
 interface BoxTodayTodoProps {
 	time: number;
 	addingTodayTodoStatus: boolean;
-	selectedTodayTodos: Omit<Task, 'isComplete'>[];
+	selectedTodayTodos: Omit<TaskType, 'isComplete'>[];
 	hasTodos: boolean;
 	enableAddingTodayTodo: () => void;
 	disableAddingTodayTodo: () => void;
-	deleteTodayTodos: (todo: Omit<Task, 'isComplete'>) => void;
+	deleteTodayTodos: (todo: Omit<TaskType, 'isComplete'>) => void;
 	getSelectedNumber: (id: number) => number;
 	enableComplete: () => void;
 	cancelComplte: () => void;
