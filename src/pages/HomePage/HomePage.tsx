@@ -11,23 +11,19 @@ import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
 
-import {
-	useDeleteCategory,
-	useGetAllCategoryTask,
-	useGetTargetTime,
-	usePostCreateTodayTodos,
-} from '@/shared/apis/home/queries';
-
 import { getThisWeekRange } from '@/shared/utils/date';
-import { getDailyCategoryTask, isTaskExist, splitTasksByCompletion } from '@/shared/utils/homePage';
+import { getDailyCategoryTask, isTaskExist, splitTasksByCompletion } from '@/shared/utils/tasks';
 
-import { Task } from '@/shared/types/home';
+import { TaskType } from '@/shared/types/tasks';
 
 import BellIcon from '@/shared/assets/svgs/bell.svg?react';
 import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 
 import { ROUTES_CONFIG } from '@/router/routesConfig';
+
+import { useDeleteCategory, usePostAddTodayTodos } from '@/shared/apisV2/home/home.mutations';
+import { useGetCategoryTask, useGetWorkTime } from '@/shared/apisV2/home/home.queries';
 
 import BoxCategory from './BoxCategory/BoxCategory';
 import BoxTodayTodo from './BoxTodayTodo/BoxTodayTodo';
@@ -54,35 +50,30 @@ const HomePage = () => {
 	const [selectedDate, setSelectedDate] = useState(todayDate);
 	const { startDate, endDate } = getThisWeekRange(selectedDate);
 
-	const { data: categoriesData, isError, error } = useGetAllCategoryTask(startDate, endDate);
+	const { data: categoriesData } = useGetCategoryTask({ startDate, endDate });
 
 	const categories = categoriesData?.data || [];
+
 	const dailyCategoryTask = getDailyCategoryTask(selectedDate, categories);
 
 	const [addingTodayTodoStatus, setAddingTodayTodoStatus] = useState(false);
 	const [addingComplete, setAddingComplete] = useState(false);
-	const addTodayTodoOverlayStyle = addingTodayTodoStatus && !addingComplete ? 'opacity-30 pointer-events-none' : '';
+	const addTodayTodosOverlayStyle = addingTodayTodoStatus && !addingComplete ? 'opacity-30 pointer-events-none' : '';
 
-	const [todayTodos, setTodayTodos] = useState<Omit<Task, 'isComplete'>[]>([]);
+	const [todayTodos, setTodayTodos] = useState<Omit<TaskType, 'isComplete'>[]>([]);
 
-	const { mutate: createTodayTodos } = usePostCreateTodayTodos();
+	const { mutate: addTodayTodos } = usePostAddTodayTodos();
 	const { mutate: deleteCategory } = useDeleteCategory();
 
 	const navigate = useNavigate();
 
-	const updateTodayTodos = (todo: Omit<Task, 'isComplete'>) => {
+	const updateTodayTodos = (todo: Omit<TaskType, 'isComplete'>) => {
 		const canAddTask = !todayTodos.some((prevTodo) => prevTodo.id === todo.id);
 		if (canAddTask) setTodayTodos((prev) => [...prev, todo]);
 		else setTodayTodos((prev) => prev.filter((prevTodo) => prevTodo.id !== todo.id));
 	};
 
-	const {
-		data: targetTimeData,
-		error: targetTimeError,
-		isError: isTargetTimeError,
-	} = useGetTargetTime(formattedTodayDate);
-
-	const { targetTime } = targetTimeData?.data || 0;
+	const { data: workTimeData } = useGetWorkTime({ targetDate: formattedTodayDate });
 
 	const handleOpenCategoryModal = () => {
 		categoryModalRef.current?.open();
@@ -105,7 +96,7 @@ const HomePage = () => {
 		queryClient.invalidateQueries({ queryKey: ['msets'] });
 	};
 
-	const deleteTodayTodos = (todo: Omit<Task, 'isComplete'>) => {
+	const deleteTodayTodos = (todo: Omit<TaskType, 'isComplete'>) => {
 		setTodayTodos((prev) => prev.filter((prevTodo) => prevTodo.id !== todo.id));
 	};
 
@@ -139,34 +130,24 @@ const HomePage = () => {
 	const handleCreateTodayTodos = () => {
 		const todayTodoData = todayTodos.map((todo) => todo.id);
 		const dataToPost = {
-			todayDate: formattedTodayDate,
-			todayTodos: {
-				taskIdList: todayTodoData,
-			},
+			targetDate: formattedTodayDate,
+			taskList: todayTodoData,
 		};
 
-		createTodayTodos(dataToPost, {
+		addTodayTodos(dataToPost, {
 			onSuccess: () => {
 				navigate(ROUTES_CONFIG.timer.path);
 			},
 		});
 	};
 
-	const handleDeleteCategory = (userId: number) => {
-		deleteCategory(userId);
+	const handleDeleteCategory = (categoryId: number) => {
+		deleteCategory({ categoryId });
 	};
-
-	if (isError) {
-		console.error(error);
-	}
-
-	if (isTargetTimeError) {
-		console.error(targetTimeError);
-	}
 
 	return (
 		<div className="flex h-screen w-[calc(100vw-7.4rem)] overflow-auto bg-gray-bg-01 p-[4.2rem]">
-			<div className={`absolute right-[4.2rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodoOverlayStyle}`}>
+			<div className={`absolute right-[4.2rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodosOverlayStyle}`}>
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
 				</button>
@@ -243,7 +224,7 @@ const HomePage = () => {
 				</main>
 
 				<BoxTodayTodo
-					time={targetTime}
+					time={workTimeData?.data?.sumTodayElapsedTime || 0}
 					addingTodayTodoStatus={addingTodayTodoStatus}
 					selectedTodayTodos={todayTodos}
 					hasTodos={isTaskExist(dailyCategoryTask)}
@@ -257,10 +238,10 @@ const HomePage = () => {
 					onCreateTodayTodos={handleCreateTodayTodos}
 				/>
 			</div>
-
+			{/*
 			<ModalWrapper ref={categoryModalRef} backdrop={true}>
 				<ModalContentsCategory handleCloseModal={handleCloseModal} />
-			</ModalWrapper>
+			</ModalWrapper> */}
 
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
 				<ModalContentsFriends ref={friendModalContentRef} />

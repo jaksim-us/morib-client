@@ -244,4 +244,8 @@ export const HOME_RES = {
 		status: 200,
 		message: '요청이 성공했습니다.',
 	},
+	DELETE_CATEGORY: {
+		status: 200,
+		message: '요청이 성공했습니다.',
+	},
 };
