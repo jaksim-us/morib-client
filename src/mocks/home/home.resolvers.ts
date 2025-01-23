@@ -1,6 +1,6 @@
 import { HttpResponse, http } from 'msw';
 
-import { HOME_RES } from '../responses/homeResponses';
+import { HOME_RES } from '../home/home.responses';
 
 export const HOME_MOCK_URL = {
 	GET_CATEGORY: 'api/v2/home',
@@ -8,6 +8,7 @@ export const HOME_MOCK_URL = {
 	POST_TIMER_START: 'api/v2/timer/start',
 	POST_CREATE_TASK: '/api/v2/tasks/:categoryId',
 	POST_TOGGLE_TASK_STATUS: 'api/v2/tasks/:taskId/status',
+	DELETE_CATEGORY: 'api/v2/categories/:categoryId',
 };
 
 // LINK: https://mswjs.io/docs/best-practices/typescript/#request-handlers
@@ -26,8 +27,9 @@ export const homeResolvers = [
 		return HttpResponse.json(HOME_RES.GET_CATEGORY);
 	}),
 
-	http.get(HOME_MOCK_URL.GET_WORK_TIME, async ({ params }) => {
-		const { targetDate } = params;
+	http.get(HOME_MOCK_URL.GET_WORK_TIME, async ({ request }) => {
+		const url = new URL(request.url);
+		const targetDate = url.searchParams.get('targetDate');
 
 		if (!targetDate) {
 			throw new HttpResponse(null, { status: 400 });
@@ -42,7 +44,7 @@ export const homeResolvers = [
 
 		const { taskList } = await request.json();
 
-		if (!targetDate || !taskList) {
+		if (!targetDate || taskList.length === 0) {
 			throw new HttpResponse(null, { status: 400 });
 		}
 
@@ -71,5 +73,15 @@ export const homeResolvers = [
 		}
 
 		return HttpResponse.json(HOME_RES.POST_TOGGLE_TASK_STATUS);
+	}),
+
+	http.post<{ categoryId: string }>(HOME_MOCK_URL.DELETE_CATEGORY, async ({ params }) => {
+		const { categoryId } = params;
+
+		if (!categoryId) {
+			throw new HttpResponse(null, { status: 400 });
+		}
+
+		return HttpResponse.json(HOME_RES.DELETE_CATEGORY);
 	}),
 ];
