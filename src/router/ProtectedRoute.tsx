@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { getAccessToken } from '@/shared/utils/token';
+import { getAccessToken } from '@/shared/utils/auth';
 
 import { ROUTES_CONFIG } from './routesConfig';
 
