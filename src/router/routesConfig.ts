@@ -17,7 +17,7 @@ export const ROUTES_CONFIG = {
 	},
 	redirect: {
 		title: 'Redirect',
-		path: '/redirect',
+		path: 'auth/redirect',
 	},
 	timer: {
 		title: 'Timer',

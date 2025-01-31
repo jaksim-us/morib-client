@@ -1,38 +1,31 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-// import { useLocation } from 'react-router-dom';
-// import { useSignUp } from '@/shared/apis/auth/queries';
+import { setAccessToken } from '@/shared/utils/auth';
+
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
 const RedirectPage = () => {
-	//Todo: 서버 이슈로 로그인 관련 로직 앱잼 끝나고 사용
-	// const params = new URLSearchParams(useLocation().search);
-	// const authorizationCode = params.get('code');
+	const { search } = useLocation();
 	const navigate = useNavigate();
 
-	// const { data, error, isError } = useSignUp(authorizationCode);
-
-	// useEffect(() => {
-	// 	if (data) {
-	// 		const { accessToken, refreshToken } = data || {};
-	// 		if (accessToken && refreshToken) {
-	// 			localStorage.setItem('accessToken', accessToken);
-	// 			localStorage.setItem('refreshToken', refreshToken);
-	// 			navigate(ROUTES.home.path);
-	// 		}
-	// 	}
-	// 	if (error) {
-	// 		alert('다시 로그인 해주세요');
-	// 		navigate(ROUTES.login.path, { replace: true });
-	// 	}
-	// }, [error, navigate, data]);
-
 	useEffect(() => {
-		navigate(`${ROUTES_CONFIG.onboarding.path}?step=start`, { replace: true });
-	}, [navigate]);
+		const params = new URLSearchParams(search);
+		const accessToken = params.get('accessToken');
+		const isSignUp = params.get('isSignUp');
 
-	return <div>RedirectPage</div>;
+		if (accessToken) {
+			setAccessToken(accessToken);
+
+			if (isSignUp === 'true') {
+				navigate(`${ROUTES_CONFIG.home.path}`, { replace: true });
+			} else {
+				navigate(`${ROUTES_CONFIG.onboarding.path}?step=start`, { replace: true });
+			}
+		}
+	}, [navigate, search]);
+
+	return <></>;
 };
 
 export default RedirectPage;
