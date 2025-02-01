@@ -18,9 +18,9 @@ const RedirectPage = () => {
 			setAccessToken(accessToken);
 
 			if (isSignUp === 'true') {
-				navigate(`${ROUTES_CONFIG.home.path}`, { replace: true });
-			} else {
 				navigate(`${ROUTES_CONFIG.onboarding.path}?step=start`, { replace: true });
+			} else {
+				navigate(`${ROUTES_CONFIG.home.path}`, { replace: true });
 			}
 		}
 	}, [navigate, search]);
