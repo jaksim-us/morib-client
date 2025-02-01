@@ -54,14 +54,15 @@ const AllowedServiceItem = ({ siteUrl, siteName, onClick }: AllowedServiceItemPr
 	return (
 		<li className="flex h-[5.4rem] w-full items-center border-b border-b-gray-bg-04 px-[1rem] py-[1.2rem]">
 			<img src={getServiceFavicon(siteUrl)} alt={`${siteName} 아이콘`} className="h-[2rem] w-[2rem]" />
-			<h3 className="ml-[1.2rem] p-0 text-white body-med-16">{siteName}</h3>
-			<div className="ml-[4.2rem] h-[3.1rem] w-[23.1rem] truncate rounded-[20px] bg-gray-bg-04 px-[1rem] py-[0.6rem] text-gray-04 body-reg-16">
+			<h3 className="ml-[1.2rem] w-[6.6rem] flex-shrink-0 truncate p-0 text-white body-med-16">{siteName}</h3>
+			<div className="ml-[2.2rem] h-[3.1rem] w-[20.4rem] flex-shrink-0 truncate rounded-[20px] bg-gray-bg-04 px-[1rem] py-[0.6rem] text-gray-04 body-reg-16">
 				{siteUrl}
 			</div>
 			<button
 				onClick={() => {
 					onClick(siteUrl);
 				}}
+				className="flex-shrink-0"
 			>
 				<MinusIcon className="ml-[1.25rem]" />
 			</button>
