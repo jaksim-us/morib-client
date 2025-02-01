@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import HomeLargeBtn from '@/shared/components/ButtonHomeLarge/ButtonHomeLarge';
 
 import { HomeLargeBtnVariant } from '@/shared/types/global';
@@ -9,6 +11,12 @@ interface StepStartProps {
 }
 
 const StepStart = ({ setStep }: StepStartProps) => {
+	const navigate = useNavigate();
+
+	const handleNavigateToHome = () => {
+		navigate('/home');
+	};
+
 	return (
 		<main className="flex w-full flex-col items-center justify-center">
 			<h1 className="mb-[2rem] text-center text-white title-bold-36">집중을 도와줄 모립세트를 만들어볼까요?</h1>
@@ -23,7 +31,9 @@ const StepStart = ({ setStep }: StepStartProps) => {
 				<span className="min-w-[15.6rem]">시작하기</span>
 			</HomeLargeBtn>
 
-			<button className="text-gray-04 subhead-reg-22">건너뛰기</button>
+			<button type="button" onClick={handleNavigateToHome} className="text-gray-04 subhead-reg-22">
+				건너뛰기
+			</button>
 		</main>
 	);
 };
