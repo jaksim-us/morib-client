@@ -1,6 +1,10 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import TextField from '@/shared/components/TextField/TextField';
+
+import { isUrlValid } from '@/shared/utils/isUrlValid';
+
 import type { PostInterestAreaReq } from '@/shared/types/api/onboarding';
 import type { FieldType } from '@/shared/types/fileds';
 
@@ -25,6 +29,7 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 	const [activeTab, setActiveTab] = useState<FieldType>('비즈니스');
 	const [inputURL, setInputURL] = useState('');
 	const [selectedServices, setSelectedServices] = useState<PostInterestAreaReq['serviceList']>([]);
+	const [inputSuccess, setInputSuccess] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -37,10 +42,10 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 		if (!url || isExist) return;
 
 		const response = await getUrlName({ url });
+		setInputSuccess(true);
 		const urlName = response?.data?.tabName;
 
 		setSelectedServices((prev) => [...prev, { siteName: urlName, siteUrl: url }]);
-		setInputURL('');
 	};
 
 	const handleRemoveSelectedService = (url: string) => {
@@ -48,6 +53,10 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 	};
 
 	const handleChangeInputURL = (e: ChangeEvent<HTMLInputElement>) => {
+		if (inputSuccess) {
+			setInputSuccess(false);
+		}
+
 		setInputURL(e.target.value);
 	};
 
@@ -110,26 +119,21 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 						</Tabs.ContentList>
 					</Tabs>
 
-					<div className="mt-auto flex h-[6.6rem] shrink-0 items-center justify-between rounded-[8px] bg-gray-bg-02 py-[1rem] pl-[2rem] pr-[1rem]">
-						<input
-							value={inputURL}
-							onKeyDown={handleKeyDown}
-							onChange={handleChangeInputURL}
-							className="flex flex-grow bg-transparent text-gray-04 subhead-med-18 focus:outline-none"
-							placeholder="직접 url 입력하기"
-						/>
-						<button
-							onClick={() => handleAddSelectedService(inputURL)}
-							disabled={inputURL === ''}
-							className={`ml-[2rem] rounded-[5px] px-[2.2rem] py-[1.2rem] body-semibold-16 ${
-								inputURL
-									? 'bg-main-gra-01 text-gray-01 hover:bg-main-gra-hover active:bg-main-gra-press'
-									: 'bg-gray-bg-05 text-gray-04'
-							}`}
-						>
+					<TextField
+						value={inputURL}
+						onKeyDown={handleKeyDown}
+						onChange={handleChangeInputURL}
+						isError={inputURL.length > 0 && !isUrlValid(inputURL)}
+						errorMessage="알맞은 형식의 url을 입력해 주세요."
+						isSuccess={inputURL.length > 0 && inputSuccess}
+						successMessage="url 입력에 성공했어요."
+						placeholder="직접 url 입력하기"
+					>
+						<TextField.ClearButton onClick={() => setInputURL('')} />
+						<TextField.ConfirmButton disabled={inputURL === ''} onClick={() => handleAddSelectedService(inputURL)}>
 							등록하기
-						</button>
-					</div>
+						</TextField.ConfirmButton>
+					</TextField>
 				</div>
 			</main>
 

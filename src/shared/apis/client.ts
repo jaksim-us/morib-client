@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-import { getAccessTotken } from '@/shared/utils/token';
-
+// import { getAccessTotken } from '@/shared/utils/token';
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
 // import { reissueToken } from './auth/axios';
@@ -27,16 +26,14 @@ const createBaseClient = (additionalConfig: AxiosRequestConfig = {}): AxiosInsta
 
 // 인증 설정을 추가하는 함수 (토큰)
 const addAuthInterceptor = (axiosClient: AxiosInstance) => {
-	axiosClient.interceptors.request.use(async (config) => {
-		const accessToken = getAccessTotken();
-		if (!accessToken) {
-			window.location.href = ROUTES_CONFIG.login.path;
-		}
-
-		config.headers.Authorization = `Bearer ${accessToken}`;
-		return config;
-	});
-
+	// axiosClient.interceptors.request.use(async (config) => {
+	// 	const accessToken = getAccessTotken();
+	// 	if (!accessToken) {
+	// 		window.location.href = ROUTES_CONFIG.login.path;
+	// 	}
+	// 	config.headers.Authorization = `Bearer ${accessToken}`;
+	// 	return config;
+	// });
 	// Todo: 서버 이슈로 앱잼 이후 refresh 토큰 재발급 설정
 	// axiosClient.interceptors.response.use(
 	// 	(response) => {

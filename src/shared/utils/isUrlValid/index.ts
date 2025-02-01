@@ -1,4 +1,4 @@
 export const isUrlValid = (url: string) => {
-	const isUrlValid = /^(http|https?:\/\/)?([\w\-]+\.)+[a-zA-Z]{2,}(\/[\w#!:.?+=&%@!\-\/]*)?$/;
-	return isUrlValid.test(url);
+	const urlPattern = /^(https?:\/\/)?([\w-]+(?:\.[\w-]+)+)(:[0-9]{1,5})?(\/[\w#!:.?+=&%@!\-/]*)?$/;
+	return urlPattern.test(url);
 };
