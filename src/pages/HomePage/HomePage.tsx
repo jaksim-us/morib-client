@@ -5,8 +5,6 @@ import utc from 'dayjs/plugin/utc';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useQueryClient } from '@tanstack/react-query';
-
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
@@ -30,7 +28,6 @@ import BoxTodayTodo from './BoxTodayTodo/BoxTodayTodo';
 import ButtonMoreFriends from './ButtonMoreFriends/ButtonMoreFriends';
 import ButtonUserProfile from './ButtonUserProfile/ButtonUserProfile';
 import DatePicker from './DatePicker/DatePicker';
-import ModalContentsCategory from './ModalContentsCategory/ModalContentsCategory';
 import ModalContentsFriends from './ModalContentsFriends/ModalContentsFriends';
 import StatusDefaultHome from './StatusDefaultHome/StatusDefaultHome';
 
@@ -86,15 +83,7 @@ const HomePage = () => {
 		friendsModalRef.current?.close();
 	};
 
-	const queryClient = useQueryClient();
-
 	useClickOutside(friendModalContentRef, handleCloseFriendsModal);
-
-	const handleCloseModal = () => {
-		categoryModalRef.current?.close();
-		queryClient.invalidateQueries({ queryKey: ['categories'] });
-		queryClient.invalidateQueries({ queryKey: ['msets'] });
-	};
 
 	const deleteTodayTodos = (todo: Omit<TaskType, 'isComplete'>) => {
 		setTodayTodos((prev) => prev.filter((prevTodo) => prevTodo.id !== todo.id));
@@ -238,10 +227,6 @@ const HomePage = () => {
 					onCreateTodayTodos={handleCreateTodayTodos}
 				/>
 			</div>
-			{/*
-			<ModalWrapper ref={categoryModalRef} backdrop={true}>
-				<ModalContentsCategory handleCloseModal={handleCloseModal} />
-			</ModalWrapper> */}
 
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
 				<ModalContentsFriends ref={friendModalContentRef} />
