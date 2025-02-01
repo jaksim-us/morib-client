@@ -13,7 +13,7 @@ const TabsContext = createContext<TabsContextProps | null>(null);
 const useTabsContext = () => {
 	const context = useContext(TabsContext);
 	if (!context) {
-		throw new Error('Tabs 컴포넌트는 <TabsRoot> 내부에서 사용되어야 합니다.');
+		throw new Error('Tabs 컴포넌트는 <Tabs> 내부에서 사용되어야 합니다.');
 	}
 	return context;
 };
