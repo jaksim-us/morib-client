@@ -146,7 +146,7 @@ const HomePage = () => {
 				</button>
 			</div>
 
-			<AutoFixedGrid fixed="right" height="h-full" width="40.2rem">
+			<AutoFixedGrid fixedSide="right" height="h-full" fixedWidth="40.2rem">
 				<AutoFixedGrid.Slot>
 					<main className="flex h-full flex-col gap-[1.6rem]">
 						<div className="flex items-center gap-[1.8rem]">

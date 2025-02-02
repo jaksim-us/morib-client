@@ -88,7 +88,7 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 	};
 
 	return (
-		<AutoFixedGrid fixed="right" width="48.7rem" className="bg-gray-bg-01">
+		<AutoFixedGrid fixedSide="right" fixedWidth="48.7rem" className="bg-gray-bg-01">
 			<AutoFixedGrid.Slot>
 				<main className="relative flex h-full min-h-0 flex-col">
 					<button onClick={() => setStep('field')} className="absolute left-[6rem] top-[6rem]">
