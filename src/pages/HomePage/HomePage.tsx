@@ -5,8 +5,7 @@ import utc from 'dayjs/plugin/utc';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useQueryClient } from '@tanstack/react-query';
-
+import AutoFixedGrid from '@/shared/components/AutoFixedGrid/AutoFixedGrid';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
@@ -30,7 +29,6 @@ import BoxTodayTodo from './BoxTodayTodo/BoxTodayTodo';
 import ButtonMoreFriends from './ButtonMoreFriends/ButtonMoreFriends';
 import ButtonUserProfile from './ButtonUserProfile/ButtonUserProfile';
 import DatePicker from './DatePicker/DatePicker';
-import ModalContentsCategory from './ModalContentsCategory/ModalContentsCategory';
 import ModalContentsFriends from './ModalContentsFriends/ModalContentsFriends';
 import StatusDefaultHome from './StatusDefaultHome/StatusDefaultHome';
 
@@ -86,15 +84,7 @@ const HomePage = () => {
 		friendsModalRef.current?.close();
 	};
 
-	const queryClient = useQueryClient();
-
 	useClickOutside(friendModalContentRef, handleCloseFriendsModal);
-
-	const handleCloseModal = () => {
-		categoryModalRef.current?.close();
-		queryClient.invalidateQueries({ queryKey: ['categories'] });
-		queryClient.invalidateQueries({ queryKey: ['msets'] });
-	};
 
 	const deleteTodayTodos = (todo: Omit<TaskType, 'isComplete'>) => {
 		setTodayTodos((prev) => prev.filter((prevTodo) => prevTodo.id !== todo.id));
@@ -156,92 +146,92 @@ const HomePage = () => {
 				</button>
 			</div>
 
-			<div className="grid h-full w-full grid-cols-[1fr,40.2rem]">
-				<main className="flex h-full flex-col gap-[1.6rem]">
-					<div className="flex items-center gap-[1.8rem]">
-						<ButtonUserProfile isMyProfile />
-						<ul className="flex gap-[1.8rem]">
-							<li>
-								<ButtonUserProfile isConnecting />
-							</li>
-							<li>
-								<ButtonUserProfile isConnecting />
-							</li>
-							<li>
-								<ButtonUserProfile isConnecting />
-							</li>
-						</ul>
-						<ButtonMoreFriends friendsCount={12} />
-					</div>
+			<AutoFixedGrid fixedSide="right" height="h-full" fixedWidth="40.2rem">
+				<AutoFixedGrid.Slot>
+					<main className="flex h-full flex-col gap-[1.6rem]">
+						<div className="flex items-center gap-[1.8rem]">
+							<ButtonUserProfile isMyProfile />
+							<ul className="flex gap-[1.8rem]">
+								<li>
+									<ButtonUserProfile isConnecting />
+								</li>
+								<li>
+									<ButtonUserProfile isConnecting />
+								</li>
+								<li>
+									<ButtonUserProfile isConnecting />
+								</li>
+							</ul>
+							<ButtonMoreFriends friendsCount={12} />
+						</div>
 
-					<DatePicker
-						todayDate={todayDate}
-						selectedDate={selectedDate}
-						onSelectedDateChange={handleSelectedDateChange}
-					/>
+						<DatePicker
+							todayDate={todayDate}
+							selectedDate={selectedDate}
+							onSelectedDateChange={handleSelectedDateChange}
+						/>
 
-					<div className="flex h-full w-full">
-						<div className="flex h-full w-0 flex-1 gap-[2.8rem] overflow-x-auto">
-							{dailyCategoryTask.length !== 0 ? (
-								<>
-									{dailyCategoryTask.map(({ category, tasks }) => {
-										const { completedTasks, ongoingTasks } = splitTasksByCompletion(tasks);
-										return (
-											<BoxCategory
-												id={category.id}
-												key={category.id}
-												title={category.name}
-												ongoingTodos={ongoingTasks}
-												completedTodos={completedTasks}
-												updateTodayTodos={updateTodayTodos}
-												addingTodayTodoStatus={addingTodayTodoStatus}
-												getSelectedNumber={getSelectedNumber}
-												addingComplete={addingComplete}
-												onDeleteCategory={handleDeleteCategory}
-											/>
-										);
-									})}
-									{dailyCategoryTask.length <= 2 && (
-										<div className="flex flex-col">
-											<button className="flex-shrink-0" onClick={handleOpenCategoryModal}>
-												<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
-											</button>
-										</div>
-									)}
-								</>
-							) : (
-								<StatusDefaultHome onClick={handleOpenCategoryModal} />
+						<div className="flex h-full w-full">
+							<div className="flex h-full w-0 flex-1 gap-[2.8rem] overflow-x-auto">
+								{dailyCategoryTask.length !== 0 ? (
+									<>
+										{dailyCategoryTask.map(({ category, tasks }) => {
+											const { completedTasks, ongoingTasks } = splitTasksByCompletion(tasks);
+											return (
+												<BoxCategory
+													id={category.id}
+													key={category.id}
+													title={category.name}
+													ongoingTodos={ongoingTasks}
+													completedTodos={completedTasks}
+													updateTodayTodos={updateTodayTodos}
+													addingTodayTodoStatus={addingTodayTodoStatus}
+													getSelectedNumber={getSelectedNumber}
+													addingComplete={addingComplete}
+													onDeleteCategory={handleDeleteCategory}
+												/>
+											);
+										})}
+										{dailyCategoryTask.length <= 2 && (
+											<div className="flex flex-col">
+												<button className="flex-shrink-0" onClick={handleOpenCategoryModal}>
+													<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
+												</button>
+											</div>
+										)}
+									</>
+								) : (
+									<StatusDefaultHome onClick={handleOpenCategoryModal} />
+								)}
+							</div>
+							{dailyCategoryTask.length > 2 && (
+								<div className="mx-[2.2rem] flex flex-col">
+									<button className="flex-shrink-0" onClick={handleOpenCategoryModal}>
+										<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
+									</button>
+								</div>
 							)}
 						</div>
-						{dailyCategoryTask.length > 2 && (
-							<div className="mx-[2.2rem] flex flex-col">
-								<button className="flex-shrink-0" onClick={handleOpenCategoryModal}>
-									<LargePlusIcon className="rounded-full bg-gray-bg-03 hover:bg-gray-bg-05" />
-								</button>
-							</div>
-						)}
-					</div>
-				</main>
+					</main>
+				</AutoFixedGrid.Slot>
 
-				<BoxTodayTodo
-					time={workTimeData?.data?.sumTodayElapsedTime || 0}
-					addingTodayTodoStatus={addingTodayTodoStatus}
-					selectedTodayTodos={todayTodos}
-					hasTodos={isTaskExist(dailyCategoryTask)}
-					enableAddingTodayTodo={enableAddingTodayTodo}
-					disableAddingTodayTodo={disableAddingTodayTodo}
-					deleteTodayTodos={deleteTodayTodos}
-					getSelectedNumber={getSelectedNumber}
-					enableComplete={enableComplete}
-					cancelComplte={cancelComplete}
-					addingComplete={addingComplete}
-					onCreateTodayTodos={handleCreateTodayTodos}
-				/>
-			</div>
-			{/*
-			<ModalWrapper ref={categoryModalRef} backdrop={true}>
-				<ModalContentsCategory handleCloseModal={handleCloseModal} />
-			</ModalWrapper> */}
+				<AutoFixedGrid.Slot>
+					<BoxTodayTodo
+						time={workTimeData?.data?.sumTodayElapsedTime || 0}
+						addingTodayTodoStatus={addingTodayTodoStatus}
+						selectedTodayTodos={todayTodos}
+						hasTodos={isTaskExist(dailyCategoryTask)}
+						enableAddingTodayTodo={enableAddingTodayTodo}
+						disableAddingTodayTodo={disableAddingTodayTodo}
+						deleteTodayTodos={deleteTodayTodos}
+						getSelectedNumber={getSelectedNumber}
+						enableComplete={enableComplete}
+						cancelComplte={cancelComplete}
+						addingComplete={addingComplete}
+						onCreateTodayTodos={handleCreateTodayTodos}
+					/>
+				</AutoFixedGrid.Slot>
+			</AutoFixedGrid>
 
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
 				<ModalContentsFriends ref={friendModalContentRef} />

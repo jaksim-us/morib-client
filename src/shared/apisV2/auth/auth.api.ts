@@ -6,7 +6,7 @@ import { getAccessToken } from '@/shared/utils/auth';
 
 import { reissueRes } from '@/shared/types/api/auth';
 
-const AUTH_URL = {
+const AUTH_ENDPOINT = {
 	PATCH_REISSUE_TOKEN: 'api/v2/users/reissue',
 	POST_LOGOUT: 'api/v2/users/logout',
 };
@@ -14,7 +14,7 @@ const AUTH_URL = {
 export const patchReissueToken = async (): Promise<reissueRes> => {
 	const accessToken = getAccessToken();
 
-	const { data } = await axios.patch(AUTH_URL.PATCH_REISSUE_TOKEN, {
+	const { data } = await axios.patch(AUTH_ENDPOINT.PATCH_REISSUE_TOKEN, {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 		},
@@ -24,5 +24,5 @@ export const patchReissueToken = async (): Promise<reissueRes> => {
 };
 
 export const postLogout = async () => {
-	await authClient.post(AUTH_URL.POST_LOGOUT);
+	await authClient.post(AUTH_ENDPOINT.POST_LOGOUT);
 };
