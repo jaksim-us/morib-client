@@ -5,9 +5,8 @@ import { isUrlValid } from '@/shared/utils/isUrlValid/index';
 import InputClearButton from '@/shared/assets/svgs/btn_inputClear.svg?react';
 import IconInputError from '@/shared/assets/svgs/error_input.svg?react';
 
-import ButtonAddAllowedService from './ButtonAddAllowedService/ButtonAddAllowedService';
-
 import { UrlInfo } from '../../types';
+import ButtonAddAllowedService from './ButtonAddAllowedService/ButtonAddAllowedService';
 
 interface InputAllowedServiceUrlProps {
 	urlList: UrlInfo[];
