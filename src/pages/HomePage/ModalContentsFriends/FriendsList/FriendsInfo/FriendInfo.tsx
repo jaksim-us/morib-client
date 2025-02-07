@@ -40,7 +40,7 @@ const FriendInfo = ({ friendsData }: FriendsInfoProp) => {
 							{formatSecondsForFriendsList(friend?.time)}
 						</p>
 
-						<Dropdown.Root>
+						<Dropdown>
 							<Dropdown.Trigger>
 								<button className="flex h-[24px] w-[24px] flex-col items-center justify-center">
 									<DeleteBtn />
@@ -49,7 +49,7 @@ const FriendInfo = ({ friendsData }: FriendsInfoProp) => {
 							<Dropdown.Content boxShadow="shadow-none" className="right-0 top-[26px]">
 								<Dropdown.Item label="친구삭제" textColor="red" />
 							</Dropdown.Content>
-						</Dropdown.Root>
+						</Dropdown>
 					</li>
 				);
 			})}

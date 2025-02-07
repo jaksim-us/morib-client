@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-import ArrowSVGBtn from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
+import ButtonArrowSVG from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
 import ButtonDropdownOptions from '@/shared/components/ButtonDropdownOptions/ButtonDropdownOptions';
 import Dropdown from '@/shared/components/Dropdown/Dropdown';
 
@@ -34,7 +34,7 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 	return (
 		<header className="mb-[2.8rem] w-full">
 			<section className="relative">
-				<Dropdown.Root>
+				<Dropdown>
 					<Dropdown.Trigger>
 						<div className="mb-[0.6rem] flex items-center gap-[2rem]">
 							<h1 className="text-white title-bold-32">{currentDate.format('YYYY년 MM월')}</h1>;
@@ -56,11 +56,11 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 							);
 						})}
 					</Dropdown.Content>
-				</Dropdown.Root>
+				</Dropdown>
 			</section>
 
-			<div className="flex items-center gap-[4.7rem]">
-				<nav className="w-full min-w-[636px]">
+			<div className="flex items-center justify-center">
+				<nav className="w-full">
 					<ul className="grid w-full grid-cols-7">
 						{weekDates.map(({ date, day }) => {
 							const isSelected = selectedDate.isSame(date, 'day');
@@ -77,12 +77,12 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 						})}
 					</ul>
 				</nav>
-				<div className="mr-[9.8rem] flex gap-[1rem]">
-					<ArrowSVGBtn direction={Direction.LEFT} onClick={handlePreviousWeek} />
+				<div className="ml-[4.7rem] flex gap-[1rem]">
+					<ButtonArrowSVG direction={Direction.LEFT} onClick={handlePreviousWeek} />
 					<button onClick={handleClickTodayBtn}>
 						<ButtonTodayIcon className="rounded-[37px] bg-gray-bg-03 hover:bg-gray-bg-05" />
 					</button>
-					<ArrowSVGBtn direction={Direction.RIGHT} onClick={handleNextWeek} />
+					<ButtonArrowSVG direction={Direction.RIGHT} onClick={handleNextWeek} />
 				</div>
 			</div>
 		</header>

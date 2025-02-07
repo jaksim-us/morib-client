@@ -4,13 +4,15 @@ import { Suspense, lazy, useRef } from 'react';
 
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
 import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoToggle';
+import Dropdown from '@/shared/components/Dropdown/Dropdown';
+import Spacer from '@/shared/components/Spacer/Spacer';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
 
 import type { TaskListType, TaskType } from '@/shared/types/tasks';
 
-import ButtonAddIcon from '@/shared/assets/svgs/btn_task_add.svg?react';
-import MeatBallDefault from '@/shared/assets/svgs/todo_meatball_default.svg?react';
+import MeatballDefaultIcon from '@/shared/assets/svgs/common/ic_meatball_default.svg?react';
+import PlusIcon from '@/shared/assets/svgs/home/ic_plus.svg?react';
 
 import { usePostCreateTask, usePostToggleTaskStatus } from '@/shared/apisV2/home/home.mutations';
 
@@ -110,35 +112,44 @@ const BoxCategory = ({
 	};
 
 	return (
-		<article className="flex h-full w-[40.2rem] flex-shrink-0 flex-col rounded-[16px] bg-gray-bg-03 px-[1.8rem] pt-[1.8rem]">
+		<Spacer.Height
+			as="article"
+			className="flex w-[31.6rem] flex-shrink-0 flex-col rounded-[16px] bg-gray-bg-03 p-[1.8rem]"
+		>
 			<div className="mt-[0.4rem] flex items-center justify-between">
-				<h2 className="text-white head-bold-24">{title}</h2>
-				<div className="flex gap-[0.1rem]">
+				<h2 className="text-white subhead-semibold-18">{title}</h2>
+				<div className="flex items-center gap-[1rem]">
 					<button
 						onMouseEnter={handleMouseEnter}
 						onClick={startAddingTodo}
 						className="rounded-full hover:bg-gray-bg-04 active:bg-gray-bg-05"
 					>
-						<ButtonAddIcon />
+						<PlusIcon />
 					</button>
-					<button onClick={() => onDeleteCategory(id)}>
-						<MeatBallDefault className="rounded-full hover:bg-gray-bg-04 active:bg-gray-bg-05" />
-					</button>
+					<Dropdown>
+						<Dropdown.Trigger>
+							<MeatballDefaultIcon className="rounded-full hover:bg-gray-bg-04 active:bg-gray-bg-05" />
+						</Dropdown.Trigger>
+						<Dropdown.Content className="top-[3.2rem]">
+							<Dropdown.Item label="카테고리 이름 수정" />
+							<Dropdown.Item label="카테고리 삭제" textColor="red" onClick={() => onDeleteCategory(id)} />
+						</Dropdown.Content>
+					</Dropdown>
 				</div>
 			</div>
 
 			{ongoingTodos.length === 0 && completedTodos.length === 0 && isAdding === false ? (
 				<StatusDefaultBoxCategory />
 			) : (
-				<div className="relative">
-					<div className="h-[67.4rem] overflow-y-auto">
+				<Spacer.Height className="relative flex">
+					<Spacer.Height className="flex flex-col overflow-y-auto">
 						<ButtonTodoToggle isCompleted isToggled={true}>
 							{isAdding && (
 								<>
 									<BoxTodoInput
 										ref={todoRef}
 										editable={editable}
-										onEditComplte={handleEditComplete}
+										onEditComplete={handleEditComplete}
 										name={name}
 										onInputChange={handleInputChange}
 										selectedStartDate={selectedStartDate}
@@ -212,10 +223,10 @@ const BoxCategory = ({
 								))}
 							</ButtonTodoToggle>
 						)}
-					</div>
-				</div>
+					</Spacer.Height>
+				</Spacer.Height>
 			)}
-		</article>
+		</Spacer.Height>
 	);
 };
 
