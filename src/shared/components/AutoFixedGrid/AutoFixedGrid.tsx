@@ -1,19 +1,21 @@
 import { ReactNode } from 'react';
 
 interface AutoFixedGridRootProps {
-	fixedSide: 'left' | 'right';
-	fixedWidth: string;
-	height?: string;
+	type: 'onboarding' | 'home' | 'allowedService' | 'layout';
 	children: ReactNode;
 	className?: string;
 }
 
-const AutoFixedGridRoot = ({ fixedSide, fixedWidth, height, children, className }: AutoFixedGridRootProps) => {
-	// NOTE: fixedSide 값에 따라 왼쪽 혹은 오른쪽에 고정 요소 처리
-	const gridStyle = fixedSide === 'left' ? `grid-cols-[${fixedWidth},1fr]` : `grid-cols-[1fr,${fixedWidth}]`;
-	const heightStyle = height ? height : 'h-screen';
+const AutoFixedGridRoot = ({ type, children, className }: AutoFixedGridRootProps) => {
+	// NOTE: tailwind에서 빌드 타임에 동적 스타일 클래스를 인식하지 못하기 때문에 이미 정의된 클래스를 사용해야함
+	const gridType = {
+		layout: 'grid-cols-[7.4rem,1fr]',
+		onboarding: 'grid-cols-[1fr,42rem]',
+		home: 'grid-cols-[1fr,31.6rem]',
+		allowedService: 'grid-cols-[31.6rem,1fr]',
+	};
 
-	return <div className={`relative grid w-full ${heightStyle} ${gridStyle} ${className}`}>{children}</div>;
+	return <div className={`relative grid h-screen w-full ${gridType[type]} ${className}`}>{children}</div>;
 };
 
 interface SlotProps {
