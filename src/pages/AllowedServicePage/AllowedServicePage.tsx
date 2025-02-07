@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
+import AutoFixedGrid from '@/shared/components/AutoFixedGrid/AutoFixedGrid';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
+import Spacer from '@/shared/components/Spacer/Spacer';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
 
@@ -9,6 +11,8 @@ import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
 import ModalContentsFriends from '@/pages/HomePage/ModalContentsFriends/ModalContentsFriends';
 
+import AllowedServiceList from './AllowedServiceList/AllowedServiceList';
+import AllowedServiceTitle from './AllowedServiceTitle/AllowedServiceTitle';
 import BoxMakeAllowedService from './BoxMakeAllowedService/BoxMakeAllowedService';
 import BoxRecommendService from './BoxRecommendService/BoxRecommendService';
 import CategoryAllowedService from './CategoryAllowedService/CategoryAllowedService';
@@ -27,6 +31,7 @@ const AllowedServicePage = () => {
 		},
 	]);
 	const [activeAllowedServiceId, setActiveAllowedServiceId] = useState<number>(allowedServices[0].id);
+	const [allowedServiceTitleInput, setAllowedServiceTitleInput] = useState('');
 
 	const handleAddAllowedService = () => {
 		const newSet: AllowedService = {
@@ -91,8 +96,8 @@ const AllowedServicePage = () => {
 	useClickOutside(friendModalContentRef, handleCloseFriendsModal);
 
 	return (
-		<div className="flex h-screen w-screen bg-gray-bg-01">
-			<div className={`absolute right-[13.4rem] top-[5.4rem] flex gap-[0.8rem]`}>
+		<AutoFixedGrid type="allowedService" className="gap-[3rem] bg-gray-bg-01 px-[3.6rem] py-[4.2rem]">
+			<div className={`absolute right-[4.2rem] top-[5.4rem] flex gap-[0.8rem]`}>
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
 				</button>
@@ -101,33 +106,39 @@ const AllowedServicePage = () => {
 				</button>
 			</div>
 
-			<div className="my-[4.2rem] flex">
-				<CategoryAllowedService
-					allowedServices={allowedServices}
-					activeAllowedServiceId={activeAllowedServiceId}
-					setActiveAllowedServiceId={setActiveAllowedServiceId}
-					addAllowedService={handleAddAllowedService}
-					deleteAllowedService={handleDeleteAllowedService}
-				/>
+			<AutoFixedGrid.Slot className="flex h-full min-h-0 w-full flex-col items-start gap-[2rem]">
+				<AllowedServiceList>
+					<AllowedServiceList.Header>
+						<AllowedServiceList.Title>나의 허용서비스 리스트</AllowedServiceList.Title>
+						<AllowedServiceList.PlusButton onClick={handleAddAllowedService} />
+					</AllowedServiceList.Header>
 
-				<div className="ml-[4.2rem] mt-[6.8rem]">
+					<AllowedServiceList.Content>
+						{new Array(12).fill(0).map((_, index) => (
+							<AllowedServiceList.Item key={index} />
+						))}
+					</AllowedServiceList.Content>
+				</AllowedServiceList>
+			</AutoFixedGrid.Slot>
+
+			<AutoFixedGrid.Slot className="flex h-full min-h-0 w-full min-w-[894px] flex-col gap-y-[1.9rem]">
+				<Spacer.Height className="flex flex-col gap-[2rem]">
+					<AllowedServiceTitle>
+						<AllowedServiceTitle.ColorButton color="bg-gray-bg-07" />
+						<AllowedServiceTitle.Input placeholder="모립세트 이름을 입력해주세요." />
+					</AllowedServiceTitle>
+
 					{activeAllowedService && (
 						<BoxMakeAllowedService
 							allowedService={activeAllowedService}
 							updateAllowedService={(key, value) => handleUpdateAllowedService(activeAllowedServiceId, key, value)}
 						/>
 					)}
+				</Spacer.Height>
 
-					<div className="mt-[4.2rem]">
-						<BoxRecommendService addUrlToAllowedService={handleAddUrlToAllowedService} />
-					</div>
-				</div>
-			</div>
-
-			<ModalWrapper ref={friendsModalRef} backdrop={true}>
-				<ModalContentsFriends ref={friendModalContentRef} />
-			</ModalWrapper>
-		</div>
+				<BoxRecommendService addUrlToAllowedService={handleAddUrlToAllowedService} />
+			</AutoFixedGrid.Slot>
+		</AutoFixedGrid>
 	);
 };
 

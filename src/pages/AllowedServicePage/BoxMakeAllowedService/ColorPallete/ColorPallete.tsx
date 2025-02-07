@@ -1,22 +1,38 @@
-import CircleColorIcon from '@/shared/components/CircleColorIcon/CircleColorIcon';
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
 
-import { colors } from '@/shared/constants/colorPallete';
+import { COLOR_PALETTE_MAP } from '@/shared/constants/colorPallete';
 
-interface ColorPaletteProps {
+interface ColorPaletteRootProps {
 	isOpen: boolean;
-	onSelectColor: (color: string) => void;
+	children: ReactNode;
 }
 
-const ColorPalette = ({ isOpen, onSelectColor }: ColorPaletteProps) => {
+const ColorPaletteRoot = forwardRef<HTMLDivElement, ColorPaletteRootProps>(function ColorPaletteRoot(
+	{ isOpen, children },
+	ref,
+) {
 	if (!isOpen) return null;
 
 	return (
-		<div className="absolute left-0 top-[50px] z-10 grid h-[11.6rem] w-[32rem] flex-shrink-0 grid-cols-6 gap-x-[2rem] gap-y-[1.2rem] rounded-[8px] bg-gray-bg-04 px-[2rem] py-[2.2rem]">
-			{colors.map((color) => (
-				<CircleColorIcon key={color} color={color} onClick={() => onSelectColor(color)} size={'h-[3rem] w-[3rem]'} />
-			))}
+		<div
+			ref={ref}
+			className="absolute left-0 top-[4.8rem] z-50 grid h-[11.6rem] w-[32rem] grid-cols-6 grid-rows-2 gap-x-[2rem] gap-y-[1.2rem] rounded-[8px] bg-gray-bg-04 px-[2rem] py-[2.2rem]"
+		>
+			{children}
 		</div>
 	);
+});
+
+interface ColorPaletteColorButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+	hashColor: keyof typeof COLOR_PALETTE_MAP;
+}
+
+const ColorPaletteColorButton = ({ hashColor, ...props }: ColorPaletteColorButtonProps) => {
+	return (
+		<button {...props} className={`h-[3rem] w-[3rem] flex-shrink-0 rounded-full ${COLOR_PALETTE_MAP[hashColor]}`} />
+	);
 };
+
+const ColorPalette = Object.assign(ColorPaletteRoot, { ColorButton: ColorPaletteColorButton });
 
 export default ColorPalette;

@@ -6,10 +6,12 @@ import ButtonArrowIcon from '@/shared/assets/svgs/btn_arrow.svg?react';
 
 interface ArrowSVGButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	direction: Direction;
+	bg?: boolean;
 }
 
-const ArrowSVGBtn = ({ direction, ...props }: ArrowSVGButtonProps) => {
-	const defaultBtnStyle = ' bg-gray-bg-03 hover:bg-gray-bg-05 rounded-full';
+const ButtonArrowSVG = ({ direction, bg = true, ...props }: ArrowSVGButtonProps) => {
+	const backgroundStyle = bg ? 'bg-gray-bg-03 hover:bg-gray-bg-05 rounded-full' : '';
+
 	let rotationStyle = '';
 
 	switch (direction) {
@@ -28,9 +30,9 @@ const ArrowSVGBtn = ({ direction, ...props }: ArrowSVGButtonProps) => {
 	}
 	return (
 		<button type="button" {...props}>
-			<ButtonArrowIcon className={rotationStyle + defaultBtnStyle} />
+			<ButtonArrowIcon className={`${rotationStyle} ${backgroundStyle} ${props.className}`} />
 		</button>
 	);
 };
 
-export default ArrowSVGBtn;
+export default ButtonArrowSVG;

@@ -72,13 +72,6 @@ export const HOME_RES = {
 						},
 						tasks: [],
 					},
-					{
-						category: {
-							id: 3,
-							name: 'BA 심화',
-						},
-						tasks: [],
-					},
 				],
 			},
 			{
@@ -100,6 +93,14 @@ export const HOME_RES = {
 					},
 					{
 						category: {
+							id: 4,
+							name: 'BA 기초',
+						},
+						tasks: [],
+					},
+
+					{
+						category: {
 							id: 3,
 							name: 'BA 심화',
 						},
@@ -110,7 +111,55 @@ export const HOME_RES = {
 								startDate: '2024-07-04',
 								endDate: '2024-09-15',
 								elapsedTime: 0,
-								isComplete: true,
+								isComplete: false,
+							},
+							{
+								id: 2,
+								name: 'Random Forest 모델 구성',
+								startDate: '2024-07-04',
+								endDate: '2024-09-15',
+								elapsedTime: 0,
+								isComplete: false,
+							},
+							{
+								id: 3,
+								name: 'Random Forest 모델 구성',
+								startDate: '2024-07-04',
+								endDate: '2024-09-15',
+								elapsedTime: 0,
+								isComplete: false,
+							},
+							{
+								id: 4,
+								name: 'Random Forest 모델 구성',
+								startDate: '2024-07-04',
+								endDate: '2024-09-15',
+								elapsedTime: 0,
+								isComplete: false,
+							},
+							{
+								id: 5,
+								name: 'Random Forest 모델 구성',
+								startDate: '2024-07-04',
+								endDate: '2024-09-15',
+								elapsedTime: 0,
+								isComplete: false,
+							},
+							{
+								id: 6,
+								name: 'Random Forest 모델 구성',
+								startDate: '2024-07-04',
+								endDate: '2024-09-15',
+								elapsedTime: 0,
+								isComplete: false,
+							},
+							{
+								id: 8,
+								name: 'Random Forest 모델 구성',
+								startDate: '2024-07-04',
+								endDate: '2024-09-15',
+								elapsedTime: 0,
+								isComplete: false,
 							},
 						],
 					},

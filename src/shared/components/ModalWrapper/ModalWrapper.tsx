@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef, useImperativeHandle, useRef } from 'react';
+import { MouseEvent, ReactNode, forwardRef, useImperativeHandle, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import './styles/dialog.css';
@@ -29,12 +29,22 @@ const ModalWrapper = forwardRef<ModalWrapperRef, ModalWrapperProps>(function Mod
 	}));
 	const modalElement = document.getElementById('modal');
 
+	const handleClick = (e: MouseEvent<HTMLDialogElement>) => {
+		if (backdrop && e.target === dialog.current) {
+			dialog.current?.close();
+		}
+	};
+
 	if (!modalElement) {
 		return null;
 	}
 
 	return createPortal(
-		<dialog ref={dialog} className={`custom-dialog bg-transparent ${backdrop ? 'with-backdrop' : ''}`}>
+		<dialog
+			ref={dialog}
+			onClick={handleClick}
+			className={`custom-dialog bg-transparent ${backdrop ? 'with-backdrop' : ''}`}
+		>
 			{children}
 		</dialog>,
 		modalElement,

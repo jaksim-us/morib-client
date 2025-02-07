@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 
-import ArrowSVGBtn from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
+import ButtonArrowSVG from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
+import Spacer from '@/shared/components/Spacer/Spacer';
 
 import { Direction } from '@/shared/types/global';
 
@@ -39,44 +40,46 @@ const BoxRecommendService = ({ addUrlToAllowedService }: BoxRecommendServiceProp
 	};
 
 	return (
-		<div className="relative h-[18.8rem] w-[132rem] flex-shrink-0 rounded-[16px] bg-gray-bg-03">
-			<div className="mx-[2.8rem] flex w-[126.4rem] items-end justify-between self-stretch pt-[2.2rem]">
+		<Spacer.Width className="relative h-[18.8rem] flex-shrink-0 rounded-[16px] bg-gray-bg-03">
+			<Spacer.Width className="flex items-end justify-between pt-[2.2rem]">
 				<h2 className="text-white head-bold-24">추천 서비스</h2>
 				<div className="flex items-center">
-					<ArrowSVGBtn
+					<ButtonArrowSVG
 						className="flex h-[3.4rem] w-[3.4rem] items-center justify-center p-[0.5rem]"
 						direction={Direction.LEFT}
 						onClick={() => scrollCarousel('left')}
 					/>
-					<ArrowSVGBtn
+					<ButtonArrowSVG
 						className="z-10 flex h-[3.4rem] w-[3.4rem] items-center justify-center p-[0.5rem]"
 						direction={Direction.RIGHT}
 						onClick={() => scrollCarousel('right')}
 					/>
 				</div>
-			</div>
+			</Spacer.Width>
 
-			<div
-				ref={carouselContainerRef}
-				className="mx-[2.8rem] my-[2.4rem] flex items-center gap-[1.4rem] overflow-x-hidden"
-			>
-				{availableServices.map((service, index) => (
-					<div
-						key={index}
-						className="flex w-[23.9rem] flex-shrink-0 items-center gap-[1.5rem] rounded-[8px] bg-gray-bg-01 p-[2rem]"
-						onClick={() => handleServiceClick(service)}
-					>
-						<img
-							src={`https://www.google.com/s2/favicons?domain=${service.url}`}
-							alt="favicon"
-							className="h-[4.2rem] w-[4.2rem] rounded-full"
-						/>
-						<p className="max-h-[8.4rem] overflow-hidden text-white subhead-bold-20">{service.serviceName}</p>
-					</div>
-				))}
-				<div className="absolute right-0 top-0 z-0 h-[18.8rem] w-[7.2rem] flex-shrink-0 rounded-r-[16px] bg-gradient-to-r from-transparent to-[#33373F]" />
-			</div>
-		</div>
+			<Spacer.Width>
+				<div
+					ref={carouselContainerRef}
+					className="my-[2.4rem] flex w-full min-w-0 items-center gap-[1.4rem] overflow-x-auto"
+				>
+					{availableServices.map((service, index) => (
+						<div
+							key={index}
+							className="flex w-[23.9rem] flex-shrink-0 items-center gap-[1.5rem] rounded-[8px] bg-gray-bg-01 p-[2rem]"
+							onClick={() => handleServiceClick(service)}
+						>
+							<img
+								src={`https://www.google.com/s2/favicons?domain=${service.url}`}
+								alt="favicon"
+								className="h-[4.2rem] w-[4.2rem] rounded-full"
+							/>
+							<p className="max-h-[8.4rem] overflow-hidden text-white subhead-bold-20">{service.serviceName}</p>
+						</div>
+					))}
+					<div className="absolute right-0 top-0 z-0 h-[18.8rem] w-[7.2rem] flex-shrink-0 rounded-r-[16px] bg-gradient-to-r from-transparent to-[#33373F]" />
+				</div>
+			</Spacer.Width>
+		</Spacer.Width>
 	);
 };
 

@@ -1,6 +1,6 @@
 import Dropdown from '@/shared/components/Dropdown/Dropdown';
 
-import IconMeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
+import MeatBallDefaultIcon from '@/shared/assets/svgs/common/ic_meatball_default.svg?react';
 
 import { AllowedService } from '../../types';
 
@@ -25,7 +25,7 @@ const BoxAllowedServiceItem = ({
 	return (
 		<div
 			key={allowedService.id}
-			className={`mb-[0.8rem] h-[8rem] w-[36.6rem] flex-col items-start justify-end rounded-[8px] bg-gray-bg-01 p-[1.4rem] ${activeAllowedServiceId === allowedService.id ? 'border-[1px] border-mint-01' : ''}`}
+			className={`mb-[0.8rem] h-[8rem] w-[28rem] flex-col items-start justify-end rounded-[8px] bg-gray-bg-01 p-[1.4rem] ${activeAllowedServiceId === allowedService.id ? 'border-[1px] border-mint-01' : ''}`}
 			onClick={() => setActiveAllowedServiceId(allowedService.id)}
 		>
 			<div className="flex content-between items-center self-stretch">
@@ -38,9 +38,9 @@ const BoxAllowedServiceItem = ({
 					</h2>
 				</div>
 
-				<Dropdown.Root>
+				<Dropdown>
 					<Dropdown.Trigger>
-						<IconMeatBall className="cursor-pointer hover:rounded-full hover:bg-gray-bg-05" />
+						<MeatBallDefaultIcon className="cursor-pointer hover:rounded-full hover:bg-gray-bg-05" />
 					</Dropdown.Trigger>
 					<Dropdown.Content boxShadow="shadow-none" className="absolute left-[-10rem] w-[12.4rem] overflow-x-hidden">
 						<Dropdown.Item
@@ -51,7 +51,7 @@ const BoxAllowedServiceItem = ({
 							}}
 						/>
 					</Dropdown.Content>
-				</Dropdown.Root>
+				</Dropdown>
 			</div>
 
 			<div className="mt-[0.4rem] flex items-center gap-[0.6rem]">

@@ -5,10 +5,10 @@ import type { TaskType } from '@/shared/types/tasks';
 import ButtonCalendarIcon from '@/shared/assets/svgs/btn_cal.svg?react';
 import CheckBoxBlankIcon from '@/shared/assets/svgs/check_box_blank.svg?react';
 import CheckBoxFillIcon from '@/shared/assets/svgs/check_box_fill.svg?react';
+import MeatballIcon from '@/shared/assets/svgs/common/ic_meatball_default.svg?react';
 import TimeFillIcon from '@/shared/assets/svgs/mingcute_time-fill.svg?react';
 import TimeLineIcon from '@/shared/assets/svgs/mingcute_time-line.svg?react';
 import NumberIcon from '@/shared/assets/svgs/selected_number_icon.svg?react';
-import MeatBall from '@/shared/assets/svgs/todo_meatball_default.svg?react';
 
 interface BoxTodoProps {
 	id: number;
@@ -76,7 +76,7 @@ const BoxTodo = ({
 
 	return (
 		<div
-			className={`group relative mt-[1rem] h-[9.6rem] w-[36.6rem] transform rounded-[8px] bg-gray-bg-01 p-[1.4rem] transition-transform duration-300 hover:-translate-y-2 ${selectedStyle} ${clickStyle} `}
+			className={`group relative mt-[1rem] h-[9.5rem] w-[28rem] transform rounded-[8px] bg-gray-bg-01 p-[1.4rem] transition-transform duration-300 hover:-translate-y-2 ${selectedStyle} ${clickStyle} `}
 			onClick={handleClickTodo}
 		>
 			<div className="flex flex-col justify-center">
@@ -88,7 +88,7 @@ const BoxTodo = ({
 						<h3 className={`+ mt-[0.42rem] text-white body-semibold-16 ${nameStyle}`}>{name}</h3>
 					</div>
 					<button>
-						<MeatBall className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+						<MeatballIcon className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 					</button>
 				</div>
 				<div className="ml-[0.8rem] mt-[0.7rem] flex flex-col gap-[0.2rem]">

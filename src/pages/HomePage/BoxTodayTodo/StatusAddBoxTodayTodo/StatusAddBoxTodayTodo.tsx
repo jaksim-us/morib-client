@@ -1,12 +1,10 @@
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
-import HomeLargeBtn from '@/shared/components/ButtonHomeLarge/ButtonHomeLarge';
+import ButtonRadius5 from '@/shared/components/ButtonRadius5/ButtonRadius5';
+import Spacer from '@/shared/components/Spacer/Spacer';
 
-import { HomeLargeBtnVariant } from '@/shared/types/global';
 import type { TaskType } from '@/shared/types/tasks';
 
 import { LARGE_BTN_TEXT, SMALL_BTN_TEXT } from '@/shared/constants/btnText';
-
-import HomeSmallBtn from './ButtonHomeSmall/ButtonHomeSmall';
 
 interface StatusAddBoxTodayTodoProps {
 	selectedTodayTodos: Omit<TaskType, 'isComplete'>[];
@@ -14,7 +12,7 @@ interface StatusAddBoxTodayTodoProps {
 	deleteTodayTodos: (todo: Omit<TaskType, 'isComplete'>) => void;
 	getSelectedNumber: (id: number) => number;
 	enableComplete: () => void;
-	cancelComplte: () => void;
+	cancelComplete: () => void;
 	addingComplete: boolean;
 	onCreateTodayTodos: () => void;
 }
@@ -25,7 +23,7 @@ const StatusAddBoxTodayTodo = ({
 	deleteTodayTodos,
 	getSelectedNumber,
 	enableComplete,
-	cancelComplte,
+	cancelComplete,
 	addingComplete,
 	onCreateTodayTodos,
 }: StatusAddBoxTodayTodoProps) => {
@@ -39,7 +37,7 @@ const StatusAddBoxTodayTodo = ({
 	};
 
 	return (
-		<div className="flex flex-grow flex-col justify-between">
+		<Spacer.Height className="flex flex-grow flex-col justify-between overflow-y-auto">
 			{hasTodayTodos ? (
 				<ul className="mt-[0.7rem] max-h-[57.5rem] overflow-auto">
 					{selectedTodayTodos.map(({ id, elapsedTime, startDate, endDate, name }) => {
@@ -64,35 +62,41 @@ const StatusAddBoxTodayTodo = ({
 					})}
 				</ul>
 			) : (
-				<p className="mx-auto mt-[22.2rem] text-center text-gray-05 head-bold-24">
+				<p className="mx-auto mt-[22.2rem] text-center text-gray-05 subhead-semibold-18">
 					할 일 카드를 선택하여
 					<br />
 					오늘 할 일을 추가해 보세요.
 				</p>
 			)}
 
-			<div className="flex justify-between">
+			<span className="flex justify-between">
 				{selectedTodayTodos.length !== 0 ? (
 					addingComplete ? (
-						<HomeSmallBtn onClick={cancelComplte}>{SMALL_BTN_TEXT.MODIFICATION}</HomeSmallBtn>
+						<ButtonRadius5.Sm color="gray" onClick={cancelComplete}>
+							<span className="px-[1.7rem]">{SMALL_BTN_TEXT.MODIFICATION}</span>
+						</ButtonRadius5.Sm>
 					) : (
-						<HomeSmallBtn onClick={enableComplete}>{SMALL_BTN_TEXT.COMPLETION}</HomeSmallBtn>
+						<ButtonRadius5.Sm color="gray" onClick={enableComplete}>
+							<span className="px-[1.7rem]">{SMALL_BTN_TEXT.COMPLETION}</span>
+						</ButtonRadius5.Sm>
 					)
 				) : (
-					<HomeSmallBtn onClick={onDisableAddStatus}>{SMALL_BTN_TEXT.CANCEL}</HomeSmallBtn>
+					<ButtonRadius5.Sm color="gray" onClick={onDisableAddStatus}>
+						<span className="px-[1.7rem]">{SMALL_BTN_TEXT.CANCEL}</span>
+					</ButtonRadius5.Sm>
 				)}
 				<div className={clickable}>
-					<HomeLargeBtn
-						variant={HomeLargeBtnVariant.LARGE}
+					<ButtonRadius5.Sm
+						color="main"
 						disabled={!addingComplete}
 						onClick={onCreateTodayTodos}
 						onMouseEnter={handleMouseEnter}
 					>
 						{LARGE_BTN_TEXT.START_TIMER}
-					</HomeLargeBtn>
+					</ButtonRadius5.Sm>
 				</div>
-			</div>
-		</div>
+			</span>
+		</Spacer.Height>
 	);
 };
 

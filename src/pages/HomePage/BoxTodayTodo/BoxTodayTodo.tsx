@@ -1,3 +1,5 @@
+import Spacer from '@/shared/components/Spacer/Spacer';
+
 import { convertTime } from '@/shared/utils/time';
 
 import type { TaskType } from '@/shared/types/tasks';
@@ -15,7 +17,7 @@ interface BoxTodayTodoProps {
 	deleteTodayTodos: (todo: Omit<TaskType, 'isComplete'>) => void;
 	getSelectedNumber: (id: number) => number;
 	enableComplete: () => void;
-	cancelComplte: () => void;
+	cancelComplete: () => void;
 	addingComplete: boolean;
 	onCreateTodayTodos: () => void;
 }
@@ -30,36 +32,34 @@ const BoxTodayTodo = ({
 	deleteTodayTodos,
 	getSelectedNumber,
 	enableComplete,
-	cancelComplte,
+	cancelComplete,
 	addingComplete,
 	onCreateTodayTodos,
 }: BoxTodayTodoProps) => {
 	const { hours, minutes, seconds } = convertTime(time);
 
 	return (
-		<div className="flex h-full w-full flex-col justify-end">
-			<div className="flex h-5/6 w-[40.2rem] flex-col rounded-[1.6rem] bg-gray-bg-03 p-[1.8rem]">
-				<div className="rounded-[0.8rem] bg-gray-bg-05 pb-[1.8rem] pl-[2.6rem] pt-[2.2rem] text-white">
-					<p className="head-bold-24">오늘 나의 몰입 시간</p>
-					<p className="title-bold-32">{`${hours}시간 ${minutes}분 ${seconds}초`}</p>
-				</div>
-				<h3 className="mt-[3.2rem] text-white head-bold-24">오늘 할 일</h3>
-				{addingTodayTodoStatus ? (
-					<StatusAddBoxTodayTodo
-						selectedTodayTodos={selectedTodayTodos}
-						onDisableAddStatus={disableAddingTodayTodo}
-						deleteTodayTodos={deleteTodayTodos}
-						getSelectedNumber={getSelectedNumber}
-						enableComplete={enableComplete}
-						cancelComplte={cancelComplte}
-						addingComplete={addingComplete}
-						onCreateTodayTodos={onCreateTodayTodos}
-					/>
-				) : (
-					<StatusDefaultBoxTodayTodo hasTodos={hasTodos} onEnableAddStatus={enableAddingTodayTodo} />
-				)}
+		<Spacer.Height className="flex w-[31.6rem] flex-col rounded-[1.6rem] bg-gray-bg-03 p-[1.8rem]">
+			<div className="rounded-[0.8rem] bg-gray-bg-05 px-[2.6rem] py-[2rem] text-white">
+				<p className="subhead-bold-20">오늘 나의 몰입 시간</p>
+				<p className="head-bold-24">{`${hours}시간 ${minutes}분 ${seconds}초`}</p>
 			</div>
-		</div>
+			<h3 className="mt-[3.2rem] text-white subhead-bold-20">오늘 할 일</h3>
+			{addingTodayTodoStatus ? (
+				<StatusAddBoxTodayTodo
+					selectedTodayTodos={selectedTodayTodos}
+					onDisableAddStatus={disableAddingTodayTodo}
+					deleteTodayTodos={deleteTodayTodos}
+					getSelectedNumber={getSelectedNumber}
+					enableComplete={enableComplete}
+					cancelComplete={cancelComplete}
+					addingComplete={addingComplete}
+					onCreateTodayTodos={onCreateTodayTodos}
+				/>
+			) : (
+				<StatusDefaultBoxTodayTodo hasTodos={hasTodos} onEnableAddStatus={enableAddingTodayTodo} />
+			)}
+		</Spacer.Height>
 	);
 };
 

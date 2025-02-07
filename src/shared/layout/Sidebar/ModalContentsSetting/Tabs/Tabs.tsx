@@ -10,7 +10,7 @@ const TabsContext = createContext<TabsContextProps | null>(null);
 const useTabsContext = () => {
 	const context = useContext(TabsContext);
 	if (!context) {
-		throw new Error('Select 컴포넌트는 Select.Root 내에서 사용되어야 합니다.');
+		throw new Error('Select 컴포넌트는 Select  내에서 사용되어야 합니다.');
 	}
 	return context;
 };
@@ -78,11 +78,10 @@ const TabsCategory = ({ children, title }: TabsCategoryProps) => {
 	);
 };
 
-const Tabs = {
-	Root: TabsRoot,
+const Tabs = Object.assign(TabsRoot, {
 	Content: TabsContent,
 	Category: TabsCategory,
 	Trigger: TabsTrigger,
-};
+});
 
 export default Tabs;

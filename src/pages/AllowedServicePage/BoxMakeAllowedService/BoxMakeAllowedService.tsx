@@ -1,17 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 
-import ArrowSVGBtn from '@/shared/components/ButtonArrowSVG/ButtonArrowSVG';
-
-import { Direction } from '@/shared/types/global';
+import Spacer from '@/shared/components/Spacer/Spacer';
+import TextField from '@/shared/components/TextField/TextField';
 
 import { CATEGORY_MODALTABS } from '@/shared/constants/tabSelections';
 
-import CategoryTabSelect from '@/pages/HomePage/ModalContentsCategory/TabCategorySelect/TabCategorySelect';
-
 import { AllowedService } from '../types';
 import BoxUrlList from './BoxUrlList/BoxUrlList';
-import ColorPallete from './ColorPallete/ColorPallete';
-import InputAllowedServiceUrl from './InputAllowedServiceUrl/InputAllowedServiceUrl';
+import TabCategorySelect from './TabCategorySelect/TabCategorySelect';
 import TableAllowedService from './TableAllowedService/TableAllowedService';
 
 interface BoxMakeAllowedServiceProps {
@@ -65,37 +61,26 @@ const BoxMakeAllowedService = ({ allowedService, updateAllowedService }: BoxMake
 	};
 
 	return (
-		<div className="relative flex w-[132rem] flex-col items-start gap-[2rem]">
-			<div className="flex items-center gap-[1.4rem]">
-				<div className="flex items-center gap-[0.6rem]">
-					<div className={`h-[3rem] w-[3rem] rounded-[31px] ${selectedColor}`} />
-					<ArrowSVGBtn direction={Direction.DOWN} onClick={handleColorPalleteOpen} />
-				</div>
-				<input
-					value={allowedServiceName}
-					onChange={handleMoribNameChange}
-					placeholder="모립세트 이름을 입력해주세요."
-					className="placeholder-text-gray-03 w-[114rem] flex-shrink-0 bg-transparent text-white title-bold-36 focus:outline-none"
-				/>
-			</div>
-
-			<ColorPallete isOpen={isPaletteOpen} onSelectColor={handleColorSelect} />
-
+		<Spacer className="relative flex flex-col items-start gap-[2rem]">
 			<div className="flex items-center gap-[0.3rem] self-stretch">
-				<CategoryTabSelect tabs={CATEGORY_MODALTABS} handleTabChange={handleTabChange} selectedTabId={selectedTabId} />
+				<TabCategorySelect tabs={CATEGORY_MODALTABS} handleTabChange={handleTabChange} selectedTabId={selectedTabId} />
 			</div>
 
 			{selectedTabId === CATEGORY_MODALTABS[0].id && (
 				<>
 					<div className="relative w-full">
-						<InputAllowedServiceUrl urlList={urlList} addUrl={addUrl} />
+						<TextField value={allowedServiceName} onChange={handleMoribNameChange}>
+							<TextField.ClearButton />
+							<TextField.ConfirmButton>허용서비스 추가하기</TextField.ConfirmButton>
+						</TextField>
+						{/* <InputAllowedServiceUrl urlList={urlList} addUrl={addUrl} /> */}
 					</div>
 					<TableAllowedService urlList={urlList}>
 						<BoxUrlList urlList={urlList} onDelete={handleDeleteUrlInfo} />
 					</TableAllowedService>
 				</>
 			)}
-		</div>
+		</Spacer>
 	);
 };
 

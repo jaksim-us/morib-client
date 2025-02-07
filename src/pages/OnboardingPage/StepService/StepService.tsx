@@ -28,7 +28,7 @@ interface StepServiceProps {
 
 const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 	const [activeTab, setActiveTab] = useState<FieldType>('비즈니스');
-	const [inputURL, setInputURL] = useState('');
+	const [inputUrl, setInputUrl] = useState('');
 	const [selectedServices, setSelectedServices] = useState<PostInterestAreaReq['serviceList']>([]);
 	const [inputSuccess, setInputSuccess] = useState(false);
 
@@ -53,17 +53,17 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 		setSelectedServices((prev) => prev.filter((service) => service.siteUrl !== url));
 	};
 
-	const handleChangeInputURL = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChangeInputUrl = (e: ChangeEvent<HTMLInputElement>) => {
 		if (inputSuccess) {
 			setInputSuccess(false);
 		}
 
-		setInputURL(e.target.value);
+		setInputUrl(e.target.value);
 	};
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
-			handleAddSelectedService(inputURL);
+			handleAddSelectedService(inputUrl);
 		}
 	};
 
@@ -88,7 +88,7 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 	};
 
 	return (
-		<AutoFixedGrid fixedSide="right" fixedWidth="48.7rem" className="bg-gray-bg-01">
+		<AutoFixedGrid type="allowedService" className="bg-gray-bg-01">
 			<AutoFixedGrid.Slot>
 				<main className="relative flex h-full min-h-0 flex-col">
 					<button onClick={() => setStep('field')} className="absolute left-[6rem] top-[6rem]">
@@ -122,17 +122,17 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 						</Tabs>
 
 						<TextField
-							value={inputURL}
+							value={inputUrl}
 							onKeyDown={handleKeyDown}
-							onChange={handleChangeInputURL}
-							isError={inputURL.length > 0 && !isUrlValid(inputURL)}
+							onChange={handleChangeInputUrl}
+							isError={inputUrl.length > 0 && !isUrlValid(inputUrl)}
 							errorMessage="알맞은 형식의 url을 입력해 주세요."
-							isSuccess={inputURL.length > 0 && inputSuccess}
+							isSuccess={inputUrl.length > 0 && inputSuccess}
 							successMessage="url 입력에 성공했어요."
 							placeholder="직접 url 입력하기"
 						>
-							<TextField.ClearButton onClick={() => setInputURL('')} />
-							<TextField.ConfirmButton disabled={inputURL === ''} onClick={() => handleAddSelectedService(inputURL)}>
+							<TextField.ClearButton onClick={() => setInputUrl('')} />
+							<TextField.ConfirmButton disabled={inputUrl === ''} onClick={() => handleAddSelectedService(inputUrl)}>
 								등록하기
 							</TextField.ConfirmButton>
 						</TextField>

@@ -55,6 +55,10 @@ export interface PostToggleTaskStatusReq {
 	taskId: number;
 }
 
+export interface PostAddCategoryReq {
+	name: string;
+}
+
 export interface DeleteCategoryReq {
 	categoryId: number;
 }

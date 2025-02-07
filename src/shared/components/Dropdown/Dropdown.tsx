@@ -14,7 +14,7 @@ const DropdownContext = createContext<DropdownContextProps | null>(null);
 const useDropdownContext = () => {
 	const context = useContext(DropdownContext);
 	if (!context) {
-		throw new Error('Select 컴포넌트는 Select.Root 내에서 사용되어야 합니다.');
+		throw new Error('Select 컴포넌트는 Select  내에서 사용되어야 합니다.');
 	}
 	return context;
 };
@@ -40,7 +40,7 @@ const DropdownRoot = ({ children }: DropdownRootProps) => {
 
 	return (
 		<DropdownContext.Provider value={contextValue}>
-			<div ref={ref} className="relative">
+			<div ref={ref} className="relative z-50 flex">
 				{children}
 			</div>
 		</DropdownContext.Provider>
@@ -84,7 +84,7 @@ const DropdownContent = ({ children, maxHeight, boxShadow, className }: Dropdown
 	return (
 		<ul
 			onClick={handleToggleClose}
-			className={`absolute overflow-scroll rounded-[4px] ${shadowStyle} ${maxHeight} ${className}`}
+			className={`absolute overflow-y-scroll rounded-[4px] ${shadowStyle} ${maxHeight} ${className}`}
 		>
 			{open && children}
 		</ul>
@@ -101,7 +101,7 @@ const DropdownItem = ({ label, textColor = 'default', ...props }: DropdownItemPr
 	const textStyle = textColor === 'red' ? 'text-error-01' : 'text-white';
 
 	return (
-		<li className="border-t border-t-gray-bg-04 first:border-none">
+		<li className="z-50 border-t border-t-gray-bg-04 first:border-none">
 			<button
 				{...props}
 				className={`flex bg-gray-bg-02 px-[1.6rem] py-[0.4rem] hover:bg-gray-bg-03 active:bg-gray-bg-04`}
@@ -112,11 +112,10 @@ const DropdownItem = ({ label, textColor = 'default', ...props }: DropdownItemPr
 	);
 };
 
-const Dropdown = {
-	Root: DropdownRoot,
+const Dropdown = Object.assign(DropdownRoot, {
 	Trigger: DropdownTrigger,
 	Content: DropdownContent,
 	Item: DropdownItem,
-};
+});
 
 export default Dropdown;

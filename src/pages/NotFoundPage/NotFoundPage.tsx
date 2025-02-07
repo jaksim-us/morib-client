@@ -22,8 +22,8 @@ const NotFoundPage = () => {
 				</button>
 			</div>
 
-			<div className="flex w-full flex-col items-center">
-				<NotFoundIcon className="mt-[35.65rem]" />
+			<div className="flex w-full flex-col items-center justify-center">
+				<NotFoundIcon />
 				<h2 className="mt-[7.75rem] text-white title-bold-36">페이지를 찾을 수 없습니다.</h2>
 				<p className="text-white title-med-32">올바른 URL을 입력하였는지 확인하세요.</p>
 
