@@ -23,7 +23,7 @@ const ModalContentsSetting = () => {
 
 	return (
 		<div className="flex h-[80rem] w-[130rem] rounded-[1.4rem] bg-gray-bg-04">
-			<Tabs.Root value={activeTab} handleValueChange={handleTabChange}>
+			<Tabs value={activeTab} handleValueChange={handleTabChange}>
 				<Tabs.Content>
 					<Tabs.Category title="사용자 설정">
 						<Tabs.Trigger value="account">
@@ -38,7 +38,7 @@ const ModalContentsSetting = () => {
 						</Tabs.Trigger>
 					</Tabs.Category>
 				</Tabs.Content>
-			</Tabs.Root>
+			</Tabs>
 
 			<div className="flex flex-col p-[4rem]">
 				{activeTab === 'account' ? (
