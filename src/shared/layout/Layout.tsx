@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
 	return (
-		<div className="fixed grid grid-cols-[7.4rem,1fr]">
+		<div className="fixed grid w-full grid-cols-[7.4rem,1fr]">
 			<Sidebar />
 			<div>{children}</div>
 		</div>
