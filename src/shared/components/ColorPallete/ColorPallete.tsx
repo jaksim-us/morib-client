@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
 
-import { COLOR_PALETTE_MAP } from '@/shared/constants/colorPallete';
+import { COLOR_PALETTE_MAP } from '@/shared/constants/colorPalette';
 
 interface ColorPaletteRootProps {
 	isOpen: boolean;

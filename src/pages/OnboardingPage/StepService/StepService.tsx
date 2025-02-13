@@ -132,7 +132,10 @@ const StepService = ({ setStep, selectedField }: StepServiceProps) => {
 							placeholder="직접 url 입력하기"
 						>
 							<TextField.ClearButton onClick={() => setInputUrl('')} />
-							<TextField.ConfirmButton disabled={inputUrl === ''} onClick={() => handleAddSelectedService(inputUrl)}>
+							<TextField.ConfirmButton
+								disabled={inputUrl.length === 0}
+								onClick={() => handleAddSelectedService(inputUrl)}
+							>
 								등록하기
 							</TextField.ConfirmButton>
 						</TextField>
