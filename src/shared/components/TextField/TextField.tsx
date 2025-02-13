@@ -35,6 +35,8 @@ const TextFieldRoot = ({
 	children,
 	...props
 }: TextFieldRootProps) => {
+	const borderStyle = isError ? 'border-error-02' : isSuccess ? 'border-mint-01' : 'border-transparent';
+
 	const contextValue = {
 		isError,
 	};
@@ -52,7 +54,7 @@ const TextFieldRoot = ({
 	return (
 		<TextFieldContext.Provider value={contextValue}>
 			<div
-				className={`relative mt-auto flex h-[6.6rem] shrink-0 items-center justify-between rounded-[8px] bg-gray-bg-02 py-[1rem] pl-[2rem] pr-[1rem] ${isError && 'border-[2px] border-error-02'} ${isSuccess && 'border-[2px] border-mint-01'} `}
+				className={`relative mt-auto flex h-[6.6rem] shrink-0 items-center justify-between rounded-[8px] border-[1px] bg-gray-bg-02 py-[1rem] pl-[2rem] pr-[1rem] ${borderStyle} `}
 			>
 				<input
 					onKeyDown={handleKeyDown}

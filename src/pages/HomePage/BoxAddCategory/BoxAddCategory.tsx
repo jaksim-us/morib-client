@@ -39,8 +39,8 @@ const BoxAddCategory = forwardRef<HTMLDivElement, BoxAddCategoryProps>(function 
 						onChange={handleChangeInput}
 						/* NOTE: onKeydown 사용했을 때, 한글 입력이 이상하게 적용되어 onKeyPress 적용 */
 						onKeyPress={handleKeydown}
-						placeholder="카테고리명을 입력해 주세요"
-						className="w-full border-b-[1px] border-b-white bg-transparent text-white subhead-semibold-18 focus:outline-none"
+						placeholder="프로젝트 제목"
+						className="w-full bg-transparent text-white subhead-semibold-18 focus:outline-none"
 					/>
 					<div className="ml-[1rem] flex gap-[1rem]">
 						<button disabled className="rounded-full hover:bg-gray-bg-04 active:bg-gray-bg-05">

@@ -28,7 +28,7 @@ const Sidebar = () => {
 		navigate(ROUTES_CONFIG.home.path);
 	};
 
-	const navigateMoribSet = () => {
+	const navigateAllowedService = () => {
 		navigate(ROUTES_CONFIG.allowedService.path);
 	};
 
@@ -44,8 +44,11 @@ const Sidebar = () => {
 					/>
 				</button>
 
-				<section className="flex flex-col items-center justify-center">
-					<button onClick={navigateMoribSet}>
+				<section className="flex w-full flex-col items-center justify-center">
+					<button onClick={navigateAllowedService} className="relative flex w-full gap-[0.8rem]">
+						<hr
+							className={`h-[54px] w-[2px] rounded-r-[8px] ${pathName === ROUTES_CONFIG.allowedService.path ? 'bg-white' : 'border-transparent bg-transparent'}`}
+						/>
 						<FolderIcon
 							className={`rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05 ${pathName === ROUTES_CONFIG.allowedService.path && 'bg-gray-bg-05'}`}
 						/>
