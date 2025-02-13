@@ -1,10 +1,16 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, MouseEvent, ReactNode } from 'react';
 
 import Dropdown from '@/shared/components/Dropdown/Dropdown';
 import Spacer from '@/shared/components/Spacer/Spacer';
 
+import { AllowedServiceGroupType, ColorPaletteType } from '@/shared/types/allowedService';
+
+import { COLOR_PALETTE_MAP } from '@/shared/constants/colorPalette';
+
 import MeatBallDefaultIcon from '@/shared/assets/svgs/common/ic_meatball_default.svg?react';
 import PlusIcon from '@/shared/assets/svgs/plus.svg?react';
+
+import { getServiceFavicon } from '@/pages/OnboardingPage/utils/serviceUrl';
 
 export interface AllowedService {
 	id: number;
@@ -29,16 +35,7 @@ interface AllowedServiceListRootProps {
 	children: ReactNode;
 }
 
-const AllowedServiceListRoot = ({
-	allowedServices,
-	activeAllowedServiceId,
-	setActiveAllowedServiceId,
-	addAllowedService,
-	deleteAllowedService,
-	children,
-}: AllowedServiceListRootProps) => {
-	const maxIconsToShow = 5;
-
+const AllowedServiceListRoot = ({ children }: AllowedServiceListRootProps) => {
 	return (
 		<Spacer.Height className="flex w-[31.6rem] flex-shrink-0 flex-col rounded-[1.6rem] bg-gray-bg-03 px-[1.8rem] py-[2.2rem]">
 			{children}
@@ -66,38 +63,52 @@ const AllowedServiceListContent = ({ children }: { children: ReactNode }) => {
 	return <Spacer.Height className="mt-[2.4rem] flex w-[28rem] flex-col overflow-y-auto">{children}</Spacer.Height>;
 };
 
-interface AllowedServiceListItemProps {
-	allowedService?: AllowedService;
-	activeAllowedServiceId?: number | null;
-	onSelectActiveAllowedService?: () => void;
-	onDeleteAllowedService?: () => void;
-	maxIconsToShow?: number;
+interface AllowedServiceListItemProps extends AllowedServiceGroupType {
+	index: number;
+	activeGroupId: number | null;
+	activeGroupTitleInput: string;
+	onSelectActiveGroup: (activeGroupId: number | null) => void;
+	onDeleteAllowedServiceGroup: (groupId: number, isActive: boolean, currentIndex: number) => void;
+	isEditingTitle: boolean;
 }
 
-const AllowedServiceListItem = (
-	{
-		// allowedService,
-		// activeAllowedServiceId,
-		// onSelectActiveAllowedService,
-		// onDeleteAllowedService,
-		// maxIconsToShow = 5,
-	}: AllowedServiceListItemProps,
-) => {
-	// const additionalIconsCount =
-	// 	allowedService.urlList.length > maxIconsToShow ? allowedService.urlList.length - maxIconsToShow : 0;
-	const test = 1;
-	const name = '하이';
-	const isActive = true;
+const AllowedServiceListItem = ({
+	index,
+	activeGroupId,
+	activeGroupTitleInput,
+	onSelectActiveGroup,
+	onDeleteAllowedServiceGroup,
+	isEditingTitle,
+
+	...allowedServiceGroupData
+}: AllowedServiceListItemProps) => {
+	const isActive = activeGroupId === allowedServiceGroupData.id;
+
+	const handleDeleteAllowedServiceGroup = (e: MouseEvent<HTMLButtonElement>) => {
+		e.stopPropagation();
+		onDeleteAllowedServiceGroup(allowedServiceGroupData.id, isActive, index);
+	};
+
+	const handleSelectActiveGroupId = () => {
+		onSelectActiveGroup(allowedServiceGroupData.id);
+	};
 
 	return (
 		<div
-			className={`relative mb-[0.8rem] flex h-[8rem] w-[28rem] flex-col items-start justify-end rounded-[8px] bg-gray-bg-01 p-[1.4rem] ${isActive ? 'border-[1px] border-mint-01' : ''}`}
+			onClick={handleSelectActiveGroupId}
+			className={`relative mb-[0.8rem] flex h-[8rem] w-[28rem] flex-shrink-0 cursor-pointer flex-col items-start rounded-[8px] border-[1px] bg-gray-bg-01 p-[1.4rem] ${isActive ? 'border-mint-01' : 'border-transparent'}`}
 		>
 			<Spacer.Width className="flex">
 				<Spacer.Width className="flex items-center gap-[0.6rem]">
-					<div className={`h-[1.4rem] w-[1.4rem] flex-shrink-0 rounded-full bg-blue-400`} />
-					<h2 className={`w-[28.8rem] truncate body-semibold-16 ${test === 1 ? 'text-white' : 'text-gray-03'}`}>
-						{name || '모립세트 이름을 입력해주세요.'}
+					<div
+						className={`h-[1.4rem] w-[1.4rem] flex-shrink-0 rounded-full ${COLOR_PALETTE_MAP[allowedServiceGroupData.colorCode]}`}
+					/>
+
+					<h2
+						className={`w-[28.8rem] truncate detail-semibold-14 ${allowedServiceGroupData.name.length > 0 ? 'text-white' : 'text-gray-03'}`}
+					>
+						{(isActive && isEditingTitle ? activeGroupTitleInput : allowedServiceGroupData.name) ||
+							'모립세트 이름을 입력해주세요.'}
 					</h2>
 				</Spacer.Width>
 
@@ -106,21 +117,53 @@ const AllowedServiceListItem = (
 						<MeatBallDefaultIcon className="cursor-pointer hover:rounded-full hover:bg-gray-bg-05" />
 					</Dropdown.Trigger>
 					<Dropdown.Content boxShadow="shadow-none" className="absolute right-0 top-[2.4rem] w-[12.4rem]">
-						<Dropdown.Item label="리스트 삭제" textColor="red" />
+						<Dropdown.Item onClick={handleDeleteAllowedServiceGroup} label="리스트 삭제" textColor="red" />
 					</Dropdown.Content>
 				</Dropdown>
 			</Spacer.Width>
 
 			<div className="mt-[0.4rem] flex items-center gap-[0.6rem]">
-				{/* {allowedService.urlList.slice(0, maxIconsToShow).map(({ faviconUrl }, url) => (
-					<img key={url} src={faviconUrl} alt="favicon" className="h-[2rem] w-[2rem] rounded-full" />
-				))} */}
-				{7 > 0 && (
+				{allowedServiceGroupData.allowedSites.map((siteUrl) => (
+					<img
+						key={siteUrl}
+						src={getServiceFavicon(siteUrl)}
+						alt="favicon"
+						className="h-[2rem] w-[2rem] rounded-full"
+					/>
+				))}
+				{allowedServiceGroupData.extraCnt > 0 && (
 					<div className="body-detail-reg-12 flex h-[2rem] w-[2rem] items-center justify-center rounded-[57px] bg-date-active text-white">
-						+{7}
+						+{allowedServiceGroupData.extraCnt}
 					</div>
 				)}
 			</div>
+		</div>
+	);
+};
+
+interface AllowedServiceItemInputProps {
+	titleInput: string;
+	selectedColor: ColorPaletteType;
+}
+
+const AllowedServiceItemInput = ({ titleInput, selectedColor }: AllowedServiceItemInputProps) => {
+	return (
+		<div
+			className={`relative mb-[0.8rem] flex h-[8rem] w-[28rem] cursor-pointer flex-col items-start rounded-[8px] border-[1px] border-transparent bg-gray-bg-01 p-[1.4rem]`}
+		>
+			<Spacer.Width className="flex">
+				<Spacer className="flex items-center gap-[0.6rem]">
+					<div
+						className={`absolute left-[1.4rem] top-[1.9rem] h-[1.4rem] w-[1.4rem] flex-shrink-0 rounded-full ${COLOR_PALETTE_MAP[selectedColor]}`}
+					/>
+
+					<h2
+						className={`ml-[2rem] w-[19.2rem] flex-shrink-0 flex-grow-0 flex-wrap detail-semibold-14 ${titleInput.length > 0 ? 'text-white' : 'text-gray-03'}`}
+					>
+						{titleInput || '허용서비스 세트의 이름을 입력해주세요.'}
+					</h2>
+				</Spacer>
+			</Spacer.Width>
 		</div>
 	);
 };
@@ -131,6 +174,7 @@ const AllowedServiceList = Object.assign(AllowedServiceListRoot, {
 	Title: AllowedServiceListTitle,
 	Content: AllowedServiceListContent,
 	Item: AllowedServiceListItem,
+	ItemInput: AllowedServiceItemInput,
 });
 
 export default AllowedServiceList;
