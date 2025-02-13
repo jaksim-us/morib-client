@@ -30,7 +30,7 @@ const ModalWrapper = forwardRef<ModalWrapperRef, ModalWrapperProps>(function Mod
 	const modalElement = document.getElementById('modal');
 
 	const handleClick = (e: MouseEvent<HTMLDialogElement>) => {
-		if (backdrop && e.target === dialog.current) {
+		if (e.target === dialog.current) {
 			dialog.current?.close();
 		}
 	};
