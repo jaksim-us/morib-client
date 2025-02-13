@@ -1,103 +1,199 @@
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import AutoFixedGrid from '@/shared/components/AutoFixedGrid/AutoFixedGrid';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 import Spacer from '@/shared/components/Spacer/Spacer';
+import TextField from '@/shared/components/TextField/TextField';
 
-import useClickOutside from '@/shared/hooks/useClickOutside';
+import { isUrlValid } from '@/shared/utils/isUrlValid';
+
+import { ColorPaletteType } from '@/shared/types/allowedService';
+import { GetAllowedServiceListRes } from '@/shared/types/api/allowedService';
 
 import BellIcon from '@/shared/assets/svgs/bell.svg?react';
 import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
 import ModalContentsFriends from '@/pages/HomePage/ModalContentsFriends/ModalContentsFriends';
+import { allowedServiceKeys } from '@/shared/apisV2/allowedService/allowedService.keys';
+import {
+	useDeleteAllowedService,
+	useDeleteAllowedServiceGroup,
+	usePatchChangeAllowedServiceGroupColor,
+	usePatchChangeAllowedServiceGroupName,
+	usePostAddAllowedService,
+	usePostAddAllowedServiceGroup,
+} from '@/shared/apisV2/allowedService/allowedService.mutations';
+import {
+	useGetAllowedServiceGroupDetail,
+	useGetAllowedServiceList,
+	useGetRecommendedSites,
+} from '@/shared/apisV2/allowedService/allowedService.queries';
 
+import AllowedServiceGroupDetail from './AllowedServiceGroupDetail/AllowedServiceGroupDetail';
 import AllowedServiceList from './AllowedServiceList/AllowedServiceList';
-import AllowedServiceTitle from './AllowedServiceTitle/AllowedServiceTitle';
-import BoxMakeAllowedService from './BoxMakeAllowedService/BoxMakeAllowedService';
-import BoxRecommendService from './BoxRecommendService/BoxRecommendService';
-import CategoryAllowedService from './CategoryAllowedService/CategoryAllowedService';
-import { AllowedService, UrlInfo } from './types';
+import RecommendService from './RecommendService/RecommendService';
 
+// NOTE: 리렌더링 최적화 필요
 const AllowedServicePage = () => {
+	const [activeGroupId, setActiveGroupId] = useState<number | null>(null);
+	const [currentTap, setCurrentTap] = useState<'WEB' | 'DESKTOP'>('WEB');
+	const [titleInput, setTitleInput] = useState('');
+	const [isEditingTitle, setIsEditingTitle] = useState(false);
+	const [urlInput, setUrlInput] = useState('');
+	const [selectedColor, setSelectedColor] = useState<ColorPaletteType>('#868C93');
+
+	const queryClient = useQueryClient();
+
 	const friendsModalRef = useRef<ModalWrapperRef>(null);
-	const friendModalContentRef = useRef<HTMLDivElement>(null);
 
-	const [allowedServices, setAllowedServices] = useState<AllowedService[]>([
-		{
-			id: Date.now(),
-			allowedServiceName: '',
-			selectedColor: 'bg-gray-bg-07',
-			urlList: [],
-		},
-	]);
-	const [activeAllowedServiceId, setActiveAllowedServiceId] = useState<number>(allowedServices[0].id);
-	const [allowedServiceTitleInput, setAllowedServiceTitleInput] = useState('');
-
-	const handleAddAllowedService = () => {
-		const newSet: AllowedService = {
-			id: Date.now(),
-			allowedServiceName: '',
-			selectedColor: 'bg-gray-bg-07',
-			urlList: [],
-		};
-		setAllowedServices((prev) => [...prev, newSet]);
-		setActiveAllowedServiceId(newSet.id);
+	const handleChangeTitleInput = (e: ChangeEvent<HTMLInputElement>) => {
+		setTitleInput(e.target.value);
 	};
 
-	const handleUpdateAllowedService = <T extends keyof AllowedService>(id: number, key: T, value: AllowedService[T]) => {
-		setAllowedServices((prev) =>
-			prev.map((set) =>
-				set.id === id
-					? {
-							...set,
-							[key]: value,
+	const handleEditingTitleStatus = (status: boolean) => {
+		setIsEditingTitle(status);
+	};
+
+	const handleChangeUrlInput = (e: ChangeEvent<HTMLInputElement>) => {
+		setUrlInput(e.target.value);
+	};
+
+	const handleEnableAddingAllowedServiceGroup = () => {
+		setActiveGroupId(null);
+		setTitleInput('');
+		setSelectedColor('#868C93');
+	};
+
+	const { data: allowedServiceList } = useGetAllowedServiceList({ connectType: currentTap });
+	const { data: allowedServiceGroupDetail } = useGetAllowedServiceGroupDetail({
+		// NOTE: enabled 설정으로 activeGroupId가 null일 때 요청 보내지 않도록 했끼 떄문에 타입 단언 작성
+		allowedGroupId: activeGroupId!,
+		connectType: currentTap,
+	});
+	const { data: recommendedSites } = useGetRecommendedSites();
+
+	const { mutate: patchChangeAllowedServiceGroupName } = usePatchChangeAllowedServiceGroupName();
+	const { mutate: patchChangeAllowedServiceGroupColor } = usePatchChangeAllowedServiceGroupColor();
+	const { mutate: postAddAllowedServiceGroup } = usePostAddAllowedServiceGroup();
+	const { mutate: deleteAllowedServiceGroup } = useDeleteAllowedServiceGroup();
+	const { mutate: postAddAllowedService } = usePostAddAllowedService();
+	const { mutate: deleteAllowedService } = useDeleteAllowedService();
+
+	const handleSelectActiveGroupId = (activeGroupId: number | null) => {
+		setActiveGroupId(activeGroupId);
+	};
+
+	const handleSelectColor = (hashColor: ColorPaletteType) => {
+		if (activeGroupId === null) {
+			setSelectedColor(hashColor);
+		} else {
+			patchChangeAllowedServiceGroupColor({
+				allowedGroupId: activeGroupId,
+				colorCode: hashColor,
+			});
+		}
+	};
+
+	const handleChangeAllowedServiceGroupName = () => {
+		if (titleInput.length > 0 && activeGroupId && allowedServiceGroupDetail?.data.name !== titleInput) {
+			patchChangeAllowedServiceGroupName({
+				allowedGroupId: activeGroupId,
+				name: titleInput,
+			});
+		} else {
+			setTitleInput(allowedServiceGroupDetail?.data.name || '');
+		}
+	};
+
+	const handleAddAllowedServiceGroup = () => {
+		if (titleInput.length > 0) {
+			postAddAllowedServiceGroup({
+				name: titleInput,
+				colorCode: selectedColor,
+			});
+		}
+	};
+
+	const handleDeleteAllowedServiceGroup = (groupId: number, isActive: boolean, currentIndex: number) => {
+		deleteAllowedServiceGroup(
+			{ allowedGroupId: groupId },
+			{
+				onSuccess: () => {
+					queryClient.setQueryData(
+						allowedServiceKeys.allowedServiceList({ connectType: currentTap }),
+						(oldData: GetAllowedServiceListRes) => {
+							if (!oldData) return oldData;
+							return {
+								...oldData,
+								data: oldData.data.filter((group) => group.id !== groupId),
+							};
+						},
+					);
+
+					if (isActive) {
+						if (allowedServiceList && allowedServiceList.data.length > 1) {
+							setActiveGroupId(allowedServiceList.data[currentIndex + 1].id);
+						} else {
+							handleEnableAddingAllowedServiceGroup();
 						}
-					: set,
-			),
+					}
+				},
+			},
 		);
+	};
+
+	const handleAddAllowedService = (urlInput: string, activeGroupId: number | null) => {
+		if (activeGroupId) {
+			postAddAllowedService(
+				{
+					siteUrl: urlInput,
+					allowedGroupId: activeGroupId,
+				},
+				{
+					onSuccess: () => {
+						setUrlInput('');
+					},
+				},
+			);
+		}
 	};
 
 	const handleDeleteAllowedService = (id: number) => {
-		const updatedAllowedServices = allowedServices.filter((allowedService) => allowedService.id !== id);
-		if (updatedAllowedServices.length === 0) {
-			return;
+		deleteAllowedService({
+			allowedSiteId: String(id),
+		});
+	};
+
+	const handleKeyDownTitleInput = (e: KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+			handleAddAllowedService(urlInput, activeGroupId);
 		}
-		setAllowedServices(updatedAllowedServices);
 	};
 
-	const handleAddUrlToAllowedService = (urlInfo: UrlInfo) => {
-		setAllowedServices((prev) =>
-			prev.map((set) =>
-				set.id === activeAllowedServiceId
-					? {
-							...set,
-							urlList: [...set.urlList, urlInfo],
-						}
-					: set,
-			),
-		);
-	};
-
+	// NOTE: 첫 렌더링 시 api를 통해 받은 첫번째 allowed service group id를 activeGroupId로 설정
 	useEffect(() => {
-		if (allowedServices.length > 0 && !allowedServices.find((set) => set.id === activeAllowedServiceId)) {
-			setActiveAllowedServiceId(allowedServices[allowedServices.length - 1].id);
+		if (!activeGroupId && allowedServiceList && allowedServiceList?.data.length > 0) {
+			setActiveGroupId(allowedServiceList.data[0].id);
 		}
-	}, [allowedServices, activeAllowedServiceId]);
+	}, [allowedServiceList]);
 
-	const activeAllowedService = allowedServices.find((set) => set.id === activeAllowedServiceId);
+	// NOTE: allowedServiceGroupDetail이 존재할 때 titleInput을 설정
+	useEffect(() => {
+		if (allowedServiceGroupDetail) {
+			setTitleInput(allowedServiceGroupDetail.data.name);
+			setSelectedColor(allowedServiceGroupDetail.data.colorCode);
+		}
+	}, [allowedServiceGroupDetail, setTitleInput]);
 
 	const handleOpenFriendsModal = () => {
 		friendsModalRef.current?.open();
 	};
-	const handleCloseFriendsModal = () => {
-		friendsModalRef.current?.close();
-	};
-
-	useClickOutside(friendModalContentRef, handleCloseFriendsModal);
 
 	return (
 		<AutoFixedGrid type="allowedService" className="gap-[3rem] bg-gray-bg-01 px-[3.6rem] py-[4.2rem]">
-			<div className={`absolute right-[4.2rem] top-[5.4rem] flex gap-[0.8rem]`}>
+			<div className="absolute right-[4.2rem] top-[5.4rem] z-50 flex gap-[0.8rem]">
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
 				</button>
@@ -110,34 +206,101 @@ const AllowedServicePage = () => {
 				<AllowedServiceList>
 					<AllowedServiceList.Header>
 						<AllowedServiceList.Title>나의 허용서비스 리스트</AllowedServiceList.Title>
-						<AllowedServiceList.PlusButton onClick={handleAddAllowedService} />
+						<AllowedServiceList.PlusButton onClick={handleEnableAddingAllowedServiceGroup} />
 					</AllowedServiceList.Header>
 
 					<AllowedServiceList.Content>
-						{new Array(12).fill(0).map((_, index) => (
-							<AllowedServiceList.Item key={index} />
+						{activeGroupId === null && (
+							<AllowedServiceList.ItemInput titleInput={titleInput} selectedColor={selectedColor} />
+						)}
+						{allowedServiceList?.data.map((allowedServiceGroupData, index) => (
+							<AllowedServiceList.Item
+								key={allowedServiceGroupData.id}
+								index={index}
+								activeGroupId={activeGroupId}
+								activeGroupTitleInput={titleInput}
+								onSelectActiveGroup={handleSelectActiveGroupId}
+								onDeleteAllowedServiceGroup={handleDeleteAllowedServiceGroup}
+								isEditingTitle={isEditingTitle}
+								{...allowedServiceGroupData}
+							/>
 						))}
 					</AllowedServiceList.Content>
 				</AllowedServiceList>
 			</AutoFixedGrid.Slot>
 
 			<AutoFixedGrid.Slot className="flex h-full min-h-0 w-full min-w-[894px] flex-col gap-y-[1.9rem]">
-				<Spacer.Height className="flex flex-col gap-[2rem]">
-					<AllowedServiceTitle>
-						<AllowedServiceTitle.ColorButton color="bg-gray-bg-07" />
-						<AllowedServiceTitle.Input placeholder="모립세트 이름을 입력해주세요." />
-					</AllowedServiceTitle>
+				<Spacer.Height className="flex flex-col">
+					<AllowedServiceGroupDetail>
+						<AllowedServiceGroupDetail.Header
+							isEditingTitle={isEditingTitle}
+							onChangeEditingTitleStatus={handleEditingTitleStatus}
+							activeGroupId={activeGroupId}
+							onAddAllowedServiceGroup={handleAddAllowedServiceGroup}
+							onChangeAllowedServiceGroupName={handleChangeAllowedServiceGroupName}
+						>
+							<AllowedServiceGroupDetail.ColorButton onSelectColor={handleSelectColor} hashColor={selectedColor} />
+							<AllowedServiceGroupDetail.Input
+								value={titleInput}
+								onChange={handleChangeTitleInput}
+								placeholder="허용서비스 세트의 이름을 입력해주세요."
+							/>
+						</AllowedServiceGroupDetail.Header>
 
-					{activeAllowedService && (
-						<BoxMakeAllowedService
-							allowedService={activeAllowedService}
-							updateAllowedService={(key, value) => handleUpdateAllowedService(activeAllowedServiceId, key, value)}
-						/>
-					)}
+						<AllowedServiceGroupDetail.Tabs>
+							<AllowedServiceGroupDetail.TabButton onClick={() => setCurrentTap('WEB')} isActive={currentTap === 'WEB'}>
+								웹사이트
+							</AllowedServiceGroupDetail.TabButton>
+							<AllowedServiceGroupDetail.TabButton disabled isActive={currentTap === 'DESKTOP'}>
+								앱
+							</AllowedServiceGroupDetail.TabButton>
+						</AllowedServiceGroupDetail.Tabs>
+
+						<AllowedServiceGroupDetail.Content>
+							<TextField
+								value={urlInput}
+								onKeyDown={handleKeyDownTitleInput}
+								onChange={handleChangeUrlInput}
+								isError={urlInput.length > 0 && !isUrlValid(urlInput)}
+								errorMessage="알맞은 형식의 url을 입력해 주세요."
+								placeholder="허용할 웹사이트 주소를 입력해 주세요."
+							>
+								<TextField.ClearButton onClick={() => setUrlInput('')} />
+								<TextField.ConfirmButton
+									disabled={urlInput.length === 0}
+									onClick={() => handleAddAllowedService(urlInput, activeGroupId)}
+								>
+									사이트 등록하기
+								</TextField.ConfirmButton>
+							</TextField>
+
+							<AllowedServiceGroupDetail.Table totalLength={allowedServiceGroupDetail?.data.allowedSites.length || 0}>
+								{allowedServiceGroupDetail &&
+									allowedServiceGroupDetail.data.allowedSites.map((allowedSiteData, index) => (
+										<AllowedServiceGroupDetail.TableRow
+											key={`${index}-${allowedSiteData.id}`}
+											onDeleteAllowedSite={() => handleDeleteAllowedService(allowedSiteData.id)}
+											{...allowedSiteData}
+										/>
+									))}
+							</AllowedServiceGroupDetail.Table>
+						</AllowedServiceGroupDetail.Content>
+					</AllowedServiceGroupDetail>
 				</Spacer.Height>
 
-				<BoxRecommendService addUrlToAllowedService={handleAddUrlToAllowedService} />
+				<RecommendService>
+					{recommendedSites?.data.recommendSites.map((recommendedSite) => (
+						<RecommendService.Item
+							key={recommendedSite.siteUrl}
+							recommendSite={recommendedSite}
+							onClick={() => handleAddAllowedService(recommendedSite.siteUrl, activeGroupId)}
+						/>
+					))}
+				</RecommendService>
 			</AutoFixedGrid.Slot>
+			<ModalWrapper ref={friendsModalRef}>
+				<ModalContentsFriends />
+			</ModalWrapper>
 		</AutoFixedGrid>
 	);
 };
