@@ -155,7 +155,7 @@ const HomePage = () => {
 		const todayTodoData = todayTodos.map((todo) => todo.id);
 		const dataToPost = {
 			targetDate: formattedTodayDate,
-			taskList: todayTodoData,
+			taskIdList: todayTodoData,
 		};
 
 		addTodayTodos(dataToPost, {
@@ -168,10 +168,6 @@ const HomePage = () => {
 	const handleDeleteCategory = (categoryId: number) => {
 		deleteCategory({ categoryId });
 	};
-
-	if (isCategoriesDataError) {
-		return <div>Unexpected Application Error! Request failed with status code 500</div>;
-	}
 
 	return (
 		<AutoFixedGrid type="home" className="gap-[9.2rem] overflow-auto bg-gray-bg-01 p-[3.2rem] pt-[15.2rem]">
