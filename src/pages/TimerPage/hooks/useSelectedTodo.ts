@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react';
 
-interface Todo {
-	id: number;
-	name: string;
-	targetTime: string;
-	categoryName: string;
-}
+import { TimerTodoType } from '@/shared/types/tasks';
 
-export const useSelectedTodo = (todos: Todo[]) => {
+export const useSelectedTodo = (todos: TimerTodoType[]) => {
 	const [selectedTodo, setSelectedTodo] = useState<number | null>(() => (todos.length > 0 ? todos[0].id : null));
 
 	useEffect(() => {
