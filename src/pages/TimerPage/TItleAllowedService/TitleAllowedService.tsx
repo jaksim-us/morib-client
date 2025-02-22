@@ -13,7 +13,7 @@ const TitleAllowedService = ({ onClick, registeredNames, isAllowedServiceVisible
 	const joinedNames = registeredNames.join(', ');
 
 	return (
-		<div onClick={onClick} className="ml-[3.2rem] mt-[3.2rem] flex h-[5.4rem] w-[81rem] items-center">
+		<div onClick={onClick} className="absolute left-[3.2rem] top-[3.2rem] flex h-[5.4rem] w-[81rem] items-center">
 			{registeredNames.length > 0 ? (
 				<>
 					<MoribSetBtnActiveIcon className="h-[5.5rem] w-[5.4rem] flex-shrink-0" />
