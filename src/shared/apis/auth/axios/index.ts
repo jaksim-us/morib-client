@@ -1,7 +1,7 @@
-import axios from 'axios';
-
+// import axios from 'axios';
 import { nonAuthClient } from '@/shared/apis/client';
-import { getRefreshToken } from '@/shared/utils/token';
+
+// import { getRefreshToken } from '@/shared/utils/token';
 
 const AUTH_URL = {
 	SIGN_IN: 'api/v1/users/signin',
@@ -23,12 +23,12 @@ export const singUp = async (authorizationCode: string | null) => {
 	return data;
 };
 
-export const reissueToken = async () => {
-	const refreshToken = getRefreshToken();
-	const { data } = await axios.patch(AUTH_URL.REISSUE_TOKEN, {
-		headers: {
-			Authorization: `Bearer ${refreshToken}`,
-		},
-	});
-	return data;
-};
+// export const reissueToken = async () => {
+// 	const refreshToken = getRefreshToken();
+// 	const { data } = await axios.patch(AUTH_URL.REISSUE_TOKEN, {
+// 		headers: {
+// 			Authorization: `Bearer ${refreshToken}`,
+// 		},
+// 	});
+// 	return data;
+// };
