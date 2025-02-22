@@ -37,7 +37,7 @@ export interface GetWorkTimeRes {
 
 export interface postAddTodayTodosReq {
 	targetDate: string;
-	taskList: number[];
+	taskIdList: number[];
 }
 
 export interface PostCreateTaskReq {
