@@ -17,7 +17,7 @@ const ContainerCarousel = ({ image, name, time, categoryname, isPlaying }: Conta
 	const formattedTime = formatSeconds(timer);
 
 	return (
-		<div className="py-[0.5rem 0.7rem] flex h-[15rem] w-[9.8rem] flex-col items-center justify-center px-[0.8rem]">
+		<div className="flex h-[15rem] w-[9.8rem] flex-col items-center justify-center px-[0.8rem] py-[0.5rem]">
 			<img src={image} alt="유저 프로필" className="mb-[1rem] h-[7.4rem] w-[7.4rem]" />
 			<div className="flex justify-center gap-[0.2rem]">
 				<ClockIcon />

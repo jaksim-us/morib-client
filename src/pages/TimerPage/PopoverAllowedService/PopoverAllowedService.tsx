@@ -28,7 +28,7 @@ const PopoverAllowedService = ({
 	};
 
 	return (
-		<div className="ml-[4.899rem] flex h-[45rem] w-[53.2rem]">
+		<div className="flex h-[45rem] w-[53.2rem]">
 			<div className="flex w-[23rem] flex-col rounded-l-[8px] bg-gray-bg-02 p-[1rem]">
 				<h3 className="h-[3.4rem] w-[21rem] px-[1.7rem] py-[1rem] text-gray-04 detail-reg-14">허용서비스 세트</h3>
 				<ul className="mt-[0.8rem] h-[32.4rem] w-[20.4rem] overflow-y-auto">
