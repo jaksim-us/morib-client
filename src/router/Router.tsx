@@ -5,15 +5,16 @@ import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import AllowedServicePage from '@/pages/AllowedServicePage/AllowedServicePage';
 import HomePage from '@/pages/HomePage/HomePage';
-import LoginPage from '@/pages/LoginPage/LoginPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
-import OnboardingPage from '@/pages/OnboardingPage/OnboardingPage';
-import RedirectPage from '@/pages/RedirectPage/RedirectPage';
-import TimerPage from '@/pages/TimerPage/TimerPage';
 import Layout from '@/shared/layout/Layout';
 
 import ProtectedRoute from './ProtectedRoute';
 import { ROUTES_CONFIG } from './routesConfig';
+
+const LoginPage = lazy(() => import('@/pages/HomePage/HomePage'));
+const RedirectPage = lazy(() => import('@/pages/RedirectPage/RedirectPage'));
+const OnboardingPage = lazy(() => import('@/pages/OnboardingPage/OnboardingPage'));
+const TimerPage = lazy(() => import('@/pages/TimerPage/TimerPage'));
 
 const router: Router = createBrowserRouter([
 	{
