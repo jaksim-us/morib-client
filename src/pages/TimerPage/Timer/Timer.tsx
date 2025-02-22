@@ -1,15 +1,16 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import { usePostTimerStop } from '@/shared/apis/timer/queries';
+import { formatSeconds } from '@/shared/utils/time';
 
-import InnerCircleIcon from '@/shared/assets/svgs/elipse.svg?react';
+import InnerCircleIcon from '@/shared/assets/svgs/timer/ic_timer_inner_circle.svg?react';
 
-import AccumulatedTime from './AccumulatedTime/AccumulatedTime';
+import { usePostStopTimer } from '@/shared/apisV2/timer/timer.mutations';
+
 import ButtonTimerPlay from './ButtonTimerPlay/ButtonTimerPlay';
 import ProgressCircle from './ProgressCircle/ProgressCircle';
-import TaskTime from './TaskTime/TaskTime';
 
 interface TaskTotalTimeProps {
+	selectedCategoryName: string;
 	selectedTodo: number | null;
 	onPlayToggle: (isPlaying: boolean) => void;
 	isPlaying: boolean;
@@ -19,10 +20,11 @@ interface TaskTotalTimeProps {
 	resetTimerIncreasedTime: () => void;
 	accumulatedTime: number;
 	resetAccumulatedIncreasedTime: () => void;
-	updateTargetTime: (newTime: number) => void;
+	updateElapsedTime: (newTime: number) => void;
 }
 
 const Timer = ({
+	selectedCategoryName,
 	selectedTodo,
 	onPlayToggle,
 	isPlaying,
@@ -32,19 +34,24 @@ const Timer = ({
 	resetTimerIncreasedTime,
 	accumulatedTime,
 	resetAccumulatedIncreasedTime,
-	updateTargetTime,
+	updateElapsedTime,
 }: TaskTotalTimeProps) => {
 	const queryClient = useQueryClient();
 
-	const { mutate, isError, error } = usePostTimerStop();
+	const { mutate, isError, error } = usePostStopTimer();
 
 	const handlePlayPauseToggle = () => {
 		if (selectedTodo !== null) {
-			if (isPlaying) {
-				updateTargetTime(timerTime);
+			if (isPlaying && selectedCategoryName.length > 0) {
+				updateElapsedTime(timerTime);
 
 				mutate(
-					{ id: selectedTodo, elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
+					{
+						taskId: selectedTodo,
+						elapsedTime: timerIncreasedTime,
+						targetDate: formattedTodayDate,
+						runningCategoryName: selectedCategoryName,
+					},
 					{
 						onSuccess: () => {
 							onPlayToggle(false);
@@ -64,18 +71,22 @@ const Timer = ({
 		console.error(error);
 	}
 
+	const hours = Math.floor(accumulatedTime / 3600);
+	const minutes = Math.floor((accumulatedTime % 3600) / 60);
+
 	return (
-		<div className="mt-[3.1rem] flex items-center justify-center">
+		<div className="relative flex items-center justify-center">
 			<ProgressCircle isPlaying={isPlaying} timer={timerTime} />
 			<InnerCircleIcon className="absolute" />
 			<div className="absolute flex h-[22rem] w-[27.1rem] flex-col items-center justify-center">
 				<div className="flex flex-col items-center justify-center">
-					<AccumulatedTime accumulatedTime={accumulatedTime} />
-					<TaskTime isPlaying={isPlaying} timer={timerTime} />
+					<span className="text-white head-bold-24">
+						{hours === 0 ? `오늘 ${minutes}분 몰입 중` : `오늘 ${hours}시간 ${minutes}분 몰입 중`}
+					</span>
+					<span className="text-mint-01 title-semibold-48">{formatSeconds(timerTime)}</span>;
 				</div>
-				<div>
-					<ButtonTimerPlay onClick={handlePlayPauseToggle} isPlaying={isPlaying} />
-				</div>
+
+				<ButtonTimerPlay onClick={handlePlayPauseToggle} isPlaying={isPlaying} />
 			</div>
 		</div>
 	);
