@@ -4,26 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
+import ButtonRadius5 from '@/shared/components/ButtonRadius5/ButtonRadius5';
 import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoToggle';
 
 import { usePatchTaskStatus } from '@/shared/apis/common/queries';
 import { usePostTimerStop } from '@/shared/apis/timer/queries';
 
-import { Todo } from '@/shared/types/todoData';
+import { TimerTodoType } from '@/shared/types/tasks';
 
 import BtnListIcon from '@/shared/assets/svgs/btn_list.svg?react';
 
-import ButtonSideBar from './ButtonSideBar/ButtonSideBar';
-
 interface CategoryBoxProps {
-	completedTodos: Todo[];
-	ongoingTodos: Todo[];
+	completedTodos: TimerTodoType[];
+	ongoingTodos: TimerTodoType[];
 	toggleSidebar: () => void;
 	onTodoSelection: (id: number, time: number, name: string, categoryName: string) => void;
 	selectedTodo: number | null;
 	onPlayToggle: (isPlaying: boolean) => void;
 	isPlaying: boolean;
-	targetTime: number;
+	elapsedTime: number;
 	formattedTodayDate: string;
 	resetTimerIncreasedTime: () => void;
 	timerIncreasedTime: number;
@@ -101,9 +100,9 @@ const SideBarTimer = ({
 	return (
 		<div
 			ref={sidebarRef}
-			className={`absolute right-0 flex h-full w-[40.2rem] transform flex-col rounded-bl-[16px] rounded-tl-[16px] bg-gray-bg-03 pl-[1.8rem] transition-transform duration-300 ${isSideOpen ? 'translate-x-0' : 'translate-x-full'}`}
+			className={`absolute right-0 flex h-full w-[31.6rem] transform flex-col rounded-bl-[16px] rounded-tl-[16px] bg-gray-bg-03 pl-[1.8rem] transition-transform duration-300 ${isSideOpen ? 'translate-x-0' : 'translate-x-full'}`}
 		>
-			<div className="flex h-[5.4rem] w-[36.6rem] items-center justify-between pl-[0.2rem] pt-[2rem]">
+			<div className="flex h-[5.4rem] w-full items-center justify-between pl-[0.2rem] pt-[2rem]">
 				<p className="text-white head-bold-24">오늘 할 일</p>
 				<button className="rounded-[1.5rem] hover:bg-gray-bg-04" onClick={toggleSidebar}>
 					<BtnListIcon />
@@ -115,7 +114,7 @@ const SideBarTimer = ({
 						key={todo.id}
 						{...todo}
 						isSelected={todo.id === selectedTodo}
-						onClick={() => handleTodoClick(todo.id, todo.targetTime, todo.name, todo.categoryName)}
+						onClick={() => handleTodoClick(todo.id, todo.elapsedTime, todo.name, todo.categoryName)}
 						onToggleComplete={() => mutate(todo.id)}
 						timerIncreasedTime={todo.id === selectedTodo ? timerIncreasedTime : 0}
 					/>
@@ -133,10 +132,9 @@ const SideBarTimer = ({
 				</ButtonTodoToggle>
 			</div>
 			<div className="flex flex-col items-start gap-[1rem] pb-[2rem] pt-[4rem]">
-				<ButtonSideBar variant="할 일 추가">할 일 추가</ButtonSideBar>
-				<ButtonSideBar variant="홈으로 나가기" onClick={handleNavigateHome} onMouseEnter={handleMouseEnter}>
+				<ButtonRadius5.Xl color="main" onClick={handleNavigateHome} onMouseEnter={handleMouseEnter}>
 					홈으로 나가기
-				</ButtonSideBar>
+				</ButtonRadius5.Xl>
 			</div>
 		</div>
 	);

@@ -7,6 +7,9 @@ export default {
 				'.title-semibold-64': {
 					'@apply text-[6.4rem] font-semibold leading-normal': '',
 				},
+				'.title-semibold-48': {
+					'@apply text-[4.8rem] font-semibold leading-normal': '',
+				},
 				'.title-bold-36': {
 					'@apply text-[3.6rem] font-bold leading-normal': '',
 				},

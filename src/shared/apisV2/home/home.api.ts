@@ -15,7 +15,7 @@ import { authClient } from '../client';
 export const HOME_ENDPOINT = {
 	GET_CATEGORY: 'api/v2/home',
 	GET_WORK_TIME: 'api/v2/timer',
-	POST_TIMER_START: 'api/v2/timer/start',
+	POST_TIMER_START: 'api/v2/timer/enter',
 	POST_CREATE_TASK: '/api/v2/tasks/:categoryId',
 	POST_TOGGLE_TASK_STATUS: 'api/v2/tasks/:taskId/status',
 	POST_ADD_CATEGORY: 'api/v2/categories',
@@ -36,8 +36,8 @@ export const getWorkTime = async ({ targetDate }: GetWorkTimeReq): Promise<GetWo
 	return data;
 };
 
-export const postAddTodayTodos = async ({ targetDate, taskList }: postAddTodayTodosReq) => {
-	const { data } = await authClient.post(HOME_ENDPOINT.POST_TIMER_START, { taskList }, { params: { targetDate } });
+export const postAddTodayTodos = async ({ targetDate, taskIdList }: postAddTodayTodosReq) => {
+	const { data } = await authClient.post(HOME_ENDPOINT.POST_TIMER_START, { taskIdList }, { params: { targetDate } });
 	return data;
 };
 

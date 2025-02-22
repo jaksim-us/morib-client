@@ -4,24 +4,24 @@ interface ProgressCircleProps {
 }
 
 const ProgressCircle = ({ timer }: ProgressCircleProps) => {
-	const radius = 224;
+	const radius = 196;
 	const circumference = 2 * Math.PI * radius;
 
 	const progress = ((timer % 3600) / 3600) * 100;
 	const offset = circumference - (progress / 100) * circumference;
 	const angle = (progress / 100) * 2 * Math.PI - Math.PI / 2;
-	const endX = 240 + radius * Math.cos(angle);
-	const endY = 240 + radius * Math.sin(angle);
+	const endX = 210 + radius * Math.cos(angle);
+	const endY = 210 + radius * Math.sin(angle);
 
 	return (
-		<svg width="480" height="480">
-			<circle cx="240" cy="240" r={radius} stroke="#292D34" strokeWidth="32" fill="none" />
+		<svg width="420" height="420">
+			<circle cx="210" cy="210" r={radius} stroke="#292D34" strokeWidth="28" fill="none" />
 			<circle
-				cx="240"
-				cy="240"
+				cx="210"
+				cy="210"
 				r={radius}
 				stroke="url(#paint0_linear_1570_35)"
-				strokeWidth="33"
+				strokeWidth="28"
 				fill="none"
 				strokeDasharray={circumference}
 				strokeDashoffset={offset}

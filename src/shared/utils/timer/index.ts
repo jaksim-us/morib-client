@@ -1,16 +1,8 @@
-interface Task {
-	id: number;
-	name: string;
-	startDate: string;
-	endDate: string | null;
-	targetTime: number;
-	isComplete: boolean;
-	categoryName: string;
-}
+import type { TimerTodoType } from '@/shared/types/tasks';
 
-export const splitTasksByCompletion = (tasks: Task[]) => {
-	let completedTodos: Task[] = [];
-	let ongoingTodos: Task[] = [];
+export const splitTasksByCompletion = (tasks: TimerTodoType[]) => {
+	let completedTodos: TimerTodoType[] = [];
+	let ongoingTodos: TimerTodoType[] = [];
 
 	tasks.forEach((task) => {
 		if (task.isComplete) {
