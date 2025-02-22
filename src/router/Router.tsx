@@ -3,18 +3,17 @@ import type { Router } from '@remix-run/router';
 import { Suspense, lazy } from 'react';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
+import AllowedServicePage from '@/pages/AllowedServicePage/AllowedServicePage';
+import HomePage from '@/pages/HomePage/HomePage';
+import LoginPage from '@/pages/LoginPage/LoginPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 import OnboardingPage from '@/pages/OnboardingPage/OnboardingPage';
 import RedirectPage from '@/pages/RedirectPage/RedirectPage';
+import TimerPage from '@/pages/TimerPage/TimerPage';
 import Layout from '@/shared/layout/Layout';
 
 import ProtectedRoute from './ProtectedRoute';
 import { ROUTES_CONFIG } from './routesConfig';
-
-const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
-const HomePage = lazy(() => import('@/pages/HomePage/HomePage'));
-const TimerPage = lazy(() => import('@/pages/TimerPage/TimerPage'));
-const AllowedServicePage = lazy(() => import('@/pages/AllowedServicePage/AllowedServicePage'));
 
 const router: Router = createBrowserRouter([
 	{
