@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { deleteCategory, postAddCategory, postAddTodayTodos, postCreateTask, postToggleTaskStatus } from './home.api';
+import { deleteCategory, postAddCategory, postAddTodayTodos, postCreateTask } from './home.api';
 import { homeKeys } from './home.keys';
 
 export const usePostAddTodayTodos = () => {
@@ -14,17 +14,6 @@ export const usePostCreateTask = () => {
 
 	return useMutation({
 		mutationFn: postCreateTask,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: homeKeys.task });
-		},
-	});
-};
-
-export const usePostToggleTaskStatus = () => {
-	const queryClient = useQueryClient();
-
-	return useMutation({
-		mutationFn: postToggleTaskStatus,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: homeKeys.task });
 		},

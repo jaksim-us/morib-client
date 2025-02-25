@@ -9,3 +9,7 @@ export interface GetUrlNameRes {
 		tabName: string;
 	};
 }
+
+export interface PostToggleTaskStatusReq {
+	taskId: number;
+}
