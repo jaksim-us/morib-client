@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -7,17 +7,18 @@ import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
 import ButtonRadius5 from '@/shared/components/ButtonRadius5/ButtonRadius5';
 import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoToggle';
 
-import { usePatchTaskStatus } from '@/shared/apis/common/queries';
-import { usePostTimerStop } from '@/shared/apis/timer/queries';
-
 import { TimerTodoType } from '@/shared/types/tasks';
 
 import BtnListIcon from '@/shared/assets/svgs/btn_list.svg?react';
+
+import { usePostToggleTaskStatus } from '@/shared/apisV2/common/common.mutations';
+import { usePostStopTimer } from '@/shared/apisV2/timer/timer.mutations';
 
 interface CategoryBoxProps {
 	completedTodos: TimerTodoType[];
 	ongoingTodos: TimerTodoType[];
 	toggleSidebar: () => void;
+	selectedTodoName: string;
 	onTodoSelection: (id: number, time: number, name: string, categoryName: string) => void;
 	selectedTodo: number | null;
 	onPlayToggle: (isPlaying: boolean) => void;
@@ -35,6 +36,7 @@ const SideBarTimer = ({
 	completedTodos = [],
 	toggleSidebar,
 	onTodoSelection,
+	selectedTodoName,
 	selectedTodo,
 	onPlayToggle,
 	isPlaying,
@@ -44,18 +46,29 @@ const SideBarTimer = ({
 	isSideOpen,
 	resetAccumulatedIncreasedTime,
 }: CategoryBoxProps) => {
+	const [completedTodoToggle, setCompletedTodoToggle] = useState(false);
+
+	const handleCompletedTodoToggle = () => {
+		setCompletedTodoToggle((prev) => !prev);
+	};
+
 	const sidebarRef = useRef<HTMLDivElement>(null);
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
-	const { mutate, isError, error } = usePatchTaskStatus();
-	const { mutate: stopTimer } = usePostTimerStop();
+	const { mutate, isError, error } = usePostToggleTaskStatus();
+	const { mutate: stopTimer } = usePostStopTimer();
 
 	const handleTodoClick = (id: number, time: number, name: string, categoryName: string) => {
 		if (isPlaying) {
 			if (selectedTodo !== null) {
 				stopTimer(
-					{ id: selectedTodo, elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
+					{
+						taskId: selectedTodo,
+						elapsedTime: timerIncreasedTime,
+						targetDate: formattedTodayDate,
+						runningCategoryName: selectedTodoName,
+					},
 					{
 						onSuccess: () => {
 							onPlayToggle(false);
@@ -74,7 +87,12 @@ const SideBarTimer = ({
 	const handleNavigateHome = () => {
 		if (isPlaying && selectedTodo !== null) {
 			stopTimer(
-				{ id: selectedTodo, elapsedTime: timerIncreasedTime, targetDate: formattedTodayDate },
+				{
+					taskId: selectedTodo,
+					elapsedTime: timerIncreasedTime,
+					targetDate: formattedTodayDate,
+					runningCategoryName: selectedTodoName,
+				},
 				{
 					onSuccess: () => {
 						onPlayToggle(false);
@@ -115,17 +133,26 @@ const SideBarTimer = ({
 						{...todo}
 						isSelected={todo.id === selectedTodo}
 						onClick={() => handleTodoClick(todo.id, todo.elapsedTime, todo.name, todo.categoryName)}
-						onToggleComplete={() => mutate(todo.id)}
+						onToggleComplete={() =>
+							mutate(
+								{ taskId: todo.id },
+								{
+									onSuccess: () => {
+										setCompletedTodoToggle(true);
+									},
+								},
+							)
+						}
 						timerIncreasedTime={todo.id === selectedTodo ? timerIncreasedTime : 0}
 					/>
 				))}
-				<ButtonTodoToggle isCompleted={false} isToggled={false}>
+				<ButtonTodoToggle isCompleted={false} onClick={handleCompletedTodoToggle} isToggled={completedTodoToggle}>
 					{completedTodos.map((todo) => (
 						<BoxTodo
 							key={todo.id}
 							{...todo}
 							isSelected={todo.id === selectedTodo}
-							onToggleComplete={() => mutate(todo.id)}
+							onToggleComplete={() => mutate({ taskId: todo.id })}
 							timerIncreasedTime={todo.id === selectedTodo ? timerIncreasedTime : 0}
 						/>
 					))}

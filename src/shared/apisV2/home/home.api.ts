@@ -6,7 +6,6 @@ import {
 	GetWorkTimeRes,
 	PostAddCategoryReq,
 	PostCreateTaskReq,
-	PostToggleTaskStatusReq,
 	postAddTodayTodosReq,
 } from '@/shared/types/api/home';
 
@@ -17,7 +16,6 @@ export const HOME_ENDPOINT = {
 	GET_WORK_TIME: 'api/v2/timer',
 	POST_TIMER_START: 'api/v2/timer/enter',
 	POST_CREATE_TASK: '/api/v2/tasks/:categoryId',
-	POST_TOGGLE_TASK_STATUS: 'api/v2/tasks/:taskId/status',
 	POST_ADD_CATEGORY: 'api/v2/categories',
 	DELETE_CATEGORY: 'api/v2/categories/:categoryId',
 };
@@ -48,11 +46,6 @@ export const postCreateTask = async ({ categoryId, name, startDate, endDate }: P
 		endDate,
 	});
 
-	return data;
-};
-
-export const postToggleTaskStatus = async ({ taskId }: PostToggleTaskStatusReq) => {
-	const { data } = await authClient.post(HOME_ENDPOINT.POST_TOGGLE_TASK_STATUS.replace(':taskId', String(taskId)));
 	return data;
 };
 

@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-import { Suspense, lazy, useRef } from 'react';
+import { Suspense, lazy, useRef, useState } from 'react';
 
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
 import ButtonTodoToggle from '@/shared/components/ButtonTodayToggle/ButtonTodoToggle';
@@ -14,7 +14,8 @@ import type { TaskListType, TaskType } from '@/shared/types/tasks';
 import MeatballDefaultIcon from '@/shared/assets/svgs/common/ic_meatball_default.svg?react';
 import PlusIcon from '@/shared/assets/svgs/home/ic_plus.svg?react';
 
-import { usePostCreateTask, usePostToggleTaskStatus } from '@/shared/apisV2/home/home.mutations';
+import { usePostToggleTaskStatus } from '@/shared/apisV2/common/common.mutations';
+import { usePostCreateTask } from '@/shared/apisV2/home/home.mutations';
 
 import { useCalendar } from '../hooks/useCalendar';
 import BoxTodoInput from './BoxTodoInput/BoxTodoInput';
@@ -55,6 +56,16 @@ const BoxCategory = ({
 	onDeleteCategory,
 }: BoxCategoryProps) => {
 	const { mutate, isError, error } = usePostCreateTask();
+	const [ongoingTodoToggle, setOngoingTodoToggle] = useState(true);
+	const [completedTodoToggle, setCompletedTodoToggle] = useState(false);
+
+	const handleOngoingTodoToggle = () => {
+		setOngoingTodoToggle((prev) => !prev);
+	};
+
+	const handleCompletedTodoToggle = () => {
+		setCompletedTodoToggle((prev) => !prev);
+	};
 
 	const {
 		name,
@@ -143,7 +154,7 @@ const BoxCategory = ({
 			) : (
 				<Spacer.Height className="relative flex">
 					<Spacer.Height className="flex flex-col overflow-y-auto">
-						<ButtonTodoToggle isCompleted isToggled={true}>
+						<ButtonTodoToggle isCompleted onClick={handleOngoingTodoToggle} isToggled={ongoingTodoToggle}>
 							{isAdding && (
 								<>
 									<BoxTodoInput
@@ -196,7 +207,16 @@ const BoxCategory = ({
 										elapsedTime={elapsedTime}
 										isSelected={!!selectedNumber}
 										selectedNumber={selectedNumber}
-										onToggleComplete={() => toggleTodoStatus({ taskId: id })}
+										onToggleComplete={() =>
+											toggleTodoStatus(
+												{ taskId: id },
+												{
+													onSuccess: () => {
+														setCompletedTodoToggle(true);
+													},
+												},
+											)
+										}
 										updateTodayTodos={() => updateTodayTodos(todo)}
 										clickable={addingTodayTodoStatus}
 										addingComplete={addingComplete}
@@ -206,7 +226,7 @@ const BoxCategory = ({
 						</ButtonTodoToggle>
 
 						{completedTodos.length !== 0 && (
-							<ButtonTodoToggle isToggled={false}>
+							<ButtonTodoToggle onClick={handleCompletedTodoToggle} isToggled={completedTodoToggle}>
 								{completedTodos.map(({ id, name, startDate, endDate, elapsedTime }) => (
 									<BoxTodo
 										id={id}
@@ -216,7 +236,9 @@ const BoxCategory = ({
 										startDate={startDate}
 										endDate={endDate}
 										elapsedTime={elapsedTime}
-										onToggleComplete={() => toggleTodoStatus({ taskId: id })}
+										onToggleComplete={() => {
+											toggleTodoStatus({ taskId: id });
+										}}
 										clickable={addingTodayTodoStatus}
 										addingComplete={addingComplete}
 									/>

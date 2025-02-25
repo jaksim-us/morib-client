@@ -1,3 +1,5 @@
+import { ColorPaletteType } from '../allowedService';
+
 export interface PostStopTimerReq {
 	taskId: number;
 	targetDate: string;
@@ -43,4 +45,24 @@ export interface PostTimerStartReq {
 	elapsedTime: number;
 	runningCategoryName: string;
 	taskId: number;
+}
+
+export interface GetPopoverAllowedServiceListRes {
+	status: number;
+	message: string;
+	data: {
+		id: number;
+		name: string;
+		colorCode: ColorPaletteType;
+		selected: boolean;
+		allowedSites: {
+			id: number;
+			siteName: string;
+			siteUrl: string;
+		}[];
+	}[];
+}
+
+export interface PostApplyAllowedServiceGroupReq {
+	allowedGroupIdList: number[];
 }

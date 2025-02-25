@@ -16,8 +16,8 @@ const RedirectPage = () => {
 
 		if (accessToken) {
 			setAccessToken(accessToken);
-
 			if (isSignUp === 'true') {
+				localStorage.setItem('isSignUp', isSignUp);
 				navigate(`${ROUTES_CONFIG.onboarding.path}?step=start`, { replace: true });
 			} else {
 				navigate(`${ROUTES_CONFIG.home.path}`, { replace: true });

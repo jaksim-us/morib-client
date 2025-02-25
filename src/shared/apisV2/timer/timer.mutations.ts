@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { postStopTimer, postTimerStart } from './timer.api';
+import { PostApplyAllowedServiceGroupReq } from '@/shared/types/api/timer';
+
+import { postApplyAllowedServiceGroup, postStopTimer, postTimerStart } from './timer.api';
 import { timerKeys } from './timer.keys';
 
 export const usePostStopTimer = () => {
@@ -21,6 +23,17 @@ export const usePostTimerStart = () => {
 		mutationFn: postTimerStart,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: timerKeys.timer });
+		},
+	});
+};
+
+export const usePostApplyAllowedServiceGroup = ({ allowedGroupIdList }: PostApplyAllowedServiceGroupReq) => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: () => postApplyAllowedServiceGroup({ allowedGroupIdList }),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: timerKeys.popover() });
 		},
 	});
 };
