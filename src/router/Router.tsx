@@ -11,7 +11,7 @@ import Layout from '@/shared/layout/Layout';
 import ProtectedRoute from './ProtectedRoute';
 import { ROUTES_CONFIG } from './routesConfig';
 
-const LoginPage = lazy(() => import('@/pages/HomePage/HomePage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
 const RedirectPage = lazy(() => import('@/pages/RedirectPage/RedirectPage'));
 const OnboardingPage = lazy(() => import('@/pages/OnboardingPage/OnboardingPage'));
 const TimerPage = lazy(() => import('@/pages/TimerPage/TimerPage'));
