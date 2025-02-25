@@ -3,6 +3,7 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useGetMoribSet, usePostTimerStop } from '@/shared/apis/timer/queries';
 
@@ -16,7 +17,10 @@ import { DATE_FORMAT, DEFAULT_URL, TIMEZONE } from '@/shared/constants/timerPage
 import HamburgerIcon from '@/shared/assets/svgs/btn_hamburger.svg?react';
 import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
-import { useGetTimerTodos } from '@/shared/apisV2/timer/timer.queries';
+import { ROUTES_CONFIG } from '@/router/routesConfig';
+
+import { usePostStopTimer } from '@/shared/apisV2/timer/timer.mutations';
+import { useGetPopoverAllowedServiceList, useGetTimerTodos } from '@/shared/apisV2/timer/timer.queries';
 
 import Carousel from './Carousel/Carousel';
 import PopoverAllowedService from './PopoverAllowedService/PopoverAllowedService';
@@ -32,59 +36,54 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const TimerPage = () => {
-	const { isSidebarOpen, handleSidebarToggle } = useToggleSidebar();
 	const todayDate = dayjs().tz(TIMEZONE);
 	const formattedTodayDate = todayDate.format(DATE_FORMAT);
+
+	const navigate = useNavigate();
 
 	const { data: todosData, isLoading, error } = useGetTimerTodos({ targetDate: formattedTodayDate });
 	const { task: todos = [], sumTodayElapsedTime = 0 } = todosData?.data || {};
 	const { ongoingTodos, completedTodos } = splitTasksByCompletion(todos);
-
 	const [selectedTodo, setSelectedTodo] = useSelectedTodo(todos);
-
-	const [registeredNames, setRegisteredNames] = useState<string[]>([]);
-
-	const [elapsedTime, setElapsedTime] = useState(0);
-
-	const [isPlaying, setIsPlaying] = useState(false);
-
-	const [isAllowedServiceVisible, setIsAllowedServiceVisible] = useState(false);
-
 	const selectedTodoData = todos.find((todo: TimerTodoType) => todo.id === selectedTodo);
 
-	useEffect(() => {
-		setElapsedTime(selectedTodoData?.elapsedTime || 0);
-	}, [selectedTodoData?.elapsedTime]);
+	const [registeredNames, setRegisteredNames] = useState<string[]>([]);
+	const [allowedSitesUrl, setAllowedSitesUrl] = useState<string[]>([]);
+	const [elapsedTime, setElapsedTime] = useState(0);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const [isAllowedServiceVisible, setIsAllowedServiceVisible] = useState(false);
 
-	// const { data: setData } = useGetMoribSet(selectedTodo || 0);
-	// const urls = useMemo(() => setData?.data.map(({ url }: MoribSetData) => url.trim()) || [], [setData]);
-
-	// const baseUrls = useMemo(() => {
-	// 	const mappedUrls = urls.map(getBaseUrl);
-	// 	return [...mappedUrls, DEFAULT_URL];
-	// }, [urls]);
-
+	const { data: allowedServiceList } = useGetPopoverAllowedServiceList();
+	const { isSidebarOpen, handleSidebarToggle } = useToggleSidebar();
 	const {
 		timer: timerTime,
 		increasedTime: timerIncreasedTime,
 		resetIncreasedTime: resetTimerIncreasedTime,
 	} = useTimerCount({ isPlaying, previousTime: elapsedTime });
-
 	const { timer: accumulatedTime, resetIncreasedTime: resetAccumulatedIncreasedTime } = useTimerCount({
 		isPlaying,
 		previousTime: sumTodayElapsedTime,
 	});
+	const { mutate: stopTimer } = usePostStopTimer();
 
-	// useUrlHandler({
-	// 	isPlaying,
-	// 	selectedTodo,
-	// 	baseUrls,
-	// 	stopTimer,
-	// 	formattedTodayDate,
-	// 	timerIncreasedTime,
-	// 	setIsPlaying,
-	// 	getBaseUrl,
-	// });
+	const urls = useMemo(() => allowedSitesUrl.map((url) => url.trim()) || [], [allowedSitesUrl]);
+
+	const baseUrls = useMemo(() => {
+		const mappedUrls = urls.map(getBaseUrl);
+		return [...mappedUrls, DEFAULT_URL];
+	}, [urls]);
+
+	useUrlHandler({
+		isPlaying,
+		selectedTodo,
+		selectedTodoName: selectedTodoData?.name || '',
+		baseUrls,
+		stopTimer,
+		formattedTodayDate,
+		timerIncreasedTime,
+		setIsPlaying,
+		getBaseUrl,
+	});
 
 	const handleTodoSelection = (id: number) => {
 		setSelectedTodo(id);
@@ -104,12 +103,37 @@ const TimerPage = () => {
 
 	const handleRegister = (selectedNames: string[]) => {
 		setRegisteredNames(selectedNames);
-		setIsAllowedServiceVisible(false);
 	};
 
 	const updateElapsedTime = (newTime: number) => {
 		setElapsedTime(newTime);
 	};
+
+	useEffect(() => {
+		setElapsedTime(selectedTodoData?.elapsedTime || 0);
+	}, [selectedTodoData?.elapsedTime]);
+
+	useEffect(() => {
+		if (allowedServiceList) {
+			const allowedSitesUrl = [] as string[];
+			const groupNames = [] as string[];
+
+			allowedServiceList.data.forEach((group) => {
+				if (group.selected) {
+					groupNames.push(group.name);
+					if (group.allowedSites) {
+						group.allowedSites.forEach((site) => {
+							allowedSitesUrl.push(site.siteUrl);
+						});
+					}
+				}
+			});
+			const uniqueAllowedSites = Array.from(new Set(allowedSitesUrl));
+
+			handleRegister(groupNames);
+			setAllowedSitesUrl(uniqueAllowedSites);
+		}
+	}, [allowedServiceList]);
 
 	if (isLoading || error) {
 		return <div>{isLoading ? 'Loading...' : 'Error...'}</div>;
@@ -125,13 +149,13 @@ const TimerPage = () => {
 
 			{isAllowedServiceVisible && (
 				<div className="absolute left-[3.2rem] top-[9rem] z-10 flex">
-					<PopoverAllowedService onCancel={handleCancelClick} onRegister={handleRegister} />
+					<PopoverAllowedService onCancel={handleCancelClick} />
 				</div>
 			)}
 
 			<div className="absolute right-[3.2rem] top-[3.2rem] flex w-[10.8rem] items-center">
 				<button className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
-					<HomeIcon />
+					<HomeIcon onClick={() => navigate(ROUTES_CONFIG.home.path)} />
 				</button>
 				<button onClick={handleSidebarToggle} className="h-[5.4rem] w-[5.4rem] rounded-[1.5rem] hover:bg-gray-bg-04">
 					<HamburgerIcon />
@@ -170,6 +194,7 @@ const TimerPage = () => {
 				toggleSidebar={handleSidebarToggle}
 				onTodoSelection={handleTodoSelection}
 				selectedTodo={selectedTodo}
+				selectedTodoName={selectedTodoData?.name || ''}
 				onPlayToggle={handlePlayToggle}
 				isPlaying={isPlaying}
 				formattedTodayDate={formattedTodayDate}
