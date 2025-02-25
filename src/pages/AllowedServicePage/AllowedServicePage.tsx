@@ -3,6 +3,7 @@ import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 
 import AutoFixedGrid from '@/shared/components/AutoFixedGrid/AutoFixedGrid';
+import ModalContentsFriends from '@/shared/components/ModalContentsFriends/ModalContentsFriends';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 import Spacer from '@/shared/components/Spacer/Spacer';
 import TextField from '@/shared/components/TextField/TextField';
@@ -15,7 +16,6 @@ import { GetAllowedServiceListRes } from '@/shared/types/api/allowedService';
 import BellIcon from '@/shared/assets/svgs/bell.svg?react';
 import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
-import ModalContentsFriends from '@/pages/HomePage/ModalContentsFriends/ModalContentsFriends';
 import { allowedServiceKeys } from '@/shared/apisV2/allowedService/allowedService.keys';
 import {
 	useDeleteAllowedService,
