@@ -13,7 +13,7 @@ const ModalContentsFriends = forwardRef<HTMLDivElement>((_, ref) => {
 	return (
 		<div
 			ref={ref}
-			className="h-[800px] w-[1300px] rounded-[14px] bg-gray-bg-03 p-[4rem] shadow-[0_3px_30px_0px_rgba(0,0,0,0.4)]"
+			className="h-[630px] w-[1020px] rounded-[14px] bg-gray-bg-03 p-[4rem] shadow-[0_3px_30px_0px_rgba(0,0,0,0.4)]"
 		>
 			<h1 className="mb-[1rem] text-white title-bold-32">친구</h1>
 
