@@ -20,11 +20,13 @@ const ButtonUserProfile = ({
 	return (
 		<button className="flex h-[8.2rem] w-[6rem] flex-col items-center">
 			<div className="flex flex-col">
-				<div className="relative h-[6rem] w-[6rem]">
-					{(isMyProfile || isSelectedUser) && <GradientCircleIcon />}
+				<div className="relative h-[5rem] w-[5rem] 2xl:h-[6rem] 2xl:w-[6rem]">
+					{(isMyProfile || isSelectedUser) && (
+						<GradientCircleIcon className="h-[5rem] w-[5rem] 2xl:h-[6rem] 2xl:w-[6rem]" />
+					)}
 					<img className="absolute left-0 top-0" src={defaultPorfileIcon} alt="친구 캐러셀 이미지" />
 					{(isMyProfile || isConnecting) && (
-						<ConnectionIcon className="absolute bottom-[0.5rem] left-[4.3rem] rounded-full border-[0.2rem] border-gray-bg-01" />
+						<ConnectionIcon className="absolute bottom-[0.45rem] left-[3.6rem] rounded-full border-[0.2rem] border-gray-bg-01 2xl:bottom-[0.5rem] 2xl:left-[4.3rem]" />
 					)}
 				</div>
 			</div>

@@ -170,9 +170,12 @@ const HomePage = () => {
 	};
 
 	return (
-		<AutoFixedGrid type="home" className="gap-[9.2rem] overflow-auto bg-gray-bg-01 p-[3.2rem] pt-[15.2rem]">
-			<div className="absolute left-[3.2rem] top-[5.4rem] flex items-center gap-[1.8rem]">
-				<ul className="flex gap-[1.8rem]">
+		<AutoFixedGrid
+			type="home"
+			className="gap-[9.2rem] overflow-auto bg-gray-bg-01 p-[3.2rem] pt-[13.5rem] 2xl:pt-[15.2rem]"
+		>
+			<div className="absolute left-[3.2rem] top-[4rem] flex items-center gap-[0.8rem] 2xl:top-[5.4rem] 2xl:gap-[1.8rem]">
+				<ul className="flex gap-[0.8rem] 2xl:gap-[1.8rem]">
 					<li>
 						<ButtonUserProfile isMyProfile />
 					</li>
@@ -189,7 +192,9 @@ const HomePage = () => {
 				<ButtonMoreFriends friendsCount={13} />
 			</div>
 
-			<div className={`absolute right-[4.2rem] top-[5.4rem] flex gap-[0.8rem] ${addTodayTodosOverlayStyle}`}>
+			<div
+				className={`absolute right-[4.2rem] top-[4rem] flex gap-[0.8rem] 2xl:top-[5.4rem] ${addTodayTodosOverlayStyle}`}
+			>
 				<button onClick={handleOpenFriendsModal}>
 					<FriendSettingIcon className="rounded-[1.6rem] hover:bg-gray-bg-04 active:bg-gray-bg-05" />
 				</button>
@@ -200,7 +205,7 @@ const HomePage = () => {
 
 			{/* NOTE: 1440 이하일 때는 UI가 더이상 줄어들지 않게 조정 */}
 			<AutoFixedGrid.Slot className="h-full min-h-0 min-w-[894px] max-w-[1374px]">
-				{isCategoriesDataError && <FallbackApiError resetError={() => {}} />}
+				{/* {isCategoriesDataError && <FallbackApiError resetError={() => {}} />} */}
 				<Spacer.Height as="main" className="flex flex-col gap-[1.6rem]">
 					<DatePicker
 						todayDate={todayDate}
