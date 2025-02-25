@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import type { FieldType } from '@/shared/types/fileds';
+
+import { ROUTES_CONFIG } from '@/router/routesConfig';
 
 import StepField from './StepField/StepField';
 import StepService from './StepService/StepService';
@@ -8,6 +11,7 @@ import StepStart from './StepStart/StepStart';
 import { useFunnel } from './hooks/useFunnel';
 
 const OnboardingPage = () => {
+	const navigate = useNavigate();
 	const { Funnel, Step, setStep } = useFunnel();
 
 	const [selectedField, setSelectedField] = useState<FieldType | null>(null);
@@ -15,6 +19,14 @@ const OnboardingPage = () => {
 	const handleSelectField = (field: FieldType) => {
 		setSelectedField(field);
 	};
+
+	useEffect(() => {
+		const isSignUp = localStorage.getItem('isSignUp');
+
+		if (isSignUp !== 'true') {
+			navigate(ROUTES_CONFIG.home.path, { replace: true });
+		}
+	});
 
 	return (
 		<div className="flex h-screen w-[calc(100vw-7.4rem)] bg-gray-bg-01">
