@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
 	deleteCancelFriendRequest,
 	deleteFriend,
+	deleteRejectFriendRequest,
 	postAcceptFriendRequest,
-	postRejectFriendRequest,
 	postSendFriendRequestReq,
 } from './friends.api';
 import { friendKeys } from './friends.keys';
@@ -46,7 +46,7 @@ export const usePostRejectFriendRequest = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: postRejectFriendRequest,
+		mutationFn: deleteRejectFriendRequest,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: friendKeys.friendRequestList() });
 		},

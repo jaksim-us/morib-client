@@ -30,7 +30,7 @@ const FriendsListRequestedItem = ({ children, ...props }: FriendListRequestedIte
 					<p className="text-gray-04 body-reg-16">{props.email}</p>
 				</div>
 			</div>
-			{children}
+			<div className="flex w-full items-center justify-end gap-x-[1rem]">{children}</div>
 		</li>
 	);
 };

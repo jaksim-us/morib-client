@@ -1,10 +1,10 @@
 import {
 	DeleteCancelFriendRequestReq,
 	DeleteFriendReq,
+	DeleteRejectFriendRequestReq,
 	GetFriendListRes,
 	GetFriendRequestListRes,
 	PostAcceptFriendRequestReq,
-	PostRejectFriendRequestReq,
 	PostSendFriendRequestReq,
 } from '@/shared/types/api/friends';
 
@@ -50,8 +50,8 @@ export const postAcceptFriendRequest = async ({ friendId }: PostAcceptFriendRequ
 	return data;
 };
 
-export const postRejectFriendRequest = async ({ friendId }: PostRejectFriendRequestReq) => {
-	const { data } = await authClient.post(
+export const deleteRejectFriendRequest = async ({ friendId }: DeleteRejectFriendRequestReq) => {
+	const { data } = await authClient.delete(
 		FRIEND_ENDPOINT.POST_REJECT_FRIEND_REQUEST.replace(':friendId', String(friendId)),
 	);
 	return data;
