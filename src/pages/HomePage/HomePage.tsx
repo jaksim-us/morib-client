@@ -6,7 +6,7 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AutoFixedGrid from '@/shared/components/AutoFixedGrid/AutoFixedGrid';
-import FallbackApiError from '@/shared/components/FallbackApiError/FallbackApiError';
+// import FallbackApiError from '@/shared/components/FallbackApiError/FallbackApiError';
 import ModalContentsFriends from '@/shared/components/ModalContentsFriends/ModalContentsFriends';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 import Spacer from '@/shared/components/Spacer/Spacer';
@@ -34,6 +34,7 @@ import ButtonMoreFriends from './ButtonMoreFriends/ButtonMoreFriends';
 import ButtonUserProfile from './ButtonUserProfile/ButtonUserProfile';
 import DatePicker from './DatePicker/DatePicker';
 import StatusDefaultHome from './StatusDefaultHome/StatusDefaultHome';
+import { useSSE } from './hooks/useSSE';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -168,6 +169,8 @@ const HomePage = () => {
 	const handleDeleteCategory = (categoryId: number) => {
 		deleteCategory({ categoryId });
 	};
+
+	useSSE();
 
 	return (
 		<AutoFixedGrid
