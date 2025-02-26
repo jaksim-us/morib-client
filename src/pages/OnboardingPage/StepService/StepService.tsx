@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AutoFixedGrid from '@/shared/components/AutoFixedGrid/AutoFixedGrid';
 import TextField from '@/shared/components/TextField/TextField';
 
-import { isUrlValid } from '@/shared/utils/isUrlValid';
+import { isUrlValid } from '@/shared/utils/validation';
 
 import type { PostInterestAreaReq } from '@/shared/types/api/onboarding';
 import type { FieldType } from '@/shared/types/fileds';

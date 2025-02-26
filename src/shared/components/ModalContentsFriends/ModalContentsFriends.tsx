@@ -1,19 +1,33 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 
 import FriendsRequest from './FriendRequest/FriendsRequest';
 import FriendsList from './FriendsList/FriendsList';
 
-const ModalContentsFriends = forwardRef<HTMLDivElement>((_, ref) => {
+interface ModalContentsFriendsProps {
+	isModalOpen: boolean;
+}
+
+const ModalContentsFriends = forwardRef<HTMLDivElement, ModalContentsFriendsProps>(({ isModalOpen }, ref) => {
 	const [activeTab, setActiveTab] = useState<string>('친구목록');
 
 	const handleTabChange = (tab: string) => {
 		setActiveTab(tab);
 	};
 
+	const resetActiveTab = () => {
+		setActiveTab('친구목록');
+	};
+
+	useEffect(() => {
+		if (!isModalOpen) {
+			resetActiveTab();
+		}
+	}, [isModalOpen]);
+
 	return (
 		<div
 			ref={ref}
-			className="h-[630px] w-[1020px] rounded-[14px] bg-gray-bg-03 p-[4rem] shadow-[0_3px_30px_0px_rgba(0,0,0,0.4)]"
+			className="h-[630px] w-[1020px] overflow-auto rounded-[14px] bg-gray-bg-03 p-[4rem] shadow-[0_3px_30px_0px_rgba(0,0,0,0.4)]"
 		>
 			<h1 className="mb-[1rem] text-white title-bold-32">친구</h1>
 
@@ -31,7 +45,7 @@ const ModalContentsFriends = forwardRef<HTMLDivElement>((_, ref) => {
 				{'친구요청'}
 			</button>
 
-			{activeTab === '친구목록' ? <FriendsList /> : <FriendsRequest />}
+			{activeTab === '친구목록' ? <FriendsList /> : <FriendsRequest isModalOpen={isModalOpen} />}
 		</div>
 	);
 });

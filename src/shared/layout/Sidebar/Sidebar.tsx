@@ -60,7 +60,7 @@ const Sidebar = () => {
 				</section>
 			</aside>
 			<ModalWrapper ref={modalRef} backdrop={true}>
-				<ModalContentsSetting />
+				{({ isModalOpen }) => <ModalContentsSetting />}
 			</ModalWrapper>
 		</>
 	);
