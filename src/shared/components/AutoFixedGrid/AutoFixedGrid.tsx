@@ -12,7 +12,7 @@ const AutoFixedGridRoot = ({ type, children, className }: AutoFixedGridRootProps
 		layout: 'grid-cols-[7.4rem,1fr]',
 		onboarding: 'grid-cols-[1fr,42rem]',
 		home: 'grid-cols-[1fr,31.6rem]',
-		allowedService: 'grid-cols-[31.6rem,1fr]',
+		allowedService: 'grid-cols-[1fr,48rem]',
 	};
 
 	return <div className={`relative grid h-screen w-full ${gridType[type]} ${className}`}>{children}</div>;
