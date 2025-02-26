@@ -12,8 +12,8 @@ import { authClient } from '../client';
 
 const FRIEND_ENDPOINT = {
 	GET_FRIEND_LIST: 'api/v2/friends',
-	GET_FRIEND_REQUEST_LIST: 'api/v2/friends/requests/:friendEmail',
-	POST_SEND_FRIEND_REQUEST: 'api/v2/friends/requests/:friendId',
+	GET_FRIEND_REQUEST_LIST: 'api/v2/friends/requests',
+	POST_SEND_FRIEND_REQUEST: 'api/v2/friends/requests',
 	DELETE_CANCEL_FRIEND_REQUEST: 'api/v2/friends/requests/:friendId',
 	POST_ACCEPT_FRIEND_REQUEST: 'api/v2/friends/requests/:friendId/accept',
 	POST_REJECT_FRIEND_REQUEST: 'api/v2/friends/requests/:friendId/reject',
@@ -31,9 +31,8 @@ export const getFriendRequestList = async (): Promise<GetFriendRequestListRes> =
 };
 
 export const postSendFriendRequestReq = async ({ friendEmail }: PostSendFriendRequestReq) => {
-	const { data } = await authClient.post(
-		FRIEND_ENDPOINT.POST_SEND_FRIEND_REQUEST.replace(':friendEmail', String(friendEmail)),
-	);
+	const { data } = await authClient.post(FRIEND_ENDPOINT.POST_SEND_FRIEND_REQUEST, { friendEmail });
+
 	return data;
 };
 
