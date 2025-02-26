@@ -299,7 +299,7 @@ const AllowedServicePage = () => {
 				</RecommendService>
 			</AutoFixedGrid.Slot>
 			<ModalWrapper ref={friendsModalRef}>
-				<ModalContentsFriends />
+				{({ isModalOpen }) => <ModalContentsFriends isModalOpen={isModalOpen} />}
 			</ModalWrapper>
 		</AutoFixedGrid>
 	);

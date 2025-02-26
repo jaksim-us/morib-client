@@ -45,7 +45,7 @@ const Carousel = () => {
 			</div>
 			<ButtonArrowSVG direction={Direction.RIGHT} />
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
-				<ModalContentsFriends />
+				{({ isModalOpen }) => <ModalContentsFriends isModalOpen={isModalOpen} />}
 			</ModalWrapper>
 		</div>
 	);
