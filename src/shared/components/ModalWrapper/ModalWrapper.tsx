@@ -1,10 +1,10 @@
-import { MouseEvent, ReactNode, forwardRef, useImperativeHandle, useRef } from 'react';
+import { MouseEvent, ReactNode, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import './styles/dialog.css';
 
 interface ModalWrapperProps {
-	children: ReactNode;
+	children: (props: { isModalOpen: boolean }) => ReactNode;
 	backdrop?: boolean;
 }
 
@@ -17,14 +17,17 @@ const ModalWrapper = forwardRef<ModalWrapperRef, ModalWrapperProps>(function Mod
 	{ children, backdrop = false },
 	ref,
 ) {
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const dialog = useRef<HTMLDialogElement>(null);
 
 	useImperativeHandle(ref, () => ({
 		open() {
 			dialog.current?.showModal();
+			setIsModalOpen(true);
 		},
 		close() {
 			dialog.current?.close();
+			setIsModalOpen(false);
 		},
 	}));
 	const modalElement = document.getElementById('modal');
@@ -32,6 +35,7 @@ const ModalWrapper = forwardRef<ModalWrapperRef, ModalWrapperProps>(function Mod
 	const handleClick = (e: MouseEvent<HTMLDialogElement>) => {
 		if (e.target === dialog.current) {
 			dialog.current?.close();
+			setIsModalOpen(false);
 		}
 	};
 
@@ -39,13 +43,19 @@ const ModalWrapper = forwardRef<ModalWrapperRef, ModalWrapperProps>(function Mod
 		return null;
 	}
 
+	// children이 함수면 isModalOpen을 전달, 아니면 그대로 렌더링
+	const content =
+		typeof children === 'function'
+			? (children as (props: { isModalOpen: boolean }) => ReactNode)({ isModalOpen })
+			: children;
+
 	return createPortal(
 		<dialog
 			ref={dialog}
 			onClick={handleClick}
 			className={`custom-dialog bg-transparent ${backdrop ? 'with-backdrop' : ''}`}
 		>
-			{children}
+			{content}
 		</dialog>,
 		modalElement,
 	);
