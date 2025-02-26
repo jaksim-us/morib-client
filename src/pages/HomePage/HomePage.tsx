@@ -296,7 +296,7 @@ const HomePage = () => {
 			</AutoFixedGrid.Slot>
 
 			<ModalWrapper ref={friendsModalRef} backdrop={true}>
-				<ModalContentsFriends />
+				{({ isModalOpen }) => <ModalContentsFriends isModalOpen={isModalOpen} />}
 			</ModalWrapper>
 		</AutoFixedGrid>
 	);

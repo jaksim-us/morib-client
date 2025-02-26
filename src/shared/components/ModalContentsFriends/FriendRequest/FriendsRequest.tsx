@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 
 import { isEmailValid } from '@/shared/utils/validation';
 
@@ -14,7 +14,11 @@ import TextField from '../../TextField/TextField';
 import ButtonRequestAction from './ButtonRequestAction/ButtonRequestAction';
 import FriendsListRequested from './FriendsListRequested/FriendsListRequested';
 
-const FriendsRequest = () => {
+interface FriendsRequestProps {
+	isModalOpen: boolean;
+}
+
+const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 	const [emailInput, setEmailInput] = useState('');
 
 	const handleChangeUrlInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +36,16 @@ const FriendsRequest = () => {
 			sendFriendRequest({ friendEmail: emailInput });
 		}
 	};
+
+	const resetEmailInput = () => {
+		setEmailInput('');
+	};
+
+	useEffect(() => {
+		if (!isModalOpen) {
+			resetEmailInput();
+		}
+	}, [isModalOpen]);
 
 	return (
 		<div>
