@@ -25,6 +25,21 @@ const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 		setEmailInput(e.target.value);
 	};
 
+	const resetEmailInput = () => {
+		setEmailInput('');
+	};
+
+	const handleSendFriendRequest = () => {
+		sendFriendRequest(
+			{ friendEmail: emailInput },
+			{
+				onSuccess: () => {
+					resetEmailInput();
+				},
+			},
+		);
+	};
+
 	const { data: friendRequestList } = useGetFriendRequestList();
 	const { mutate: acceptFriendRequest } = usePostAcceptFriendRequest();
 	const { mutate: cancelFriendRequest } = usePostCancelFriendRequest();
@@ -33,12 +48,8 @@ const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 
 	const handleKeyDownTitleInput = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
-			sendFriendRequest({ friendEmail: emailInput });
+			handleSendFriendRequest();
 		}
-	};
-
-	const resetEmailInput = () => {
-		setEmailInput('');
 	};
 
 	useEffect(() => {
@@ -58,11 +69,8 @@ const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 					errorMessage="이메일을 확인해 주세요."
 					placeholder="이메일을 입력해 주세요."
 				>
-					<TextField.ClearButton onClick={() => setEmailInput('')} />
-					<TextField.ConfirmButton
-						onClick={() => sendFriendRequest({ friendEmail: emailInput })}
-						disabled={emailInput.length === 0}
-					>
+					<TextField.ClearButton onClick={resetEmailInput} />
+					<TextField.ConfirmButton onClick={handleSendFriendRequest} disabled={emailInput.length === 0}>
 						친구 요청 보내기
 					</TextField.ConfirmButton>
 				</TextField>
