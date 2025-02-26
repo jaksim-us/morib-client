@@ -6,6 +6,7 @@ import { authClient } from '../client';
 export const COMMON_ENDPOINT = {
 	GET_URL_NAME: 'api/v2/tabName',
 	POST_TOGGLE_TASK_STATUS: 'api/v2/tasks/:taskId/status',
+	GET_SSE_CONNECTION: 'api/v2/sse/connect',
 };
 
 export const getUrlName = async ({ url }: GetUrlNameReq): Promise<GetUrlNameRes> => {
@@ -15,5 +16,10 @@ export const getUrlName = async ({ url }: GetUrlNameReq): Promise<GetUrlNameRes>
 
 export const postToggleTaskStatus = async ({ taskId }: PostToggleTaskStatusReq) => {
 	const { data } = await authClient.post(COMMON_ENDPOINT.POST_TOGGLE_TASK_STATUS.replace(':taskId', String(taskId)));
+	return data;
+};
+
+export const getSseConnection = () => async () => {
+	const { data } = await authClient.get(COMMON_ENDPOINT.GET_SSE_CONNECTION);
 	return data;
 };

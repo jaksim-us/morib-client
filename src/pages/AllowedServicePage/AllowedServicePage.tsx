@@ -8,7 +8,7 @@ import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/
 import Spacer from '@/shared/components/Spacer/Spacer';
 import TextField from '@/shared/components/TextField/TextField';
 
-import { isUrlValid } from '@/shared/utils/isUrlValid';
+import { isUrlValid } from '@/shared/utils/validation';
 
 import { ColorPaletteType } from '@/shared/types/allowedService';
 import { GetAllowedServiceListRes } from '@/shared/types/api/allowedService';
