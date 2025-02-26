@@ -59,7 +59,12 @@ const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 					placeholder="이메일을 입력해 주세요."
 				>
 					<TextField.ClearButton onClick={() => setEmailInput('')} />
-					<TextField.ConfirmButton disabled={emailInput.length === 0}>친구 요청 보내기</TextField.ConfirmButton>
+					<TextField.ConfirmButton
+						onClick={() => sendFriendRequest({ friendEmail: emailInput })}
+						disabled={emailInput.length === 0}
+					>
+						친구 요청 보내기
+					</TextField.ConfirmButton>
 				</TextField>
 			</div>
 			<div className="h-full">
