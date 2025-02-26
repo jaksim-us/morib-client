@@ -4,7 +4,7 @@ import { getAccessToken, reloginWithoutLogout, setAccessToken } from '@/shared/u
 
 import { patchReissueToken } from './auth/auth.api';
 
-const API_URL = `${import.meta.env.VITE_BASE_URL}`;
+export const API_URL = `${import.meta.env.VITE_BASE_URL}`;
 
 const defaultConfig: AxiosRequestConfig = {
 	baseURL: API_URL,
