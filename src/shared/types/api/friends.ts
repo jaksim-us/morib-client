@@ -42,7 +42,7 @@ export interface PostAcceptFriendRequestReq {
 	friendId: number;
 }
 
-export interface PostRejectFriendRequestReq {
+export interface DeleteRejectFriendRequestReq {
 	friendId: number;
 }
 
