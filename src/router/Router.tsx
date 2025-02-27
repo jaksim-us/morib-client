@@ -1,7 +1,7 @@
 import type { Router } from '@remix-run/router';
 
 import { Suspense, lazy } from 'react';
-import { Outlet, createBrowserRouter } from 'react-router-dom';
+import { Outlet, createHashRouter } from 'react-router-dom';
 
 import AllowedServicePage from '@/pages/AllowedServicePage/AllowedServicePage';
 import HomePage from '@/pages/HomePage/HomePage';
@@ -16,9 +16,9 @@ const RedirectPage = lazy(() => import('@/pages/RedirectPage/RedirectPage'));
 const OnboardingPage = lazy(() => import('@/pages/OnboardingPage/OnboardingPage'));
 const TimerPage = lazy(() => import('@/pages/TimerPage/TimerPage'));
 
-const router: Router = createBrowserRouter([
+const router: Router = createHashRouter([
 	{
-		//public 라우트들
+		// public 라우트들
 		path: '/',
 		element: <Outlet />,
 		children: [
@@ -38,7 +38,7 @@ const router: Router = createBrowserRouter([
 	},
 
 	{
-		//권한이 있어야 접근 가능한 라우트들
+		// 권한이 있어야 접근 가능한 라우트들
 		path: '/',
 		element: <ProtectedRoute />,
 		children: [
@@ -82,7 +82,7 @@ const router: Router = createBrowserRouter([
 	},
 
 	{
-		//404 페이지
+		// 404 페이지
 		path: '*',
 		element: (
 			<Layout>

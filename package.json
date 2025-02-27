@@ -6,15 +6,15 @@
   "main": "src/main.cjs",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "electron": "NODE_ENV=development electron .",
     "electron:dev": "concurrently \"pnpm dev\" \"pnpm electron\"",
     "dist": "electron-builder",
     "dist:win": "electron-builder --win",
-    "build:mac": "NODE_ENV=production vite build && electron-builder --mac --config electron-builder-config.cjs",
-    "build:win": "NODE_ENV=production vite build && electron-builder --win --x64 --config electron-builder-config.cjs"
+    "build:mac": "pnpm build && electron-builder -m --config electron-builder-config.cjs",
+    "build:win": "pnpm build && electron-builder -w --config electron-builder-config.cjs"
   },
   "dependencies": {
     "@remix-run/router": "^1.17.0",
@@ -67,6 +67,18 @@
   "msw": {
     "workerDirectory": [
       "public"
+    ]
+  },
+  "build": {
+    "appId": "com.morib.app",
+    "productName": "Morib",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "src/main.cjs",
+      "package.json"
     ]
   }
 }
