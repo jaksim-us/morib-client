@@ -5,7 +5,7 @@ import IconWarning from '@/shared/assets/svgs/ic_delete_alert.svg?react';
 import ButtonAlert from '../ButtonAlert/ButtonAlert';
 import { AlertModalProps } from '../types/index';
 
-const DeleteAccount = ({ handleClose, userEmail }: AlertModalProps) => {
+const DeleteAccount = ({ onCloseModal, onConfirm, userEmail }: AlertModalProps) => {
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const [error, setError] = useState(false);
 	const handleSubmit = (e: FormEvent) => {
@@ -21,6 +21,27 @@ const DeleteAccount = ({ handleClose, userEmail }: AlertModalProps) => {
 			setError(false);
 		}
 	};
+
+	const handleDeleteAccount = () => {
+		if (inputRef.current?.value === userEmail) {
+			if (onConfirm) {
+				onConfirm();
+			}
+		} else {
+			setError(true);
+		}
+	};
+
+	const handleCloseModal = () => {
+		if (onCloseModal) {
+			onCloseModal();
+		}
+		setError(false);
+		if (inputRef.current) {
+			inputRef.current.value = '';
+		}
+	};
+
 	return (
 		<div className="flex flex-col rounded-[0.8rem] bg-gray-bg-04 p-[3rem]">
 			<div className="w-[62rem]">
@@ -46,10 +67,10 @@ const DeleteAccount = ({ handleClose, userEmail }: AlertModalProps) => {
 						</div>
 					)}
 					<div className="mt-[5.7rem] flex gap-[1rem]">
-						<ButtonAlert variant="danger" onClick={handleClose} type="submit">
+						<ButtonAlert variant="danger" onClick={handleDeleteAccount} type="submit">
 							계정 영구 삭제
 						</ButtonAlert>
-						<ButtonAlert variant="primary" onClick={handleClose}>
+						<ButtonAlert variant="primary" onClick={handleCloseModal}>
 							취소하기
 						</ButtonAlert>
 					</div>

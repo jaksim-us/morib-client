@@ -1,4 +1,5 @@
 export interface AlertModalProps {
-	handleClose?: () => void;
+	onCloseModal?: () => void;
+	onConfirm?: () => void;
 	userEmail?: string;
 }
