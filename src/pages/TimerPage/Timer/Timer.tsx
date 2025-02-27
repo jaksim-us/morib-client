@@ -4,6 +4,7 @@ import { formatSeconds } from '@/shared/utils/time';
 
 import InnerCircleIcon from '@/shared/assets/svgs/timer/ic_timer_inner_circle.svg?react';
 
+import { timerKeys } from '@/shared/apisV2/timer/timer.keys';
 import { usePostStopTimer } from '@/shared/apisV2/timer/timer.mutations';
 
 import ButtonTimerPlay from './ButtonTimerPlay/ButtonTimerPlay';
@@ -57,7 +58,7 @@ const Timer = ({
 							onPlayToggle(false);
 							resetTimerIncreasedTime();
 							resetAccumulatedIncreasedTime();
-							queryClient.invalidateQueries({ queryKey: ['todo', formattedTodayDate] });
+							queryClient.invalidateQueries({ queryKey: timerKeys.timer });
 						},
 					},
 				);
