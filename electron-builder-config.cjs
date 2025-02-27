@@ -7,7 +7,15 @@ const config = {
 		buildResources: 'build',
 		output: 'dist/electron',
 	},
-	files: ['dist/**/*', 'src/main.cjs', 'package.json'],
+	files: [
+		{
+			from: 'dist',
+			to: 'dist',
+			filter: ['**/*'],
+		},
+		'src/main.cjs',
+		'package.json',
+	],
 	extraMetadata: {
 		main: './src/main.cjs',
 		author: {
@@ -37,17 +45,19 @@ const config = {
 	mac: {
 		target: [
 			{
-				target: 'dir',
+				target: 'dmg',
 				arch: ['arm64', 'x64'],
 			},
 		],
+		category: 'public.app-category.productivity',
 		hardenedRuntime: true,
 		gatekeeperAssess: false,
 		entitlements: 'build/entitlements.mac.plist',
 		entitlementsInherit: 'build/entitlements.mac.plist',
 		provisioningProfile: 'build/MoribDevelopment.provisionprofile',
-		identity: 'Mac Developer: Kangmin Kim (2T6M6KP853)',
+		identity: 'Kangmin Kim (AW9VR8N9B5)',
 		strictVerify: false,
+		timestamp: 'http://timestamp.apple.com/ts01',
 	},
 	nsis: {
 		oneClick: false,
@@ -60,7 +70,7 @@ const config = {
 		private: true,
 		releaseType: 'release',
 	},
-	afterSign: 'scripts/notarize.js',
+	afterSign: 'scripts/notarize.cjs',
 	forceCodeSigning: true,
 };
 

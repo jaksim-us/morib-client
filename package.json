@@ -9,11 +9,12 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "electron": "electron .",
+    "electron": "NODE_ENV=development electron .",
+    "electron:dev": "concurrently \"pnpm dev\" \"pnpm electron\"",
     "dist": "electron-builder",
     "dist:win": "electron-builder --win",
-    "build:mac": "vite build && cp src/main.cjs dist/ && electron-builder --mac --config electron-builder-config.cjs",
-    "build:win": "vite build && electron-builder --win --x64 --config electron-builder-config.cjs"
+    "build:mac": "NODE_ENV=production vite build && electron-builder --mac --config electron-builder-config.cjs",
+    "build:win": "NODE_ENV=production vite build && electron-builder --win --x64 --config electron-builder-config.cjs"
   },
   "dependencies": {
     "@remix-run/router": "^1.17.0",
@@ -42,6 +43,7 @@
     "@typescript-eslint/parser": "^7.14.1",
     "@vitejs/plugin-react-swc": "^3.7.0",
     "autoprefixer": "^10.4.19",
+    "concurrently": "^9.1.2",
     "electron": "^34.2.0",
     "electron-builder": "^25.1.8",
     "electron-notarize": "^1.2.2",
