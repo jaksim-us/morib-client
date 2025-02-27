@@ -177,9 +177,9 @@ const TimerPage = () => {
 						const refreshedEventSource = new EventSourcePolyfill(
 							API_URL +
 								SSE_ENDPOINT.GET_SSE_REFRESH({
-									elapsedTime: timerTime,
+									elapsedTime: String(timerTime),
 									runningCategoryName: selectedTodoData?.categoryName,
-									taskId: selectedTodoData?.id,
+									taskId: String(selectedTodoData?.id),
 								}),
 							{
 								headers: { Authorization: `Bearer ${accessToken}` },
