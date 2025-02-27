@@ -3,16 +3,16 @@ import { useState } from 'react';
 import SettingIcon from '@/shared/assets/svgs/setting.svg?react';
 import UserIcon from '@/shared/assets/svgs/user_circle.svg?react';
 
+import { useGetProfile } from '@/shared/apisV2/setting/setting.queries';
+
 import AccountContent from './AccountContent/AccountContent';
 import Tabs from './Tabs/Tabs';
 import WorkSpaceSettingContent from './WorkspaceSettingContent/WorkspaceSettingContent';
 
 const ModalContentsSetting = () => {
 	const [activeTab, setActiveTab] = useState<string>('account');
-	const user = {
-		name: '홍길동',
-		email: 'honggildong@example.com',
-	};
+
+	const { data: userProfile } = useGetProfile();
 
 	const personalWorkspaces = ['개인 프로젝트'];
 	const teamWorkspaces = ['팀 A 프로젝트', '팀 B 프로젝트'];
@@ -22,7 +22,7 @@ const ModalContentsSetting = () => {
 	};
 
 	return (
-		<div className="flex h-[80rem] w-[130rem] rounded-[1.4rem] bg-gray-bg-04">
+		<div className="flex h-[80rem] w-[102rem] rounded-[1.4rem] bg-gray-bg-04">
 			<Tabs value={activeTab} handleValueChange={handleTabChange}>
 				<Tabs.Content>
 					<Tabs.Category title="사용자 설정">
@@ -32,17 +32,17 @@ const ModalContentsSetting = () => {
 					</Tabs.Category>
 
 					<Tabs.Category title="워크스페이스">
-						<Tabs.Trigger value="settings">
+						<Tabs.Trigger value="settings" disabled>
 							<SettingIcon />
-							설정
+							설정 <span className="text-gray-03"> {'\0 준비 중'} </span>
 						</Tabs.Trigger>
 					</Tabs.Category>
 				</Tabs.Content>
 			</Tabs>
 
-			<div className="flex flex-col p-[4rem]">
-				{activeTab === 'account' ? (
-					<AccountContent user={user} />
+			<div className="flex w-full flex-col p-[4rem]">
+				{activeTab === 'account' && userProfile?.data ? (
+					<AccountContent {...userProfile?.data} />
 				) : (
 					<WorkSpaceSettingContent personalWorkspaces={personalWorkspaces} teamWorkspaces={teamWorkspaces} />
 				)}

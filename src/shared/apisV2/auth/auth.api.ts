@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-import { authClient } from '@/shared/apis/client';
-
 import { getAccessToken } from '@/shared/utils/auth';
 
 import { reissueRes } from '@/shared/types/api/auth';
+
+import { authClient } from '@/shared/apisV2/client';
 
 const AUTH_ENDPOINT = {
 	PATCH_REISSUE_TOKEN: 'api/v2/users/reissue',

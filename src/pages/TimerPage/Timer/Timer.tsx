@@ -5,7 +5,7 @@ import { formatSeconds } from '@/shared/utils/time';
 import InnerCircleIcon from '@/shared/assets/svgs/timer/ic_timer_inner_circle.svg?react';
 
 import { timerKeys } from '@/shared/apisV2/timer/timer.keys';
-import { usePostStopTimer } from '@/shared/apisV2/timer/timer.mutations';
+import { usePostStartTimer, usePostStopTimer } from '@/shared/apisV2/timer/timer.mutations';
 
 import ButtonTimerPlay from './ButtonTimerPlay/ButtonTimerPlay';
 import ProgressCircle from './ProgressCircle/ProgressCircle';
@@ -40,6 +40,7 @@ const Timer = ({
 	const queryClient = useQueryClient();
 
 	const { mutate, isError, error } = usePostStopTimer();
+	const { mutate: startTimer } = usePostStartTimer();
 
 	const handlePlayPauseToggle = () => {
 		if (selectedTodo !== null) {
@@ -63,7 +64,18 @@ const Timer = ({
 					},
 				);
 			} else {
-				onPlayToggle(true);
+				startTimer(
+					{
+						taskId: selectedTodo,
+						elapsedTime: timerIncreasedTime,
+						runningCategoryName: selectedCategoryName,
+					},
+					{
+						onSuccess: () => {
+							onPlayToggle(true);
+						},
+					},
+				);
 			}
 		}
 	};

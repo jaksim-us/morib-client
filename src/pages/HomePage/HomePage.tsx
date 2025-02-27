@@ -1,6 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import { useSetAtom } from 'jotai';
 
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +17,7 @@ import Spacer from '@/shared/components/Spacer/Spacer';
 
 import useClickOutside from '@/shared/hooks/useClickOutside';
 
+import { getAccessToken } from '@/shared/utils/auth';
 import { getThisWeekRange } from '@/shared/utils/date';
 import { getDailyCategoryTask, isTaskExist, splitTasksByCompletion } from '@/shared/utils/tasks';
 
@@ -26,11 +29,14 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
+import { SSE_ENDPOINT } from '@/shared/apisV2/SSE/SSE.endpoint';
 import { useSSE } from '@/shared/apisV2/SSE/useSSE';
 import { useSSEEvent } from '@/shared/apisV2/SSE/useSSEEvent';
+import { API_URL } from '@/shared/apisV2/client';
 import { friendKeys } from '@/shared/apisV2/friends/friends.keys';
 import { useAddCategory, useDeleteCategory, usePostAddTodayTodos } from '@/shared/apisV2/home/home.mutations';
 import { useGetCategoryTask, useGetWorkTime } from '@/shared/apisV2/home/home.queries';
+import { sseConnectionAtom } from '@/shared/stores/atoms/SSEAtoms';
 
 import BoxAddCategory from './BoxAddCategory/BoxAddCategory';
 import BoxCategory from './BoxCategory/BoxCategory';
@@ -195,6 +201,8 @@ const HomePage = () => {
 	// NOTE: SSE 이벤트 구독
 	const event = useSSEEvent();
 
+	const dispatch = useSetAtom(sseConnectionAtom);
+
 	useEffect(() => {
 		if (event) {
 			switch (event.type) {
@@ -205,6 +213,21 @@ const HomePage = () => {
 				case 'friendRequestAccept':
 					console.log('친구 요청 수락 이벤트 수신', event.data);
 					queryClient.invalidateQueries({ queryKey: friendKeys.friend });
+					break;
+				case 'timeout':
+					{
+						const accessToken = getAccessToken();
+
+						if (!accessToken) {
+							console.warn('SSE 연결을 위한 access token이 없습니다.');
+							return;
+						}
+
+						const refreshedEventSource = new EventSourcePolyfill(API_URL + SSE_ENDPOINT.GET_SSE_REFRESH({}), {
+							headers: { Authorization: `Bearer ${accessToken}` },
+						});
+						dispatch(refreshedEventSource);
+					}
 					break;
 				default:
 					break;

@@ -41,7 +41,7 @@ export interface GetTimerFriendsRes {
 	}[];
 }
 
-export interface PostTimerStartReq {
+export interface PostStartTimerReq {
 	elapsedTime: number;
 	runningCategoryName: string;
 	taskId: number;

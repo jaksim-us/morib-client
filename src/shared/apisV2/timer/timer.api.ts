@@ -4,8 +4,8 @@ import {
 	GetTimerTodosReq,
 	GetTimerTodosRes,
 	PostApplyAllowedServiceGroupReq,
+	PostStartTimerReq,
 	PostStopTimerReq,
-	PostTimerStartReq,
 } from '@/shared/types/api/timer';
 
 import { authClient } from '../client';
@@ -38,7 +38,7 @@ export const postStopTimer = async ({ taskId, elapsedTime, targetDate, runningCa
 	return data;
 };
 
-export const postTimerStart = async ({ elapsedTime, runningCategoryName, taskId }: PostTimerStartReq) => {
+export const postStartTimer = async ({ elapsedTime, runningCategoryName, taskId }: PostStartTimerReq) => {
 	const { data } = await authClient.post(TIMER_ENDPOINT.POST_TIMER_START, { elapsedTime, runningCategoryName, taskId });
 	return data;
 };
