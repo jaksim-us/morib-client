@@ -1,4 +1,4 @@
-import { type ReactNode, createContext, useContext } from 'react';
+import { ButtonHTMLAttributes, type ReactNode, createContext, useContext } from 'react';
 
 interface TabsContextProps {
 	value: string;
@@ -42,22 +42,23 @@ const TabsContent = ({ children }: TabsContentProps) => {
 	);
 };
 
-interface TabsTriggerProps {
+interface TabsTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: ReactNode;
 	value: string;
 }
 
-const TabsTrigger = ({ value, children }: TabsTriggerProps) => {
+const TabsTrigger = ({ value, children, className, ...props }: TabsTriggerProps) => {
 	const context = useTabsContext();
 
 	return (
 		<button
 			className={`flex h-[4.4rem] w-[28rem] items-center gap-[0.5rem] rounded-[0.2rem] p-[1rem] text-left subhead-med-18 ${
 				context?.value === value ? 'bg-gray-bg-05 text-white' : 'bg-gray-bg-03 text-white'
-			}`}
+			} ${className}`}
 			onClick={() => {
 				if (context?.handleValueChange) context?.handleValueChange(value);
 			}}
+			{...props}
 		>
 			{children}
 		</button>

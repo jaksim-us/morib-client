@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
-const commonStyles = 'flex flex-shrink-0 items-center justify-center rounded-[8px] subhead-bold-20';
+const commonStyles = 'flex flex-shrink-0 items-center justify-center rounded-[8px] subhead-semibold-20';
 
 const paddingVariant = {
 	md: 'px-[4rem] py-[1.4rem]',
