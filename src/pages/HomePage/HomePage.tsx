@@ -2,8 +2,10 @@ import dayjs, { Dayjs } from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import AutoFixedGrid from '@/shared/components/AutoFixedGrid/AutoFixedGrid';
 // import FallbackApiError from '@/shared/components/FallbackApiError/FallbackApiError';
@@ -24,6 +26,9 @@ import LargePlusIcon from '@/shared/assets/svgs/large_plus.svg?react';
 
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
+import { useSSE } from '@/shared/apisV2/SSE/useSSE';
+import { useSSEEvent } from '@/shared/apisV2/SSE/useSSEEvent';
+import { friendKeys } from '@/shared/apisV2/friends/friends.keys';
 import { useAddCategory, useDeleteCategory, usePostAddTodayTodos } from '@/shared/apisV2/home/home.mutations';
 import { useGetCategoryTask, useGetWorkTime } from '@/shared/apisV2/home/home.queries';
 
@@ -34,7 +39,6 @@ import ButtonMoreFriends from './ButtonMoreFriends/ButtonMoreFriends';
 import ButtonUserProfile from './ButtonUserProfile/ButtonUserProfile';
 import DatePicker from './DatePicker/DatePicker';
 import StatusDefaultHome from './StatusDefaultHome/StatusDefaultHome';
-import { useSSE } from './hooks/useSSE';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -43,14 +47,17 @@ dayjs.extend(timezone);
 const HomePage = () => {
 	const todayDate = dayjs().tz('Asia/Seoul');
 	const formattedTodayDate = todayDate.format('YYYY-MM-DD');
+	const categoryRef = useRef<HTMLDivElement>(null);
+	const queryClient = useQueryClient();
 
 	const boxAddCategoryRef = useRef<HTMLDivElement>(null);
 	const friendsModalRef = useRef<ModalWrapperRef>(null);
 
+	const [initialAdding, setInitialAdding] = useState(true);
 	const [selectedDate, setSelectedDate] = useState(todayDate);
 	const { startDate, endDate } = getThisWeekRange(selectedDate);
 
-	const { data: categoriesData, isError: isCategoriesDataError } = useGetCategoryTask({ startDate, endDate });
+	const { data: categoriesData } = useGetCategoryTask({ startDate, endDate });
 
 	const categories = categoriesData?.data || [];
 
@@ -80,11 +87,23 @@ const HomePage = () => {
 	const { data: workTimeData } = useGetWorkTime({ targetDate: formattedTodayDate });
 
 	const handleAddCategory = () => {
+		if (initialAdding) {
+			setInitialAdding(false);
+		}
 		setIsAddingCategory(true);
 	};
 
 	const handleCategoryInputChange = (name: string) => {
 		setCategoryInput(name);
+	};
+
+	const handleCategoryScroll = () => {
+		if (categoryRef.current && !initialAdding) {
+			categoryRef.current.scrollBy({
+				left: categoryRef.current.scrollWidth + 316,
+				behavior: 'smooth',
+			});
+		}
 	};
 
 	const handleOutsideClickWhileAddingCategory = () => {
@@ -170,7 +189,32 @@ const HomePage = () => {
 		deleteCategory({ categoryId });
 	};
 
+	// NOTE: SSE 연결
 	useSSE();
+
+	// NOTE: SSE 이벤트 구독
+	const event = useSSEEvent();
+
+	useEffect(() => {
+		if (event) {
+			switch (event.type) {
+				case 'friendRequest':
+					console.log('친구 요청 이벤트 수신', event.data);
+					queryClient.invalidateQueries({ queryKey: friendKeys.friend });
+					break;
+				case 'friendRequestAccept':
+					console.log('친구 요청 수락 이벤트 수신', event.data);
+					queryClient.invalidateQueries({ queryKey: friendKeys.friend });
+					break;
+				default:
+					break;
+			}
+		}
+	}, [event, queryClient]);
+
+	useEffect(() => {
+		handleCategoryScroll();
+	}, [isAddingCategory, dailyCategoryTask.length]);
 
 	return (
 		<AutoFixedGrid
@@ -217,7 +261,7 @@ const HomePage = () => {
 					/>
 
 					<Spacer.Height className="flex w-full">
-						<Spacer className="flex gap-[1.4rem] overflow-x-auto">
+						<div ref={categoryRef} className="flex h-full min-h-0 w-full min-w-0 gap-[1.4rem] overflow-x-auto">
 							{dailyCategoryTask.length !== 0 ? (
 								<>
 									{dailyCategoryTask.map(({ category, tasks }) => {
@@ -265,7 +309,7 @@ const HomePage = () => {
 							) : (
 								<StatusDefaultHome onClick={handleAddCategory} />
 							)}
-						</Spacer>
+						</div>
 
 						{dailyCategoryTask.length > 2 && (
 							<div className="ml-[1.4rem] flex flex-col">
