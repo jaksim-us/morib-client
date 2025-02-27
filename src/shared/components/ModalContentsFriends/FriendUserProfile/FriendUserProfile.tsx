@@ -11,9 +11,13 @@ interface FriendUserProfile extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const FriendUserProfile = ({ imgSrc, isConnecting = false }: FriendUserProfile) => {
 	return (
-		<div className="flex w-[6rem] flex-col items-center">
+		<div className="flex w-[6rem] flex-col items-center rounded-full">
 			<div className="relative h-[6rem] w-[6rem]">
-				<img className="absolute left-0 top-0" src={imgSrc || defaultPorfileIcon} alt="친구 캐러셀 이미지" />
+				<img
+					className="absolute left-0 top-0 rounded-full"
+					src={imgSrc || defaultPorfileIcon}
+					alt="친구 캐러셀 이미지"
+				/>
 				{isConnecting && (
 					<ConnectionIcon className="absolute bottom-[0.5rem] left-[4.3rem] rounded-full border-[0.2rem] border-gray-bg-01" />
 				)}

@@ -5,7 +5,7 @@ import utc from 'dayjs/plugin/utc';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useGetMoribSet, usePostTimerStop } from '@/shared/apis/timer/queries';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { splitTasksByCompletion } from '@/shared/utils/timer';
 import { getBaseUrl } from '@/shared/utils/url';
@@ -19,6 +19,9 @@ import HomeIcon from '@/shared/assets/svgs/btn_home.svg?react';
 
 import { ROUTES_CONFIG } from '@/router/routesConfig';
 
+import { useSSE } from '@/shared/apisV2/SSE/useSSE';
+import { useSSEEvent } from '@/shared/apisV2/SSE/useSSEEvent';
+import { timerKeys } from '@/shared/apisV2/timer/timer.keys';
 import { usePostStopTimer } from '@/shared/apisV2/timer/timer.mutations';
 import { useGetPopoverAllowedServiceList, useGetTimerTodos } from '@/shared/apisV2/timer/timer.queries';
 
@@ -40,6 +43,7 @@ const TimerPage = () => {
 	const formattedTodayDate = todayDate.format(DATE_FORMAT);
 
 	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 
 	const { data: todosData, isLoading, error } = useGetTimerTodos({ targetDate: formattedTodayDate });
 	const { task: todos = [], sumTodayElapsedTime = 0 } = todosData?.data || {};
@@ -134,6 +138,29 @@ const TimerPage = () => {
 			setAllowedSitesUrl(uniqueAllowedSites);
 		}
 	}, [allowedServiceList]);
+
+	// NOTE: SSE 연결
+	useSSE();
+
+	// NOTE: SSE 이벤트 구독
+	const event = useSSEEvent();
+
+	useEffect(() => {
+		if (event) {
+			switch (event.type) {
+				case 'timerStart':
+					console.log('타이머 시작 이벤트 수신', event.data);
+					queryClient.invalidateQueries({ queryKey: timerKeys.timer });
+					break;
+				case 'timerStopAction':
+					console.log('타이머 정지 수신', event.data);
+					queryClient.invalidateQueries({ queryKey: timerKeys.timer });
+					break;
+				default:
+					break;
+			}
+		}
+	}, [event, queryClient]);
 
 	if (isLoading || error) {
 		return <div>{isLoading ? 'Loading...' : 'Error...'}</div>;

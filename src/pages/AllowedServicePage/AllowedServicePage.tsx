@@ -16,6 +16,8 @@ import { GetAllowedServiceListRes } from '@/shared/types/api/allowedService';
 import BellIcon from '@/shared/assets/svgs/bell.svg?react';
 import FriendSettingIcon from '@/shared/assets/svgs/friend_setting.svg?react';
 
+import { useSSE } from '@/shared/apisV2/SSE/useSSE';
+import { useSSEEvent } from '@/shared/apisV2/SSE/useSSEEvent';
 import { allowedServiceKeys } from '@/shared/apisV2/allowedService/allowedService.keys';
 import {
 	useDeleteAllowedService,
@@ -30,6 +32,7 @@ import {
 	useGetAllowedServiceList,
 	useGetRecommendedSites,
 } from '@/shared/apisV2/allowedService/allowedService.queries';
+import { friendKeys } from '@/shared/apisV2/friends/friends.keys';
 
 import AllowedServiceGroupDetail from './AllowedServiceGroupDetail/AllowedServiceGroupDetail';
 import AllowedServiceList from './AllowedServiceList/AllowedServiceList';
@@ -190,6 +193,29 @@ const AllowedServicePage = () => {
 	const handleOpenFriendsModal = () => {
 		friendsModalRef.current?.open();
 	};
+
+	// NOTE: SSE 연결
+	useSSE();
+
+	// NOTE: SSE 이벤트 구독
+	const event = useSSEEvent();
+
+	useEffect(() => {
+		if (event) {
+			switch (event.type) {
+				case 'friendRequest':
+					console.log('친구 요청 이벤트 수신', event.data);
+					queryClient.invalidateQueries({ queryKey: friendKeys.friend });
+					break;
+				case 'friendRequestAccept':
+					console.log('친구 요청 수락 이벤트 수신', event.data);
+					queryClient.invalidateQueries({ queryKey: friendKeys.friend });
+					break;
+				default:
+					break;
+			}
+		}
+	}, [event, queryClient]);
 
 	return (
 		<AutoFixedGrid type="allowedService" className="gap-[3rem] bg-gray-bg-01 px-[3.6rem] py-[4.2rem]">

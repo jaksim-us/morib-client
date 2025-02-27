@@ -1,5 +1,11 @@
 import { forwardRef, useEffect, useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
+import { useSSE } from '@/shared/apisV2/SSE/useSSE';
+import { useSSEEvent } from '@/shared/apisV2/SSE/useSSEEvent';
+import { friendKeys } from '@/shared/apisV2/friends/friends.keys';
+
 import FriendsRequest from './FriendRequest/FriendsRequest';
 import FriendsList from './FriendsList/FriendsList';
 
@@ -8,10 +14,15 @@ interface ModalContentsFriendsProps {
 }
 
 const ModalContentsFriends = forwardRef<HTMLDivElement, ModalContentsFriendsProps>(({ isModalOpen }, ref) => {
-	const [activeTab, setActiveTab] = useState<string>('친구목록');
+	const [activeTab, setActiveTab] = useState<'친구목록' | '친구요청'>('친구목록');
+	const queryClient = useQueryClient();
 
-	const handleTabChange = (tab: string) => {
+	const handleTabChange = (tab: '친구목록' | '친구요청') => {
 		setActiveTab(tab);
+	};
+
+	const changTabToFriendRequest = () => {
+		setActiveTab('친구요청');
 	};
 
 	const resetActiveTab = () => {
@@ -23,6 +34,29 @@ const ModalContentsFriends = forwardRef<HTMLDivElement, ModalContentsFriendsProp
 			resetActiveTab();
 		}
 	}, [isModalOpen]);
+
+	// NOTE: SSE 연결
+	useSSE();
+
+	// NOTE: SSE 이벤트 구독
+	const event = useSSEEvent();
+
+	useEffect(() => {
+		if (event) {
+			switch (event.type) {
+				case 'friendRequest':
+					console.log('친구 요청 이벤트 수신', event.data);
+					queryClient.invalidateQueries({ queryKey: friendKeys.friend });
+					break;
+				case 'friendRequestAccept':
+					console.log('친구 요청 수락 이벤트 수신', event.data);
+					queryClient.invalidateQueries({ queryKey: friendKeys.friend });
+					break;
+				default:
+					break;
+			}
+		}
+	}, [event, queryClient]);
 
 	return (
 		<div
@@ -45,7 +79,11 @@ const ModalContentsFriends = forwardRef<HTMLDivElement, ModalContentsFriendsProp
 				{'친구요청'}
 			</button>
 
-			{activeTab === '친구목록' ? <FriendsList /> : <FriendsRequest isModalOpen={isModalOpen} />}
+			{activeTab === '친구목록' ? (
+				<FriendsList changeTabToFriendRequest={changTabToFriendRequest} />
+			) : (
+				<FriendsRequest isModalOpen={isModalOpen} />
+			)}
 		</div>
 	);
 });

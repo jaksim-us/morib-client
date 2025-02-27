@@ -10,7 +10,10 @@ interface FriendsListRequestedRootProps extends HtmlHTMLAttributes<HTMLDivElemen
 
 const FriendsListRequestedRoot = ({ children, ...props }: FriendsListRequestedRootProps) => {
 	return (
-		<div className={`flex h-full w-full items-center justify-end gap-[1rem] px-[1rem] ${props.className}`} {...props}>
+		<div
+			className={`flex h-full w-full flex-col items-center justify-end gap-[1rem] px-[1rem] ${props.className}`}
+			{...props}
+		>
 			{children}
 		</div>
 	);

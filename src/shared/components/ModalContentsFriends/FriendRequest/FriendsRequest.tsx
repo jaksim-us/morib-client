@@ -3,8 +3,8 @@ import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { isEmailValid } from '@/shared/utils/validation';
 
 import {
+	useDeleteCancelFriendRequest,
 	usePostAcceptFriendRequest,
-	usePostCancelFriendRequest,
 	usePostRejectFriendRequest,
 	usePostSendFriendRequest,
 } from '@/shared/apisV2/friends/friends.mutations';
@@ -20,14 +20,7 @@ interface FriendsRequestProps {
 
 const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 	const [emailInput, setEmailInput] = useState('');
-
-	const handleChangeUrlInput = (e: ChangeEvent<HTMLInputElement>) => {
-		setEmailInput(e.target.value);
-	};
-
-	const resetEmailInput = () => {
-		setEmailInput('');
-	};
+	const [successMessage, setSuccessMessage] = useState('');
 
 	const handleSendFriendRequest = () => {
 		sendFriendRequest(
@@ -35,6 +28,7 @@ const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 			{
 				onSuccess: () => {
 					resetEmailInput();
+					setSuccessMessage(`${emailInput}님에게 친구 요청을 보냈어요.`);
 				},
 			},
 		);
@@ -42,14 +36,32 @@ const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 
 	const { data: friendRequestList } = useGetFriendRequestList();
 	const { mutate: acceptFriendRequest } = usePostAcceptFriendRequest();
-	const { mutate: cancelFriendRequest } = usePostCancelFriendRequest();
+	const { mutate: cancelFriendRequest } = useDeleteCancelFriendRequest();
 	const { mutate: rejectFriendRequest } = usePostRejectFriendRequest();
-	const { mutate: sendFriendRequest } = usePostSendFriendRequest();
+	const { mutate: sendFriendRequest, reset: resetSendFriendRequest, isError, error } = usePostSendFriendRequest();
 
 	const handleKeyDownTitleInput = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
 			handleSendFriendRequest();
 		}
+	};
+
+	const handleChangeUrlInput = (e: ChangeEvent<HTMLInputElement>) => {
+		if (isError) {
+			resetSendFriendRequest();
+		}
+
+		if (successMessage.length > 0) {
+			setSuccessMessage('');
+		}
+
+		setEmailInput(e.target.value);
+	};
+
+	const resetEmailInput = () => {
+		resetSendFriendRequest();
+		setEmailInput('');
+		setSuccessMessage('');
 	};
 
 	useEffect(() => {
@@ -65,8 +77,10 @@ const FriendsRequest = ({ isModalOpen }: FriendsRequestProps) => {
 					value={emailInput}
 					onKeyDown={handleKeyDownTitleInput}
 					onChange={handleChangeUrlInput}
-					isError={emailInput.length > 0 && !isEmailValid(emailInput)}
-					errorMessage="이메일을 확인해 주세요."
+					isError={(emailInput.length > 0 && !isEmailValid(emailInput)) || isError}
+					errorMessage={isError ? error.response?.data.message : '이메일을 확인해 주세요.'}
+					isSuccess={successMessage.length > 0}
+					successMessage={successMessage}
 					placeholder="이메일을 입력해 주세요."
 				>
 					<TextField.ClearButton onClick={resetEmailInput} />
