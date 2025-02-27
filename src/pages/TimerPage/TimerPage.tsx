@@ -174,17 +174,15 @@ const TimerPage = () => {
 							return;
 						}
 
-						const refreshedEventSource = new EventSourcePolyfill(
-							API_URL +
-								SSE_ENDPOINT.GET_SSE_REFRESH({
-									elapsedTime: String(timerTime),
-									runningCategoryName: selectedTodoData?.categoryName,
-									taskId: String(selectedTodoData?.id),
-								}),
-							{
-								headers: { Authorization: `Bearer ${accessToken}` },
-							},
-						);
+						const url = SSE_ENDPOINT.GET_SSE_REFRESH({
+							elapsedTime: String(timerTime),
+							runningCategoryName: selectedTodoData?.categoryName,
+							taskId: String(selectedTodoData?.id),
+						});
+
+						const refreshedEventSource = new EventSourcePolyfill(API_URL + url, {
+							headers: { Authorization: `Bearer ${accessToken}` },
+						});
 						dispatch(refreshedEventSource);
 					}
 					break;
