@@ -1,8 +1,13 @@
 import { useGetFriendList } from '@/shared/apisV2/friends/friends.queries';
 
+import ButtonRadius8 from '../../ButtonRadius8/ButtonRadius8';
 import FriendInfo from './FriendsInfo/FriendInfo';
 
-const FriendsList = () => {
+interface FriendsListProps {
+	changeTabToFriendRequest: () => void;
+}
+
+const FriendsList = ({ changeTabToFriendRequest }: FriendsListProps) => {
 	const { data: friendList } = useGetFriendList();
 
 	return (
@@ -19,11 +24,9 @@ const FriendsList = () => {
 					</ul>
 				</div>
 			) : (
-				<div className="flex h-full flex-col items-center justify-center">
+				<div className="flex h-[40rem] flex-col items-center justify-center">
 					<p className="mb-[2rem] text-gray-05 title-med-32">함께 몰입할 친구를 추가해보세요!</p>
-					<button className="flex flex-shrink-0 items-center justify-center rounded-[0.8rem] bg-main-gra-01 px-[6.2rem] py-[2rem] text-gray-01 subhead-bold-20 hover:bg-main-gra-hover active:bg-main-gra-press">
-						친구 추가하기
-					</button>
+					<ButtonRadius8.Lg onClick={changeTabToFriendRequest}>친구 추가하기</ButtonRadius8.Lg>
 				</div>
 			)}
 		</div>

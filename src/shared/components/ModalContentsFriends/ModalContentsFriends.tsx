@@ -14,11 +14,15 @@ interface ModalContentsFriendsProps {
 }
 
 const ModalContentsFriends = forwardRef<HTMLDivElement, ModalContentsFriendsProps>(({ isModalOpen }, ref) => {
-	const [activeTab, setActiveTab] = useState<string>('친구목록');
+	const [activeTab, setActiveTab] = useState<'친구목록' | '친구요청'>('친구목록');
 	const queryClient = useQueryClient();
 
-	const handleTabChange = (tab: string) => {
+	const handleTabChange = (tab: '친구목록' | '친구요청') => {
 		setActiveTab(tab);
+	};
+
+	const changTabToFriendRequest = () => {
+		setActiveTab('친구요청');
 	};
 
 	const resetActiveTab = () => {
@@ -75,7 +79,11 @@ const ModalContentsFriends = forwardRef<HTMLDivElement, ModalContentsFriendsProp
 				{'친구요청'}
 			</button>
 
-			{activeTab === '친구목록' ? <FriendsList /> : <FriendsRequest isModalOpen={isModalOpen} />}
+			{activeTab === '친구목록' ? (
+				<FriendsList changeTabToFriendRequest={changTabToFriendRequest} />
+			) : (
+				<FriendsRequest isModalOpen={isModalOpen} />
+			)}
 		</div>
 	);
 });
