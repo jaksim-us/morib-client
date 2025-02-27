@@ -40,12 +40,9 @@ export const sseActionsAtom = atom(null, (get, set, action: { type: string; payl
 				set(sseEventAtom, { type: 'connect', data: event });
 			});
 
-			eventSource.addEventListener('timeout', () => {
+			eventSource.addEventListener('timeout', (event) => {
 				// timeout 이벤트 발생 시 refresh 엔드포인트로 재연결
-				const refreshedEventSource = new EventSourcePolyfill(API_URL + SSE_ENDPOINT.GET_SSE_REFRESH, {
-					headers: { Authorization: `Bearer ${accessToken}` },
-				});
-				set(sseConnectionAtom, refreshedEventSource);
+				set(sseEventAtom, { type: 'timeout', data: event });
 			});
 
 			eventSource.addEventListener('completion', (event) => {
