@@ -5,9 +5,14 @@ export const SSE_ENDPOINT = {
 		runningCategoryName,
 		taskId,
 	}: {
-		elapsedTime?: number;
+		elapsedTime?: string;
 		runningCategoryName?: string;
-		taskId?: number;
-	}) =>
-		`api/v2/sse/refresh${elapsedTime && `?elapsedTime=${elapsedTime}`}${runningCategoryName && `?runningCategoryName=${runningCategoryName}`}${taskId && `?taskId=${taskId}`}`,
+		taskId?: string;
+	}) => {
+		const params = [];
+		if (elapsedTime !== undefined) params.push(`elapsedTime=${encodeURIComponent(elapsedTime)}`);
+		if (runningCategoryName) params.push(`runningCategoryName=${encodeURIComponent(runningCategoryName)}`);
+		if (taskId !== undefined) params.push(`taskId=${encodeURIComponent(taskId)}`);
+		return `api/v2/sse/refresh${params.length ? '?' + params.join('&') : ''}`;
+	},
 };
