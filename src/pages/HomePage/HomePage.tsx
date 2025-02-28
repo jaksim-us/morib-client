@@ -314,6 +314,7 @@ const HomePage = () => {
 												getSelectedNumber={getSelectedNumber}
 												addingComplete={addingComplete}
 												onDeleteCategory={handleDeleteCategory}
+												isSelectedTodoExist={todayTodos.length > 0}
 											/>
 										);
 									})}

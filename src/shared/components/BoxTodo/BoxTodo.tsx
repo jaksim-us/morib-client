@@ -29,6 +29,7 @@ interface BoxTodoProps {
 	clickable?: boolean;
 	addingComplete?: boolean;
 	timerIncreasedTime?: number;
+	isSelectedTodoExist?: boolean;
 }
 const BoxTodo = ({
 	id,
@@ -45,6 +46,7 @@ const BoxTodo = ({
 	elapsedTime,
 	addingComplete,
 	timerIncreasedTime,
+	isSelectedTodoExist,
 }: BoxTodoProps) => {
 	const { mutate: deleteTask } = useDeleteTask();
 
@@ -93,13 +95,20 @@ const BoxTodo = ({
 						</button>
 						<h3 className={`+ mt-[0.42rem] text-white body-semibold-16 ${nameStyle}`}>{name}</h3>
 					</div>
-					{addingComplete !== undefined && addingComplete && (
+					{!isSelectedTodoExist && !addingComplete && (
 						<Dropdown>
 							<Dropdown.Trigger>
 								<MeatballIcon className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 							</Dropdown.Trigger>
 							<Dropdown.Content className="right-0 top-[2.4rem] w-[12.4rem]">
-								<Dropdown.Item label="삭제" textColor="red" onClick={() => deleteTask({ taskId: id })} />
+								<Dropdown.Item
+									label="삭제"
+									textColor="red"
+									onClick={(e) => {
+										e.stopPropagation();
+										deleteTask({ taskId: id });
+									}}
+								/>
 							</Dropdown.Content>
 						</Dropdown>
 					)}

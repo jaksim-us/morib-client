@@ -34,6 +34,7 @@ interface BoxCategoryProps {
 	getSelectedNumber: (id: number) => number;
 	addingComplete: boolean;
 	onDeleteCategory: (categoryId: number) => void;
+	isSelectedTodoExist?: boolean;
 }
 
 const format = (date: Dayjs | null) => {
@@ -54,6 +55,7 @@ const BoxCategory = ({
 	getSelectedNumber,
 	addingComplete,
 	onDeleteCategory,
+	isSelectedTodoExist,
 }: BoxCategoryProps) => {
 	const { mutate, isError, error } = usePostCreateTask();
 	const [ongoingTodoToggle, setOngoingTodoToggle] = useState(true);
@@ -220,6 +222,7 @@ const BoxCategory = ({
 										updateTodayTodos={() => updateTodayTodos(todo)}
 										clickable={addingTodayTodoStatus}
 										addingComplete={addingComplete}
+										isSelectedTodoExist={isSelectedTodoExist}
 									/>
 								);
 							})}
@@ -241,6 +244,7 @@ const BoxCategory = ({
 										}}
 										clickable={addingTodayTodoStatus}
 										addingComplete={addingComplete}
+										isSelectedTodoExist={isSelectedTodoExist}
 									/>
 								))}
 							</ButtonTodoToggle>
