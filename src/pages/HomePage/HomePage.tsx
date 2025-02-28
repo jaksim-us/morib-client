@@ -2,7 +2,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import { EventSourcePolyfill } from 'event-source-polyfill';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -35,9 +35,9 @@ import { API_URL } from '@/shared/apisV2/client';
 import { friendKeys } from '@/shared/apisV2/friends/friends.keys';
 import { useAddCategory, useDeleteCategory, usePostAddTodayTodos } from '@/shared/apisV2/home/home.mutations';
 import { useGetCategoryTask, useGetWorkTime } from '@/shared/apisV2/home/home.queries';
-import { timerKeys } from '@/shared/apisV2/timer/timer.keys';
 import { useGetTimerTodos } from '@/shared/apisV2/timer/timer.queries';
 import { sseConnectionAtom } from '@/shared/stores/atoms/SSEAtoms';
+import { todayTodoAtom } from '@/shared/stores/atoms/todayTodoAtom';
 
 import BoxAddCategory from './BoxAddCategory/BoxAddCategory';
 import BoxCategory from './BoxCategory/BoxCategory';
@@ -64,7 +64,6 @@ const HomePage = () => {
 	const { startDate, endDate } = getThisWeekRange(selectedDate);
 
 	const { data: categoriesData } = useGetCategoryTask({ startDate, endDate });
-	const { data: todosData } = useGetTimerTodos({ targetDate: formattedTodayDate });
 
 	const categories = categoriesData?.data || [];
 
@@ -76,6 +75,7 @@ const HomePage = () => {
 	const [addingComplete, setAddingComplete] = useState(false);
 	const addTodayTodosOverlayStyle = addingTodayTodoStatus && !addingComplete ? 'opacity-30 pointer-events-none' : '';
 
+	const todayTodosStorageData = useAtomValue(todayTodoAtom);
 	const [todayTodos, setTodayTodos] = useState<Omit<TaskType, 'isComplete'>[]>([]);
 	const [categoryInput, setCategoryInput] = useState('');
 
@@ -178,18 +178,6 @@ const HomePage = () => {
 		setAddingComplete(false);
 	};
 
-	useEffect(() => {
-		if (todosData && todosData.data.task.length > 0) {
-			setAddingTodayTodoStatus(true);
-
-			setTodayTodos([]);
-
-			todosData.data.task.forEach((task) => {
-				setTodayTodos((prev) => [...prev, { ...task }]);
-			});
-		}
-	}, [todosData]);
-
 	const handleCreateTodayTodos = () => {
 		const todayTodoData = todayTodos.map((todo) => todo.id);
 		const dataToPost = {
@@ -207,6 +195,14 @@ const HomePage = () => {
 	const handleDeleteCategory = (categoryId: number) => {
 		deleteCategory({ categoryId });
 	};
+
+	useEffect(() => {
+		setTodayTodos(todayTodosStorageData);
+
+		if (todayTodosStorageData.length > 0) {
+			setAddingTodayTodoStatus(true);
+		}
+	}, [todayTodosStorageData]);
 
 	// NOTE: SSE 연결
 	useSSE();
@@ -236,7 +232,7 @@ const HomePage = () => {
 							return;
 						}
 
-						const refreshedEventSource = new EventSourcePolyfill(API_URL + SSE_ENDPOINT.GET_SSE_REFRESH({}), {
+						const refreshedEventSource = new EventSourcePolyfill(API_URL + SSE_ENDPOINT.GET_SSE_REFRESH, {
 							headers: { Authorization: `Bearer ${accessToken}` },
 						});
 						dispatch(refreshedEventSource);
