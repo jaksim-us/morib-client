@@ -1,3 +1,5 @@
+import { useSetAtom } from 'jotai';
+
 import BoxTodo from '@/shared/components/BoxTodo/BoxTodo';
 import ButtonRadius5 from '@/shared/components/ButtonRadius5/ButtonRadius5';
 import Spacer from '@/shared/components/Spacer/Spacer';
@@ -5,6 +7,8 @@ import Spacer from '@/shared/components/Spacer/Spacer';
 import type { TaskType } from '@/shared/types/tasks';
 
 import { LARGE_BTN_TEXT, SMALL_BTN_TEXT } from '@/shared/constants/btnText';
+
+import { todayTodoAtom } from '@/shared/stores/atoms/todayTodoAtom';
 
 interface StatusAddBoxTodayTodoProps {
 	selectedTodayTodos: Omit<TaskType, 'isComplete'>[];
@@ -27,13 +31,24 @@ const StatusAddBoxTodayTodo = ({
 	addingComplete,
 	onCreateTodayTodos,
 }: StatusAddBoxTodayTodoProps) => {
-	//Todo: 선택된 Todo들을 취소하고 다시 추가하는 로직 추가
+	const dispatchTodayTodos = useSetAtom(todayTodoAtom);
+
 	const hasTodayTodos = !(selectedTodayTodos.length === 0);
 	const clickable = addingComplete ? '' : 'pointer-events-none cursor-default ';
 	const handleMouseEnter = () => {
 		import('@/pages/TimerPage/TimerPage').catch((error) => {
 			console.error('타이머 페이지를 받아오는데 오류가 발생했습니다.', error);
 		});
+	};
+
+	const handleCancelComplete = () => {
+		dispatchTodayTodos([]);
+		onDisableAddStatus();
+	};
+
+	const handleStartTimer = () => {
+		dispatchTodayTodos(selectedTodayTodos);
+		onCreateTodayTodos();
 	};
 
 	return (
@@ -81,7 +96,7 @@ const StatusAddBoxTodayTodo = ({
 						</ButtonRadius5.Sm>
 					)
 				) : (
-					<ButtonRadius5.Sm color="gray" onClick={onDisableAddStatus}>
+					<ButtonRadius5.Sm color="gray" onClick={handleCancelComplete}>
 						<span className="px-[1.7rem]">{SMALL_BTN_TEXT.CANCEL}</span>
 					</ButtonRadius5.Sm>
 				)}
@@ -89,7 +104,7 @@ const StatusAddBoxTodayTodo = ({
 					<ButtonRadius5.Sm
 						color="main"
 						disabled={!addingComplete}
-						onClick={onCreateTodayTodos}
+						onClick={handleStartTimer}
 						onMouseEnter={handleMouseEnter}
 					>
 						{LARGE_BTN_TEXT.START_TIMER}

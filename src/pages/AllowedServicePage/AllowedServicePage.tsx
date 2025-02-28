@@ -229,7 +229,7 @@ const AllowedServicePage = () => {
 							return;
 						}
 
-						const refreshedEventSource = new EventSourcePolyfill(API_URL + SSE_ENDPOINT.GET_SSE_REFRESH({}), {
+						const refreshedEventSource = new EventSourcePolyfill(API_URL + SSE_ENDPOINT.GET_SSE_REFRESH, {
 							headers: { Authorization: `Bearer ${accessToken}` },
 						});
 						dispatch(refreshedEventSource);
