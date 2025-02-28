@@ -48,11 +48,11 @@ const DropdownRoot = ({ children }: DropdownRootProps) => {
 };
 
 // Dropdown의 메뉴를 trigger 하는 컴포넌트
-interface DropdownTriggerProps {
+interface DropdownTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: ReactNode;
 }
 
-const DropdownTrigger = ({ children }: DropdownTriggerProps) => {
+const DropdownTrigger = ({ children, ...props }: DropdownTriggerProps) => {
 	const { handleToggleOpen } = useDropdownContext();
 
 	return (
@@ -62,6 +62,7 @@ const DropdownTrigger = ({ children }: DropdownTriggerProps) => {
 				handleToggleOpen();
 			}}
 			className="relative"
+			{...props}
 		>
 			{children}
 		</button>

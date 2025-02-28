@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import LoadingOverlay from '@/shared/components/LoadingOverlay/LoadingOverlay';
-
 import { getAccessToken } from '@/shared/utils/auth';
 import { splitTasksByCompletion } from '@/shared/utils/timer';
 import { getBaseUrl } from '@/shared/utils/url';
@@ -38,7 +36,6 @@ import PopoverAllowedService from './PopoverAllowedService/PopoverAllowedService
 import SideBarTimer from './SidebarTimer/SideBarTimer';
 import TitleAllowedService from './TItleAllowedService/TitleAllowedService';
 import Timer from './Timer/Timer';
-import { useSelectedTodo } from './hooks/useSelectedTodo';
 import { useTimerCount } from './hooks/useTimerCount';
 import { useToggleSidebar } from './hooks/useToggleSidebar';
 import { useUrlHandler } from './hooks/useUrlHandler';
@@ -53,11 +50,12 @@ const TimerPage = () => {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
-	const { data: todosData, isLoading, error } = useGetTimerTodos({ targetDate: formattedTodayDate });
+	const { data: todosData } = useGetTimerTodos({ targetDate: formattedTodayDate });
+
 	const { task: todos = [], sumTodayElapsedTime = 0 } = todosData?.data || {};
 	const { ongoingTodos, completedTodos } = splitTasksByCompletion(todos);
-	const [selectedTodo, setSelectedTodo] = useSelectedTodo(todos);
-	const selectedTodoData = todos.find((todo: TimerTodoType) => todo.id === selectedTodo);
+	const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
+	const [selectedTodoData, setSelectedTodoData] = useState<TimerTodoType | undefined>(undefined);
 
 	const [registeredNames, setRegisteredNames] = useState<string[]>([]);
 	const [allowedSitesUrl, setAllowedSitesUrl] = useState<string[]>([]);
@@ -87,7 +85,7 @@ const TimerPage = () => {
 
 	useUrlHandler({
 		isPlaying,
-		selectedTodo,
+		selectedTodo: selectedTodoId,
 		selectedTodoName: selectedTodoData?.name || '',
 		baseUrls,
 		stopTimer,
@@ -98,7 +96,7 @@ const TimerPage = () => {
 	});
 
 	const handleTodoSelection = (id: number) => {
-		setSelectedTodo(id);
+		setSelectedTodoId(id);
 	};
 
 	const handlePlayToggle = (isPlaying: boolean) => {
@@ -120,6 +118,19 @@ const TimerPage = () => {
 	const updateElapsedTime = (newTime: number) => {
 		setElapsedTime(newTime);
 	};
+
+	useEffect(() => {
+		if (todosData && todosData.data.task.length > 0) {
+			const selectedId = todosData.data.task[0].id;
+			setSelectedTodoId(selectedId);
+		}
+	}, [todosData]);
+
+	useEffect(() => {
+		if (selectedTodoId) {
+			setSelectedTodoData(todosData?.data.task.find((todo: TimerTodoType) => todo.id === selectedTodoId));
+		}
+	}, [selectedTodoId]);
 
 	useEffect(() => {
 		setElapsedTime(selectedTodoData?.elapsedTime || 0);
@@ -226,7 +237,7 @@ const TimerPage = () => {
 				</header>
 				<Timer
 					selectedCategoryName={selectedTodoData?.categoryName || ''}
-					selectedTodo={selectedTodo}
+					selectedTodo={selectedTodoId}
 					onPlayToggle={handlePlayToggle}
 					isPlaying={isPlaying}
 					formattedTodayDate={formattedTodayDate}
@@ -248,7 +259,7 @@ const TimerPage = () => {
 				isSideOpen={isSidebarOpen}
 				toggleSidebar={handleSidebarToggle}
 				onTodoSelection={handleTodoSelection}
-				selectedTodo={selectedTodo}
+				selectedTodo={selectedTodoId}
 				selectedTodoName={selectedTodoData?.name || ''}
 				onPlayToggle={handlePlayToggle}
 				isPlaying={isPlaying}

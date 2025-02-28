@@ -39,7 +39,7 @@ const Timer = ({
 }: TaskTotalTimeProps) => {
 	const queryClient = useQueryClient();
 
-	const { mutate, isError, error } = usePostStopTimer();
+	const { mutate: stopTimer, isError, error } = usePostStopTimer();
 	const { mutate: startTimer } = usePostStartTimer();
 
 	const handlePlayPauseToggle = () => {
@@ -47,7 +47,7 @@ const Timer = ({
 			if (isPlaying && selectedCategoryName.length > 0) {
 				updateElapsedTime(timerTime);
 
-				mutate(
+				stopTimer(
 					{
 						taskId: selectedTodo,
 						elapsedTime: timerIncreasedTime,

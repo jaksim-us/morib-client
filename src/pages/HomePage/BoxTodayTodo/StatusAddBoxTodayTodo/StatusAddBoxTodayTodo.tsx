@@ -37,9 +37,9 @@ const StatusAddBoxTodayTodo = ({
 	};
 
 	return (
-		<Spacer.Height className="flex flex-grow flex-col justify-between overflow-y-auto">
+		<Spacer.Height className="flex flex-grow flex-col justify-between">
 			{hasTodayTodos ? (
-				<ul className="mt-[0.7rem] max-h-[57.5rem] overflow-auto">
+				<Spacer.Height as="ul" className="mt-[0.7rem] overflow-y-auto">
 					{selectedTodayTodos.map(({ id, elapsedTime, startDate, endDate, name }) => {
 						const selectedNumber = getSelectedNumber(id);
 
@@ -60,7 +60,7 @@ const StatusAddBoxTodayTodo = ({
 							</li>
 						);
 					})}
-				</ul>
+				</Spacer.Height>
 			) : (
 				<p className="mx-auto mt-[22.2rem] text-center text-gray-05 subhead-semibold-18">
 					할 일 카드를 선택하여
@@ -69,7 +69,7 @@ const StatusAddBoxTodayTodo = ({
 				</p>
 			)}
 
-			<span className="flex justify-between">
+			<span className="mt-[1rem] flex justify-between">
 				{selectedTodayTodos.length !== 0 ? (
 					addingComplete ? (
 						<ButtonRadius5.Sm color="gray" onClick={cancelComplete}>
