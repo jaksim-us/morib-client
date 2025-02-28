@@ -82,6 +82,7 @@ export default {
 				pretendard: ['Pretendard'],
 			},
 			colors: {
+				login: '#181C21',
 				'mint-01': '#06FFD2',
 				'mint-02': '#8BFFEA',
 				'mint-02-hover': '#7DE6D3',

@@ -29,7 +29,7 @@ const LoginPage = () => {
 	};
 
 	return (
-		<div className="flex h-screen items-center justify-center bg-login-bg bg-cover">
+		<div className="bg-login flex h-screen items-center justify-center bg-login-bg bg-cover">
 			<div className="h-[37rem] w-[60rem]">
 				<Lottie
 					ref={lottieRef}
