@@ -43,7 +43,11 @@ const DatePicker = ({ todayDate, selectedDate, onSelectedDateChange }: DatePicke
 						</div>
 					</Dropdown.Trigger>
 
-					<Dropdown.Content maxHeight="max-h-[41.4rem]" boxShadow="shadow-[0_4px_4.8px_0_rgba(0,0,0,0.25)]">
+					<Dropdown.Content
+						maxHeight="max-h-[41.4rem]"
+						boxShadow="shadow-[0_4px_4.8px_0_rgba(0,0,0,0.25)]"
+						className="top-[4.4rem]"
+					>
 						{homeDropdownData.map((item) => {
 							return (
 								<li
