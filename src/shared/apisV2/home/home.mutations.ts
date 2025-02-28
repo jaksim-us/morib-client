@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { timerKeys } from '../timer/timer.keys';
 import { deleteCategory, deleteTask, postAddCategory, postAddTodayTodos, postCreateTask } from './home.api';
 import { homeKeys } from './home.keys';
 
@@ -49,6 +50,7 @@ export const useDeleteTask = () => {
 		mutationFn: deleteTask,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: homeKeys.task });
+			queryClient.invalidateQueries({ queryKey: timerKeys.timer });
 		},
 	});
 };
