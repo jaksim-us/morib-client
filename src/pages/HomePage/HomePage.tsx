@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 
 import AutoFixedGrid from '@/shared/components/AutoFixedGrid/AutoFixedGrid';
-// import FallbackApiError from '@/shared/components/FallbackApiError/FallbackApiError';
 import ModalContentsFriends from '@/shared/components/ModalContentsFriends/ModalContentsFriends';
 import ModalWrapper, { ModalWrapperRef } from '@/shared/components/ModalWrapper/ModalWrapper';
 import Spacer from '@/shared/components/Spacer/Spacer';
