@@ -10,6 +10,10 @@ import TimeFillIcon from '@/shared/assets/svgs/mingcute_time-fill.svg?react';
 import TimeLineIcon from '@/shared/assets/svgs/mingcute_time-line.svg?react';
 import NumberIcon from '@/shared/assets/svgs/selected_number_icon.svg?react';
 
+import { useDeleteTask } from '@/shared/apisV2/home/home.mutations';
+
+import Dropdown from '../Dropdown/Dropdown';
+
 interface BoxTodoProps {
 	id: number;
 	name: string;
@@ -42,6 +46,8 @@ const BoxTodo = ({
 	addingComplete,
 	timerIncreasedTime,
 }: BoxTodoProps) => {
+	const { mutate: deleteTask } = useDeleteTask();
+
 	const formattedTime = formatSeconds(timerIncreasedTime ? elapsedTime + timerIncreasedTime : elapsedTime);
 	const formattedstartDate = startDate.replace(/-/g, '.');
 	const formattedendDate = endDate ? endDate.replace(/-/g, '.') : '';
@@ -87,9 +93,16 @@ const BoxTodo = ({
 						</button>
 						<h3 className={`+ mt-[0.42rem] text-white body-semibold-16 ${nameStyle}`}>{name}</h3>
 					</div>
-					<button>
-						<MeatballIcon className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-					</button>
+					{addingComplete !== undefined && addingComplete && (
+						<Dropdown>
+							<Dropdown.Trigger>
+								<MeatballIcon className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+							</Dropdown.Trigger>
+							<Dropdown.Content className="right-0 top-[2.4rem] w-[12.4rem]">
+								<Dropdown.Item label="삭제" textColor="red" onClick={() => deleteTask({ taskId: id })} />
+							</Dropdown.Content>
+						</Dropdown>
+					)}
 				</div>
 				<div className="ml-[0.8rem] mt-[0.7rem] flex flex-col gap-[0.2rem]">
 					<button className="flex items-center gap-[0.6rem]">
