@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import LoadingOverlay from '@/shared/components/LoadingOverlay/LoadingOverlay';
+
 import { getAccessToken } from '@/shared/utils/auth';
 import { splitTasksByCompletion } from '@/shared/utils/timer';
 import { getBaseUrl } from '@/shared/utils/url';
@@ -191,10 +193,6 @@ const TimerPage = () => {
 			}
 		}
 	}, [event, queryClient]);
-
-	if (isLoading || error) {
-		return <div>{isLoading ? 'Loading...' : 'Error...'}</div>;
-	}
 
 	return (
 		<div className="relative flex h-screen w-screen min-w-[750px] flex-col overflow-hidden bg-gray-bg-01">
