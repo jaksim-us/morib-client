@@ -1,5 +1,6 @@
 import {
 	DeleteCategoryReq,
+	DeleteTaskReq,
 	GetCategoryTaskReq,
 	GetCategoryTaskRes,
 	GetWorkTimeReq,
@@ -18,6 +19,7 @@ export const HOME_ENDPOINT = {
 	POST_CREATE_TASK: '/api/v2/tasks/:categoryId',
 	POST_ADD_CATEGORY: 'api/v2/categories',
 	DELETE_CATEGORY: 'api/v2/categories/:categoryId',
+	DELETE_TASK: 'api/v2/tasks/:taskId',
 };
 
 export const getCategoryTask = async ({ startDate, endDate }: GetCategoryTaskReq): Promise<GetCategoryTaskRes> => {
@@ -56,5 +58,10 @@ export const postAddCategory = async ({ name }: PostAddCategoryReq) => {
 
 export const deleteCategory = async ({ categoryId }: DeleteCategoryReq) => {
 	const { data } = await authClient.delete(HOME_ENDPOINT.DELETE_CATEGORY.replace(':categoryId', String(categoryId)));
+	return data;
+};
+
+export const deleteTask = async ({ taskId }: DeleteTaskReq) => {
+	const { data } = await authClient.delete(HOME_ENDPOINT.DELETE_TASK.replace(':taskId', String(taskId)));
 	return data;
 };
