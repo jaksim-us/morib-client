@@ -58,3 +58,7 @@ export interface PostAddCategoryReq {
 export interface DeleteCategoryReq {
 	categoryId: number;
 }
+
+export interface DeleteTaskReq {
+	taskId: number;
+}
