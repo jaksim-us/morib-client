@@ -3,6 +3,8 @@ import type { Router } from '@remix-run/router';
 import { Suspense, lazy } from 'react';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
+import LoadingOverlay from '@/shared/components/LoadingOverlay/LoadingOverlay';
+
 import AllowedServicePage from '@/pages/AllowedServicePage/AllowedServicePage';
 import HomePage from '@/pages/HomePage/HomePage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
@@ -25,7 +27,7 @@ const router: Router = createBrowserRouter([
 			{
 				path: ROUTES_CONFIG.login.path,
 				element: (
-					<Suspense fallback={<div>Loading...</div>}>
+					<Suspense fallback={<LoadingOverlay isLoading dim={false} />}>
 						<LoginPage />
 					</Suspense>
 				),
@@ -45,11 +47,9 @@ const router: Router = createBrowserRouter([
 			{
 				path: ROUTES_CONFIG.home.path,
 				element: (
-					<Suspense fallback={<div>Loading...</div>}>
-						<Layout>
-							<HomePage />
-						</Layout>
-					</Suspense>
+					<Layout>
+						<HomePage />
+					</Layout>
 				),
 			},
 			{
@@ -63,7 +63,7 @@ const router: Router = createBrowserRouter([
 			{
 				path: ROUTES_CONFIG.timer.path,
 				element: (
-					<Suspense fallback={<div>Loading...</div>}>
+					<Suspense fallback={<LoadingOverlay isLoading dim={false} />}>
 						<TimerPage />
 					</Suspense>
 				),
@@ -71,11 +71,9 @@ const router: Router = createBrowserRouter([
 			{
 				path: ROUTES_CONFIG.allowedService.path,
 				element: (
-					<Suspense fallback={<div>Loading...</div>}>
-						<Layout>
-							<AllowedServicePage />
-						</Layout>
-					</Suspense>
+					<Layout>
+						<AllowedServicePage />
+					</Layout>
 				),
 			},
 		],
