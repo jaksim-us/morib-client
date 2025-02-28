@@ -35,6 +35,8 @@ import { API_URL } from '@/shared/apisV2/client';
 import { friendKeys } from '@/shared/apisV2/friends/friends.keys';
 import { useAddCategory, useDeleteCategory, usePostAddTodayTodos } from '@/shared/apisV2/home/home.mutations';
 import { useGetCategoryTask, useGetWorkTime } from '@/shared/apisV2/home/home.queries';
+import { timerKeys } from '@/shared/apisV2/timer/timer.keys';
+import { useGetTimerTodos } from '@/shared/apisV2/timer/timer.queries';
 import { sseConnectionAtom } from '@/shared/stores/atoms/SSEAtoms';
 
 import BoxAddCategory from './BoxAddCategory/BoxAddCategory';
@@ -48,7 +50,6 @@ import StatusDefaultHome from './StatusDefaultHome/StatusDefaultHome';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-//TODO: 반응형 구조를 크게 변경해야해서 추후 pr에서 반영
 const HomePage = () => {
 	const todayDate = dayjs().tz('Asia/Seoul');
 	const formattedTodayDate = todayDate.format('YYYY-MM-DD');
@@ -63,6 +64,7 @@ const HomePage = () => {
 	const { startDate, endDate } = getThisWeekRange(selectedDate);
 
 	const { data: categoriesData } = useGetCategoryTask({ startDate, endDate });
+	const { data: todosData } = useGetTimerTodos({ targetDate: formattedTodayDate });
 
 	const categories = categoriesData?.data || [];
 
@@ -175,6 +177,18 @@ const HomePage = () => {
 	const cancelComplete = () => {
 		setAddingComplete(false);
 	};
+
+	useEffect(() => {
+		if (todosData && todosData.data.task.length > 0) {
+			setAddingTodayTodoStatus(true);
+
+			setTodayTodos([]);
+
+			todosData.data.task.forEach((task) => {
+				setTodayTodos((prev) => [...prev, { ...task }]);
+			});
+		}
+	}, [todosData]);
 
 	const handleCreateTodayTodos = () => {
 		const todayTodoData = todayTodos.map((todo) => todo.id);
