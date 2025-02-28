@@ -358,7 +358,7 @@ const HomePage = () => {
 				</Spacer.Height>
 			</AutoFixedGrid.Slot>
 
-			<AutoFixedGrid.Slot>
+			<AutoFixedGrid.Slot className="h-full min-h-0">
 				<BoxTodayTodo
 					time={workTimeData?.data?.sumTodayElapsedTime || 0}
 					addingTodayTodoStatus={addingTodayTodoStatus}
