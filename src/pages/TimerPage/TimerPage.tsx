@@ -187,16 +187,18 @@ const TimerPage = () => {
 							return;
 						}
 
-						const url = SSE_ENDPOINT.GET_SSE_REFRESH({
-							elapsedTime: String(timerTime),
-							runningCategoryName: selectedTodoData?.categoryName,
-							taskId: String(selectedTodoData?.id),
-						});
+						if (selectedTodoData?.categoryName) {
+							const refreshedEventSource = new EventSourcePolyfill(API_URL + SSE_ENDPOINT.GET_SSE_REFRESH, {
+								headers: {
+									Authorization: `Bearer ${accessToken}`,
+									elapsedTime: String(timerTime),
+									runningCategoryName: selectedTodoData?.categoryName || '',
+									taskId: String(selectedTodoData?.id),
+								},
+							});
 
-						const refreshedEventSource = new EventSourcePolyfill(API_URL + url, {
-							headers: { Authorization: `Bearer ${accessToken}` },
-						});
-						dispatch(refreshedEventSource);
+							dispatch(refreshedEventSource);
+						}
 					}
 					break;
 				default:
